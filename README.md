@@ -1,31 +1,50 @@
-# 🧬 Down Syndrome Rodent Models Database
-**A collaborative, live repository for the DS Preclinical Field.**
+# 🧬 Down Syndrome Mouse Models Database
+> A comprehensive, interactive, and searchable reference for DS research models.
 
-This database provides a centralized, interactive search for genomic and availability data on rodent models used in Down Syndrome research. 
-
-🔗 **[Launch Live Database](https://abbash83.github.io/DS-Rodent-Models-Database/)**
+![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Contributions](https://img.shields.io/badge/Contributions-Welcome-blue.svg)
 
 ---
 
-### 🔬 ARRIVE Guidelines Compliance
-To improve the reproducibility of animal research, this project incorporates the **ARRIVE guidelines** as discussed in *Roper et al. (2020)*. All contributors are expected to provide:
-* **Precise Nomenclature:** Use MGI-approved names.
-* **Genetic Background:** Define the specific strain (e.g., B6EiC3Sn).
-* **RRIDs:** Every model must include its **Research Resource Identifier** for unique tracking.
+## 🌐 Live Access
+**View the Interactive Table here:** 👉 [**[Insert Your GitHub Pages Link Here]**](https://your-username.github.io/your-repo-name/models.html)
 
-### 📊 Database Coverage
-The database currently tracks:
-* **Segmental Trisomy Models** (e.g., Ts65Dn, Ts1Cje)
-* **Transchromosomic Models** (e.g., TcMAC21)
-* **Duplication & Deletion Models** (e.g., Dp16, Ms1Yey)
-* **Orthologous Gene Counts:** Based on GRCm39.
+---
 
-### 🤝 How to Contribute
-This is a **live database**. If you have a new model or updated details:
+## 📋 Overview
+This repository serves as a centralized hub for researchers to identify and compare **Down Syndrome (DS) mouse models**. It translates complex genomic data into a user-friendly, searchable web interface.
+
+### ✨ Key Features
+* 🔍 **Instant Filtering**: Search across all fields including Strain Name, Gene, or Author.
+* 🗺️ **Genomic Precision**: All coordinates are mapped to **GRCm39** (Mouse) and **GRCm38** (Human).
+* 🔗 **Integrated Resources**: One-click access to **JAX**, **Infrafrontier**, and **PubMed**.
+
+---
+
+## 🤝 How to Contribute
+We welcome the community to help keep this database up-to-date. If you have a new model or an update to existing data:
+
 1. **Fork** this repository.
-2. Open `models.js` and add your model's data object.
-3. Submit a **Pull Request**. 
-4. Once merged, the live website updates automatically.
+2. **Add** your data to `models.html` (see the [Submission Template](#-submission-template) below).
+3. **Submit a Pull Request**. Our team will review the genomic coordinates and descriptions before approving the merge.
+
+For detailed steps, please read our [**Contributing Guidelines**](./CONTRIBUTING.md).
 
 ---
-*Maintained by [abbash83](https://github.com/abbash83). Developed in alignment with the Trisomy 21 Research Society preclinical standards.*
+
+## 📝 Submission Template
+When adding a row to the `<tbody>` in `models.html`, please use the following structure:
+
+```html
+<tr>
+    <td><a href="MGI_LINK" target="_blank">MGI Name</a></td>
+    <td>Common Name</td>
+    <td>Model Type</td>
+    <td>Detailed Short Description</td>
+    <td>Genetic Background</td>
+    <td>Chr Position (GRCm39)</td>
+    <td>Gene Count</td>
+    <td><a href="PUBMED_LINK" target="_blank">Author, Year</a></td>
+    <td><a href="AVAILABILITY_LINK" target="_blank">Stock # / Lab</a></td>
+</tr>
