@@ -3,58 +3,551 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DS Rodent Models Database | abbash83</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>DS Mouse Models Interactive Reference</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-container">
-            <span class="brand">DS <strong>Preclinical Database</strong></span>
-            <div class="nav-links">
-                <a href="https://github.com/abbash83/DS-Rodent-Models-Database" target="_blank">View on GitHub</a>
-            </div>
-        </div>
-    </nav>
 
-    <div class="container">
-        <header class="hero">
-            <h1>Down Syndrome Rodent Models</h1>
-            <p>A live database of genetic models for the T21 research community.</p>
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Filter by name, type, or RRID...">
-            </div>
-        </header>
+<div class="ds-container">
+    <h1>Down Syndrome Mouse Models Reference Table</h1>
+    <p>Comprehensive reference of DS mouse models. Coordinates are based on <strong>Mouse GRCm39</strong> and <strong>Human GRCm38</strong>.</p>
+    
+    <input type="text" id="dsSearchInput" placeholder="Search by name, gene (e.g., App, Dyrk1a), chromosomal position, or author...">
 
-        <section class="stats-grid">
-            <div class="stat-card">
-                <h3 id="modelCount">0</h3>
-                <p>Models Listed</p>
-            </div>
-            <div class="stat-card">
-                <h3>ARRIVE</h3>
-                <p>Compliant Reporting</p>
-            </div>
-        </section>
+    <div class="table-wrapper">
+        <table id="dsModelTable">
+            <thead>
+                <tr>
+                    <th>MGI Name / Link</th>
+                    <th>Common Name</th>
+                    <th>Type</th>
+                    <th>Short Description</th>
+                    <th>Background</th>
+                    <th>Chr Position (MGI)</th>
+                    <th>Genes*</th>
+                    <th>First Publication</th>
+                    <th>Availability</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="category-row"><td colspan="9">Segmental Trisomy Models</td></tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/marker/MGI:2178111" target="_blank">Ts(17&lt;16&gt;)65Dn (001924)</a></td>
+                    <td>Ts65Dn (001924)</td>
+                    <td>Radiation translocation</td>
+                    <td>Trisomy for marker chromosome (Mrpl39 to Mmu16 telomere) translocated to Mmu17.</td>
+                    <td>B6EiC3Sn</td>
+                    <td>Chr 16: 84,351,351 bp; Chr 17: 9,426,822 bp</td>
+                    <td>101</td>
+                    <td><a href="https://pubmed.ncbi.nlm.nih.gov/8115398/" target="_blank">Davisson MT, et al., 1993</a></td>
+                    <td><a href="https://www.jax.org/strain/001924" target="_blank">JAX 001924</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/marker/MGI:2178111" target="_blank">Ts(17&lt;16&gt;)65Dn (005252)</a></td>
+                    <td>Ts65Dn (005252)</td>
+                    <td>Congenic translocation</td>
+                    <td>Same as 001924 but homozygous for wild-type Pde6b to eliminate retinal degeneration.</td>
+                    <td>B6EiC3Sn.BLiA</td>
+                    <td>Chr 16: 84,351,351 bp; Chr 17: 9,426,822 bp</td>
+                    <td>101</td>
+                    <td>Costa AC et al., 2010</td>
+                    <td><a href="https://www.jax.org/strain/005252" target="_blank">JAX 005252</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/allele/MGI:6459295" target="_blank">Ts(1716)66Yah</a></td>
+                    <td>Ts66Yah</td>
+                    <td>CRISPR derivative</td>
+                    <td>Derived from Ts65Dn; removes non-Hsa21 homologous Pisd-ps2 to Pde10a region.</td>
+                    <td>B6C3B</td>
+                    <td>-</td>
+                    <td>101</td>
+                    <td><a href="https://pubmed.ncbi.nlm.nih.gov/36374158/" target="_blank">Duchon A, et al., 2022</a></td>
+                    <td><a href="https://www.jax.org/strain/036600" target="_blank">JAX 036600</a></td>
+                </tr>
 
-        <main class="content-card">
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Model Name</th>
-                            <th>Type</th>
-                            <th>RRID</th>
-                            <th>Hsa21 Orthologs</th>
-                            <th>Links</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
-            </div>
-        </main>
+                <tr class="category-row"><td colspan="9">Translocation Models</td></tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/marker/MGI:3623021" target="_blank">Ts(16C-tel)1Cje</a></td>
+                    <td>Ts1Cje</td>
+                    <td>Translocation</td>
+                    <td>Trisomic for Sod1 to Mx1 (94 genes) on Mmu16 translocated to Mmu12. Sod1 inactivated.</td>
+                    <td>B6EiC3Sn</td>
+                    <td>Breakpoint Chr 16: 119,278,499-119,289,499</td>
+                    <td>64</td>
+                    <td><a href="https://pubmed.ncbi.nlm.nih.gov/9600952/" target="_blank">Sago H, et al., 1998</a></td>
+                    <td><a href="https://www.jax.org/strain/004861" target="_blank">JAX 004861</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/allele/MGI:3531161" target="_blank">Rb(12.Ts171665Dn)2Cje</a></td>
+                    <td>Ts2Cje</td>
+                    <td>Spontaneous Robertsonian</td>
+                    <td>Fusion between Ts65Dn marker chromosome and Mmu12.</td>
+                    <td>B6EiC3Sn</td>
+                    <td>-</td>
+                    <td>101</td>
+                    <td><a href="https://pubmed.ncbi.nlm.nih.gov/15859352/" target="_blank">Villar AJ, et al., 2005</a></td>
+                    <td><a href="https://www.jax.org/strain/004850" target="_blank">JAX 004850</a></td>
+                </tr>
+
+                <tr class="category-row"><td colspan="9">Transchromosomic Models</td></tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/marker/MGI:3814702" target="_blank">Tc(HSA21)1TybEmcf</a></td>
+                    <td>Tc1</td>
+                    <td>Transchromosomic</td>
+                    <td>Contains ~75% of Hsa21; mosaic; internal deletions and rearrangements.</td>
+                    <td>B6129S</td>
+                    <td>NA</td>
+                    <td>227*</td>
+                    <td><a href="https://pubmed.ncbi.nlm.nih.gov/16179473/" target="_blank">O’Doherty A, et al., 2005</a></td>
+                    <td><a href="https://www.jax.org/strain/010801" target="_blank">JAX 010801</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/allele/MGI:6386757" target="_blank">Tc(HSA21,CAG-EGFP)1Yakaz</a></td>
+                    <td>TcMAC21</td>
+                    <td>Transchromosomic</td>
+                    <td>Contains freely segregating copy of Hsa21 with 93% representation.</td>
+                    <td>B6D2</td>
+                    <td>NA</td>
+                    <td>581</td>
+                    <td><a href="https://pubmed.ncbi.nlm.nih.gov/32597754/" target="_blank">Kazuki Y, et al., 2020</a></td>
+                    <td><a href="https://www.jax.org/strain/035561" target="_blank">JAX 035561</a></td>
+                </tr>
+
+                <tr class="category-row"><td colspan="9">Duplication Models</td></tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/allele/MGI:3487283" target="_blank">Dp(16Cbr1-Fam3b)1Rhr</a></td>
+                    <td>Ts1Rhr</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Cbr1 and Fam3b.</td>
+                    <td>B6.129S6</td>
+                    <td>Chr16: 93404725-97306136</td>
+                    <td>28</td>
+                    <td>Olson LE, et al., 2004</td>
+                    <td><a href="https://www.jax.org/strain/005383" target="_blank">JAX 005383</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/marker/MGI:3714521" target="_blank">Dp(16Lipi-Zbtb21)1Yey</a></td>
+                    <td>Dp(16)1Yey</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Lipi and Zbtb21.</td>
+                    <td>B6.129S7</td>
+                    <td>Chr16: 75155590-97794739</td>
+                    <td>117</td>
+                    <td>Li Z, et al., 2007</td>
+                    <td><a href="https://www.jax.org/strain/013530" target="_blank">JAX 013530</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/marker/MGI:5305761" target="_blank">Dp(16Tiam1-Kcnj6)6Yey</a></td>
+                    <td>Dp(16)2Yey</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Tiam1 and Kcnj6.</td>
+                    <td>B6;129S7</td>
+                    <td>Chr16: 89583999-94798555</td>
+                    <td>52</td>
+                    <td>Liu C, et al., 2011</td>
+                    <td><a href="https://www.jax.org/strain/018852" target="_blank">JAX 018852</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/marker/MGI:4461397" target="_blank">Dp(10Prmt2-Pdxk)2Yey</a></td>
+                    <td>Dp(10)1Yey</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Prmt2 and Pdxk.</td>
+                    <td>B6;129S7</td>
+                    <td>Chr10: 76043060-78300782</td>
+                    <td>37</td>
+                    <td>Yu T, et al., 2010</td>
+                    <td><a href="https://www.jax.org/strain/013529" target="_blank">JAX 013529</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/marker/MGI:4461398" target="_blank">Dp(17Abcg1-Rrp1b)3Yey</a></td>
+                    <td>Dp(17)1Yey</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Abcg1 and Rrp1b.</td>
+                    <td>B6;129S7</td>
+                    <td>Chr17: 31276672-32281839</td>
+                    <td>18</td>
+                    <td>Yu T, et al., 2010</td>
+                    <td><a href="https://www.jax.org/strain/013531" target="_blank">JAX 013531</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/marker/MGI:5562362" target="_blank">Dp(16Tiam1-Il10rb)8Yey</a></td>
+                    <td>Dp(16)3Yey</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Tiam1 and Il10rb.</td>
+                    <td>129Sv</td>
+                    <td>-</td>
+                    <td>17</td>
+                    <td>Liu C, et al., 2011</td>
+                    <td><a href="https://www.jax.org/strain/024906" target="_blank">JAX 024906</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/marker/MGI:5562361" target="_blank">Dp(16Ifnar1-Kcnj6)10Yey</a></td>
+                    <td>Dp(16)4Yey</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Ifnar1 and Kcnj6.</td>
+                    <td>129Sv</td>
+                    <td>-</td>
+                    <td>35</td>
+                    <td>Liu C, et al., 2011</td>
+                    <td><a href="https://www.jax.org/strain/024908" target="_blank">JAX 024908</a></td>
+                </tr>
+                <tr>
+                    <td>Dp(17Abcg1-Cbs)1Yah</td>
+                    <td>Ts1Yah</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication of segment homologous to Hsa21q22; Abcg1 deleted.</td>
+                    <td>B6;129P2</td>
+                    <td>Chr17: 31276672-31856173</td>
+                    <td>13</td>
+                    <td>Lopes Pereira P, et al., 2009</td>
+                    <td>Infrafrontier 1987</td>
+                </tr>
+                <tr>
+                    <td>Dp(16Hspa13-App)2Yah</td>
+                    <td>Ts2Yah</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication of segment homologous to Hsa21q11-q21; flanking genes inactivated.</td>
+                    <td>B6;129P2</td>
+                    <td>Chr16: 75552078-84970840</td>
+                    <td>19</td>
+                    <td>Brault V, et al., 2015</td>
+                    <td>Infrafrontier 2101</td>
+                </tr>
+                <tr>
+                    <td>Dp(10Col6a1-Cstb)3Yah</td>
+                    <td>Ts3Yah</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication of segment homologous to Hsa21.</td>
+                    <td>B6</td>
+                    <td>-</td>
+                    <td>25</td>
+                    <td>Unpublished</td>
+                    <td>Herault's lab</td>
+                </tr>
+                <tr>
+                    <td>Dp(10Prmt2-Cstb)4Yah</td>
+                    <td>Ts4Yah</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication of segment homologous to Hsa21.</td>
+                    <td>B6</td>
+                    <td>-</td>
+                    <td>36</td>
+                    <td>Unpublished</td>
+                    <td>Herault's lab</td>
+                </tr>
+                <tr>
+                    <td>Dp(16App-Runx1)5Yah</td>
+                    <td>Ts5Yah</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication of segment homologous to chromosome 21.</td>
+                    <td>B6</td>
+                    <td>Chr16: 84954440-92826149</td>
+                    <td>60</td>
+                    <td>Unpublished</td>
+                    <td>Herault's lab</td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/allele/MGI:5703798" target="_blank">Dp(16Lipi-Zbtb21)1TybEmcf</a></td>
+                    <td>Dp1Tyb</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Lipi and Zbtb21.</td>
+                    <td>B6.129P2</td>
+                    <td>Chr16: 74930370-97982380</td>
+                    <td>117</td>
+                    <td>Lana-Elola, E. et al., 2016</td>
+                    <td>Infrafrontier 10565; JAX 037183</td>
+                </tr>
+                <tr>
+                    <td>Dp(16Mis18a-Runx1)2TybEmcf</td>
+                    <td>Dp2Tyb</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Mis18a and Runx1.</td>
+                    <td>B6.129P2</td>
+                    <td>Chr16: 90563769-93062456</td>
+                    <td>32</td>
+                    <td>Lana-Elola, E. et al., 2016</td>
+                    <td>Infrafrontier 10558</td>
+                </tr>
+                <tr>
+                    <td>Dp(16Mir802-Zbtb21)3TybEmcf</td>
+                    <td>Dp3Tyb</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Mir802 and Zbtb21.</td>
+                    <td>B6.129P2</td>
+                    <td>Chr16: 93054020-97982380</td>
+                    <td>37</td>
+                    <td>Lana-Elola, E. et al., 2016</td>
+                    <td>Infrafrontier 10559</td>
+                </tr>
+                <tr>
+                    <td>Dp(16Mir802-Vps26c)4TybEmcf</td>
+                    <td>Dp4Tyb</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Mir802 and Dscr3.</td>
+                    <td>B6.129P2</td>
+                    <td>Chr16: 93054020-94546849</td>
+                    <td>14</td>
+                    <td>Lana-Elola, E. et al., 2016</td>
+                    <td>Infrafrontier 10560</td>
+                </tr>
+                <tr>
+                    <td>Dp(16Dyrk1a-B3galt5)5TybEmcf</td>
+                    <td>Dp5Tyb</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Dyrk1a and B3galt5.</td>
+                    <td>B6.129P2</td>
+                    <td>Chr16: 94538615-96331804</td>
+                    <td>12</td>
+                    <td>Lana-Elola, E. et al., 2016</td>
+                    <td>Infrafrontier 10561</td>
+                </tr>
+                <tr>
+                    <td>Dp(16Igsf5-Zbtb21)6TybEmcf</td>
+                    <td>Dp6Tyb</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Igsf5 and Zbtb21.</td>
+                    <td>B6.129P2</td>
+                    <td>Chr16: 96327324-97982380</td>
+                    <td>11</td>
+                    <td>Lana-Elola, E. et al., 2016</td>
+                    <td>Infrafrontier 10562</td>
+                </tr>
+                <tr>
+                    <td>Dp(16Mis18a-Il10rb)7TybEmcf</td>
+                    <td>Dp7Tyb</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Mis18a and Il10rb.</td>
+                    <td>B6.129P2</td>
+                    <td>Chr16: 90563769-91443378</td>
+                    <td>13</td>
+                    <td>Unpublished</td>
+                    <td>Tybulewicz Lab</td>
+                </tr>
+                <tr>
+                    <td>Dp(16Ifnar1-Runx1)8TybEmcf</td>
+                    <td>Dp8Tyb</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Ifnar1 and Runx1.</td>
+                    <td>B6.129P2</td>
+                    <td>Chr16: 91436064-93062456</td>
+                    <td>19</td>
+                    <td>Unpublished</td>
+                    <td>Tybulewicz Lab</td>
+                </tr>
+                <tr>
+                    <td>Dp(16Lipi-Hunk)9TybEmcf</td>
+                    <td>Dp9Tyb</td>
+                    <td>Duplication</td>
+                    <td>Cre mediated; duplication between Lipi and Hunk.</td>
+                    <td>B6.129P2</td>
+                    <td>Chr16: 74930370-90577148</td>
+                    <td>48</td>
+                    <td>Lana-Elola, E. et al., 2016</td>
+                    <td>Infrafrontier 10565</td>
+                </tr>
+
+                <tr class="category-row"><td colspan="9">Deletion Models</td></tr>
+                <tr>
+                    <td>Del(16Cbr1-Fam3b)1Rhr</td>
+                    <td>Ms1Rhr</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion of genes between Cbr1 and Fam3b.</td>
+                    <td>B6C3</td>
+                    <td>Chr16: 93404725-97306136</td>
+                    <td>29</td>
+                    <td>Olson LE, et al., 2004</td>
+                    <td><a href="https://www.jax.org/strain/005654" target="_blank">JAX 005654</a></td>
+                </tr>
+                <tr>
+                    <td>Del(10Prmt2-Pdxk)4Yey</td>
+                    <td>Df(10)1Yey</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion between Prmt2 and Pdxk.</td>
+                    <td>Mixed 129S7/129S1</td>
+                    <td>Chr10: 76043060-78300782</td>
+                    <td>37</td>
+                    <td>Yu T, et al., 2010</td>
+                    <td><a href="https://www.jax.org/strain/017439" target="_blank">JAX 017439</a></td>
+                </tr>
+                <tr>
+                    <td>Del(17Abcg1-Rrp1b)5Yey</td>
+                    <td>Df(17)1Yey</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion between Abcg1 and Rrp1b.</td>
+                    <td>Mixed 129S7/129S1</td>
+                    <td>Chr17: 31276672-32281839</td>
+                    <td>18</td>
+                    <td>Yu T, et al., 2010</td>
+                    <td><a href="https://www.jax.org/strain/017440" target="_blank">JAX 017440</a></td>
+                </tr>
+                <tr>
+                    <td>Del(16Tiam1-Kcnj6)7Yey</td>
+                    <td>Df(16)2Yey</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion between Tiam1 and Kcnj6.</td>
+                    <td>Mixed 129S7/129S1</td>
+                    <td>Chr16: 89583999-94798555</td>
+                    <td>52</td>
+                    <td>Liu C, et al., 2011</td>
+                    <td><a href="https://www.jax.org/strain/018853" target="_blank">JAX 018853</a></td>
+                </tr>
+                <tr>
+                    <td>Del(16Tiam1-Il10rb)9Yey</td>
+                    <td>Df(16)3Yey</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion between Tiam1 and Il10rb.</td>
+                    <td>Mixed 129S7/129S1</td>
+                    <td>-</td>
+                    <td>17</td>
+                    <td>Liu C, et al., 2011</td>
+                    <td><a href="https://www.jax.org/strain/024907" target="_blank">JAX 024907</a></td>
+                </tr>
+                <tr>
+                    <td>Del(16Ifnar1-Kcnj6)11Yey</td>
+                    <td>Df(16)4Yey</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion between Ifnar1 and Kcnj6.</td>
+                    <td>Mixed 129S7/129S1</td>
+                    <td>-</td>
+                    <td>35</td>
+                    <td>Liu C, et al., 2011</td>
+                    <td><a href="https://www.jax.org/strain/024908" target="_blank">JAX 024908</a></td>
+                </tr>
+                <tr>
+                    <td>Del(16Setd4-Kcnj6)12Yey</td>
+                    <td>Df(16)5Yey</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion between Setd4 and Kcnj6.</td>
+                    <td>B6;129S7</td>
+                    <td>-</td>
+                    <td>15</td>
+                    <td>Jiang X, et al., 2015</td>
+                    <td><a href="https://www.jax.org/strain/028289" target="_blank">JAX 028289</a></td>
+                </tr>
+                <tr>
+                    <td>Del(16Kcnj15-Mx2)13Yey</td>
+                    <td>Df(16)6Yey</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion between Kcnj15 and Mx2.</td>
+                    <td>B6.129S7</td>
+                    <td>-</td>
+                    <td>16</td>
+                    <td>Jiang X, et al., 2015</td>
+                    <td><a href="https://www.jax.org/strain/028292" target="_blank">JAX 028292</a></td>
+                </tr>
+                <tr>
+                    <td>Del(16Dyrk1a-Kcnj6)14Yey</td>
+                    <td>Df(16)7Yey</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion between Dyrk1a and Kcnj6.</td>
+                    <td>B6.129S7</td>
+                    <td>-</td>
+                    <td>2</td>
+                    <td>Jiang X, et al., 2015</td>
+                    <td><a href="https://www.jax.org/strain/028290" target="_blank">JAX 028290</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/allele/MGI:7509496" target="_blank">Del(16Lipi-Ncam2)8Yey/J</a></td>
+                    <td>Df(16)8Yey</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion between Lipi and Ncam2.</td>
+                    <td>129S7</td>
+                    <td>-</td>
+                    <td>15</td>
+                    <td>Xing, X, et al., 2023</td>
+                    <td><a href="https://www.jax.org/strain/038567" target="_blank">JAX 038567</a></td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/allele/MGI:7509492" target="_blank">Del(17Scaf8-Pde10a)2Yey/J</a></td>
+                    <td>Df(17)2Yey</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion between Scaf8 and Pde10a.</td>
+                    <td>B6;129S7</td>
+                    <td>-</td>
+                    <td>0</td>
+                    <td>Xing, X, et al., 2023</td>
+                    <td><a href="https://www.jax.org/strain/038566" target="_blank">JAX 038566</a></td>
+                </tr>
+                <tr>
+                    <td>Del(10Prmt2-Col6a1)1Yah</td>
+                    <td>Ms1Yah</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion of segment homologous to Hsa21q22; flanking genes inactivated.</td>
+                    <td>B6.129P2</td>
+                    <td>Chr10: 76043060-76561878</td>
+                    <td>12</td>
+                    <td>Besson V, et al., 2007</td>
+                    <td>Infrafrontier 1808</td>
+                </tr>
+                <tr>
+                    <td>Del(17Abcg1-Cbs)2Yah</td>
+                    <td>Ms2Yah</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion of segment homologous to Hsa21q22; flanking genes inactivated.</td>
+                    <td>B6;129P2</td>
+                    <td>Chr17: 31276672-31856173</td>
+                    <td>13</td>
+                    <td>Lopes Pereira P, et al., 2009</td>
+                    <td>Infrafrontier 1812</td>
+                </tr>
+                <tr>
+                    <td>Del(16Hspa13-App)3Yah</td>
+                    <td>Ms3Yah</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion of segment homologous to Hsa21q22; flanking genes inactivated.</td>
+                    <td>B6;129P2</td>
+                    <td>Chr16: 75552078-84970840</td>
+                    <td>19</td>
+                    <td>Brault V, et al., 2015</td>
+                    <td>Infrafrontier 2100</td>
+                </tr>
+                <tr>
+                    <td><a href="https://www.informatics.jax.org/allele/MGI:4868385" target="_blank">Del(10Prmt2-Cstb)4Yah</a></td>
+                    <td>Ms4Yah</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion of segment homologous to Hsa21q22; flanking genes inactivated.</td>
+                    <td>B6;129P2</td>
+                    <td>Chr10: 76043060-78263456</td>
+                    <td>36</td>
+                    <td>Duchon A, et al., 2008</td>
+                    <td>Infrafrontier 02099</td>
+                </tr>
+                <tr>
+                    <td>Del(16App-Runx1)5Yah</td>
+                    <td>Ms5Yah</td>
+                    <td>Deletion</td>
+                    <td>Cre mediated; deletion of segment homologous to Hsa21q22; flanking genes inactivated.</td>
+                    <td>B6J</td>
+                    <td>Chr16: 84749554-92622962</td>
+                    <td>60</td>
+                    <td>Raveau M, et al., 2012</td>
+                    <td>Herault's lab</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <script src="models.js"></script>
-    <script src="app.js"></script>
+    <p style="font-size: 11px; margin-top: 20px;">*Number of Hsa21 orthologous genes at dosage imbalance (GRCm39).</p>
+</div>
+
+<script>
+    document.getElementById('dsSearchInput').addEventListener('keyup', function() {
+        let filter = this.value.toUpperCase();
+        let table = document.getElementById('dsModelTable');
+        let rows = table.getElementsByTagName('tr');
+
+        for (let i = 1; i < rows.length; i++) {
+            if (rows[i].classList.contains('category-row')) continue;
+            let cells = rows[i].getElementsByTagName('td');
+            let rowContainsFilter = false;
+            for (let j = 0; j < cells.length; j++) {
+                if (cells[j].textContent.toUpperCase().includes(filter)) {
+                    rowContainsFilter = true;
+                    break;
+                }
+            }
+            rows[i].style.display = rowContainsFilter ? "" : "none";
+        }
+    });
+</script>
 </body>
 </html>
