@@ -19,6 +19,12 @@ The dataset was originally compiled from:
 
 > Folz, A., Sloan, K., Roper, R.J. (2025). Mouse Models of Down Syndrome. In: Ye, B., Reeves, R. (eds) *Genetic Models of Down Syndrome*. Springer, Cham. https://doi.org/10.1007/978-3-031-78611-2_1
 
+Researchers using these models are encouraged to follow the DS-specific behavioral phenotyping protocols and ARRIVE reporting standards described in:
+
+> Roper, R. J., Goodlett, C. R., Martínez de Lagrán, M., & Dierssen, M. (2020). Behavioral phenotyping for Down syndrome in mice. *Current Protocols in Mouse Biology*, 10, e79. https://doi.org/10.1002/cpmo.79
+
+Full protocols and ARRIVE guidelines adapted for DS mouse models are available in [`behavioral_phenotyping_guidelines.md`](./behavioral_phenotyping_guidelines.md).
+
 ---
 
 ## ✨ Key Features
@@ -37,10 +43,11 @@ The dataset was originally compiled from:
 
     DS_Rodent_Models_Database/
     │
-    ├── index.html        # Main database — all records and UI logic live here
-    ├── README.md         # This file
-    ├── CONTRIBUTING.md   # Contribution guidelines and submission template
-    └── LICENSE           # MIT License
+    ├── index.html                            # Main database — all records and UI logic live here
+    ├── README.md                             # This file
+    ├── CONTRIBUTING.md                       # Contribution guidelines and submission template
+    ├── behavioral_phenotyping_guidelines.md  # Behavioral phenotyping protocols & ARRIVE guidelines
+    └── LICENSE                               # MIT License
 
 ---
 
@@ -63,6 +70,64 @@ All records are stored as JavaScript objects inside the `RECORDS` array in `inde
 | availability | ✅ | Stock number e.g. JAX:001924 or lab name |
 | availLink | ⬜ | URL to JAX, EMMA, or lab page — leave blank if unavailable |
 | rrid | ✅ | Full RRID string e.g. RRID:IMSR_JAX:001924 or lab name if no RRID exists |
+
+---
+
+## 📋 Behavioral Phenotyping & ARRIVE Guidelines
+
+Because of the unique characteristics of DS mouse models and the necessity to generate reproducible data across laboratories, researchers are strongly encouraged to adhere to the **ARRIVE (Animal Research: Reporting of In Vivo Experiments) Guidelines**, with DS-specific additions as described in Roper et al. (2020).
+
+### Three Core Behavioral Protocols for DS Models
+
+| Protocol | Purpose |
+|---|---|
+| **Preweaning Neurodevelopmental Battery** (PD1–PD21) | Assess acquisition of neurological, sensory, and motor developmental milestones |
+| **Balance Beam** | Quantify motor coordination and balance; correlate of cerebellar dysfunction |
+| **Multivariate Concentric Square Field (MCSF)** | Simultaneously assess locomotion, exploration, risk taking, risk assessment, and shelter seeking |
+
+### Key DS-Specific ARRIVE Reporting Requirements
+
+When publishing work using DS rodent models, the following information should be included in all manuscripts and presentations:
+
+**Experimental Animals**
+- Source and precise strain nomenclature (e.g., different Ts65Dn and Dp16 strains may differ phenotypically)
+- Full genetic background and how crosses were generated
+- Sex of all animals used (significant sex differences exist in DS models)
+- Developmental stage and age at time of testing
+- Number of generations maintained in the colony (genetic drift may affect phenotypes)
+- Origin of trisomy (from male or female parent)
+
+**Study Design**
+- Exact number of animals per group (not ranges)
+- How investigators were blinded to genotypes
+- Order of behavioral tests administered
+- Steps taken to reduce subjective bias and minimize variability
+- Primary and secondary outcomes defined in advance
+
+**Sample Size**
+- Most behavioral experiments require **10–20 mice per group**
+- If sex differences are detected: n = 10–20 per sex per genotype
+- Average litter size and number of litters should be reported
+- Power analysis justification should be provided
+- Note: DS models have reduced viability and small litters — plan accordingly
+
+**Housing & Husbandry**
+- Number of mice housed together
+- Environmental enrichment details
+- Light/dark cycle timing relative to experimental testing times
+
+**Handling**
+- **5 min/day of handling for at least 3 days** before testing is recommended
+- Report handling duration and frequency in all manuscripts
+
+> 📄 Full protocol details, scoring criteria, data analysis methods, and the complete ARRIVE checklist adapted for DS models are available in:
+> **[`behavioral_phenotyping_guidelines.md`](./behavioral_phenotyping_guidelines.md)**
+
+### Citation
+
+If using these protocols or guidelines, please cite:
+
+> Roper, R. J., Goodlett, C. R., Martínez de Lagrán, M., & Dierssen, M. (2020). Behavioral phenotyping for Down syndrome in mice. *Current Protocols in Mouse Biology*, 10, e79. https://doi.org/10.1002/cpmo.79
 
 ---
 
@@ -89,6 +154,8 @@ For full instructions and the submission template, see [**CONTRIBUTING.md**](./C
 | SciCrunch RRID Resolver | [scicrunch.org/resolver](https://scicrunch.org/resolver) |
 | PubMed | [pubmed.ncbi.nlm.nih.gov](https://pubmed.ncbi.nlm.nih.gov) |
 | RRID Source nlx_154697-1 | [rrid.site/data/source/nlx_154697-1/search](https://rrid.site/data/source/nlx_154697-1/search) |
+| ARRIVE Guidelines | [arriveguidelines.org](https://arriveguidelines.org) |
+| Trisomy 21 Research Society | [t21rs.org](https://www.t21rs.org) |
 
 ---
 
