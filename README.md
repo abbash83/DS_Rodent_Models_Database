@@ -8,7 +8,7 @@
 ---
 
 ## 🌐 Live Access
-**View the Interactive Table here:** 👉 [**[(https://abbash83.github.io/DS_Rodent_Models_Database/)**](https://your-username.github.io/your-repo-name/models.html)
+**View the Interactive Table here:** 👉 [(https://abbash83.github.io/DS_Rodent_Models_Database/)](https://your-username.github.io/your-repo-name/models.html)
 
 ---
 
