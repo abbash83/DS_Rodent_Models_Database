@@ -5,7 +5,7 @@
 [![RRID Registered](https://img.shields.io/badge/RRID-Included-blue.svg)](https://www.rrids.org/)
 
 ## 🌐 Live Table
-[**View the Interactive Database Here**](https://your-username.github.io/your-repo/models.html)
+[**View the Interactive Database Here**](https://abbash83.github.io/DS_Rodent_Models_Database/)
 
 ## 📋 Project Summary
 This repository tracks 40+ specialized mouse models, providing critical data on:
