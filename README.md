@@ -23,7 +23,7 @@ Researchers using these models are encouraged to follow the DS-specific behavior
 
 > Roper, R. J., Goodlett, C. R., Martínez de Lagrán, M., & Dierssen, M. (2020). Behavioral phenotyping for Down syndrome in mice. *Current Protocols in Mouse Biology*, 10, e79. https://doi.org/10.1002/cpmo.79
 
-Full protocols and ARRIVE guidelines adapted for DS mouse models are available in [`behavioral_phenotyping_guidelines.md`](./behavioral_phenotyping_guidelines.md).
+Full protocols and ARRIVE guidelines adapted for DS mouse models are available in [`ARRIVE_DS_Behavioral_Phenotyping_Guidelines.md`](./ARRIVE_DS_Behavioral_Phenotyping_Guidelines.md)
 
 ---
 
@@ -46,7 +46,7 @@ Full protocols and ARRIVE guidelines adapted for DS mouse models are available i
     ├── index.html                            # Main database — all records and UI logic live here
     ├── README.md                             # This file
     ├── CONTRIBUTING.md                       # Contribution guidelines and submission template
-    ├── behavioral_phenotyping_guidelines.md  # Behavioral phenotyping protocols & ARRIVE guidelines
+    ├── ARRIVE_DS_Behavioral_Phenotyping_Guidelines.md  # Behavioral phenotyping protocols & ARRIVE guidelines
     └── LICENSE                               # MIT License
 
 ---
@@ -121,8 +121,8 @@ When publishing work using DS rodent models, the following information should be
 - Report handling duration and frequency in all manuscripts
 
 > 📄 Full protocol details, scoring criteria, data analysis methods, and the complete ARRIVE checklist adapted for DS models are available in:
-> **[`behavioral_phenotyping_guidelines.md`](./behavioral_phenotyping_guidelines.md)**
-
+> **[`ARRIVE_DS_Behavioral_Phenotyping_Guidelines.md`](./ARRIVE_DS_Behavioral_Phenotyping_Guidelines.md)**
+> 
 ### Citation
 
 If using these protocols or guidelines, please cite:
