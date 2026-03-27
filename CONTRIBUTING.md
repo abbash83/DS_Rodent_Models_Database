@@ -1,3 +1,5 @@
+markdown
+  
 # 🤝 Contributing to the DS Mouse Models Database
 
 Thank you for helping keep this database accurate and up-to-date! This guide explains exactly how to add a new record or correct an existing one.
@@ -43,9 +45,9 @@ const RECORDS = [
     //... more records...
     // ← Append your new record here, before the closing ];
 ];
+
 Step 3 — Add Your Record
 Append a new object to the end of the array using the submission template below. Make sure to place a comma after the closing } of the previous record before adding yours.
-
 Step 4 — Verify Your Data
 Open index.html in a browser locally to confirm:
 
@@ -54,15 +56,17 @@ All hyperlinks open correctly
 The RRID link resolves at scicrunch.org/resolver
 
 Step 5 — Submit a Pull Request
+
 Commit your changes to your forked repository.
 Navigate to the original repository and click New Pull Request.
 Briefly describe what you added or changed in the PR description.
 Our team will review the genomic data and links before approving the merge.
 
+
 📝 Submission Template
 Copy and paste this object into the RECORDS array in index.html, filling in all fields:
-
 javascript
+  
 {
     type        : "Model Type",           // "Segmental Trisomy" | "Translocation" | "Transchromosomic" | "Duplication" | "Deletion"
     mgiName     : "MGI Approved Name",    // Official MGI strain designation
@@ -79,10 +83,11 @@ javascript
     rrid        : "RRID:IMSR_JAX:XXXXXX", // Full RRID string, or lab name if no RRID exists
 },
 
-✅ Filled Examples
 
+✅ Filled Examples
 Example 1 — JAX Model with Full Data
 javascript
+  
 {
     type        : "Duplication",
     mgiName     : "Dp(16)1Yey",
@@ -101,6 +106,7 @@ javascript
 
 Example 2 — EMMA / Infrafrontier Model
 javascript
+  
 {
     type        : "Deletion",
     mgiName     : "Ms1Yah",
@@ -119,6 +125,7 @@ javascript
 
 Example 3 — Lab-Only Model (No RRID, No Repository)
 javascript
+  
 {
     type        : "Duplication",
     mgiName     : "Ts3Yah",
@@ -135,42 +142,163 @@ javascript
     rrid        : "Herault Lab",
 },
 
+
 📐 Field Reference
-Field	Required	Accepted Values / Format
-type	✅	"Segmental Trisomy", "Translocation", "Transchromosomic", "Duplication", "Deletion"
-mgiName	✅	Official MGI strain name string
-mgiLink	⬜	Full MGI URL or "" if unavailable
-commonName	✅	Short lab or common name string
-description	✅	Plain text, 1–3 sentences describing the genetic modification
-background	✅	Genetic background strain string
-coords	✅	"ChrN: XX,XXX,XXX–XX,XXX,XXX" (GRCm39) or "N/A"
-orthologs	✅	Numeric string e.g. "101", "64"
-publication	✅	"Author et al., Year" format
-pubLink	⬜	Full PubMed URL or "" if unavailable
-availability	✅	"JAX:XXXXXX", "EMMA:XXXXX", or lab name string
-availLink	⬜	Full repository URL or "" if unavailable
-rrid	✅	"RRID:IMSR_JAX:XXXXXX", "RRID:IMSR_EM:XXXXX", or lab name if no RRID exists
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+FieldRequiredAccepted Values / Formattype✅"Segmental Trisomy", "Translocation", "Transchromosomic", "Duplication", "Deletion"mgiName✅Official MGI strain name stringmgiLink⬜Full MGI URL or "" if unavailablecommonName✅Short lab or common name stringdescription✅Plain text, 1–3 sentences describing the genetic modificationbackground✅Genetic background strain stringcoords✅"ChrN: XX,XXX,XXX–XX,XXX,XXX" (GRCm39) or "N/A"orthologs✅Numeric string e.g. "101", "64"publication✅"Author et al., Year" formatpubLink⬜Full PubMed URL or "" if unavailableavailability✅"JAX:XXXXXX", "EMMA:XXXXX", or lab name stringavailLink⬜Full repository URL or "" if unavailablerrid✅"RRID:IMSR_JAX:XXXXXX", "RRID:IMSR_EM:XXXXX", or lab name if no RRID exists
 
 🗂️ Valid Model Types
-Type	Description
-Segmental Trisomy	Trisomy for a chromosomal segment homologous to Hsa21
-Translocation	Segment translocated to another chromosome
-Transchromosomic	Carries a freely segregating human chromosome 21 or derivative
-Duplication	Cre-mediated or engineered duplication of an Hsa21-syntenic segment
-Deletion	Cre-mediated or engineered deletion of an Hsa21-syntenic segment
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+TypeDescriptionSegmental TrisomyTrisomy for a chromosomal segment homologous to Hsa21TranslocationSegment translocated to another chromosomeTranschromosomicCarries a freely segregating human chromosome 21 or derivativeDuplicationCre-mediated or engineered duplication of an Hsa21-syntenic segmentDeletionCre-mediated or engineered deletion of an Hsa21-syntenic segment
 
 🔗 Useful Resources When Filling In Data
-Resource	Link
-Mouse Genome Informatics (MGI)	informatics.jax.org
-Jackson Laboratory (JAX) Strain Search	jax.org/search
-Infrafrontier / EMMA Strain Search	infrafrontier.eu
-SciCrunch RRID Resolver	scicrunch.org/resolver
-RRID Source nlx_154697-1	rrid.site/data/source/nlx_154697-1/search
-PubMed	pubmed.ncbi.nlm.nih.gov
-UCSC Genome Browser (GRCm39)	genome.ucsc.edu
-Ensembl Mouse Genome (GRCm39)	ensembl.org
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ResourceLinkMouse Genome Informatics (MGI)informatics.jax.orgJackson Laboratory (JAX) Strain Searchjax.org/searchInfrafrontier / EMMA Strain Searchinfrafrontier.euSciCrunch RRID Resolverscicrunch.org/resolverRRID Source nlx_154697-1rrid.site/data/source/nlx_154697-1/searchPubMedpubmed.ncbi.nlm.nih.govUCSC Genome Browser (GRCm39)genome.ucsc.eduEnsembl Mouse Genome (GRCm39)ensembl.org
 
 ❓ Questions or Issues?
+
 Bug or data error? → Open a GitHub Issue
 New model to add? → Follow the steps above and submit a Pull Request
-Not sure about a field? → Open an Issue and ask — we are happy to help verify data before submission may leave comments if adjustments are needed before the data is merged into the live site.
+Not sure about a field? → Open an Issue and ask — we are happy to help verify data before submission
