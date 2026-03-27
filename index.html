@@ -78,11 +78,13 @@
             z-index: 10;
             cursor: pointer;
             user-select: none;
-            white-space: nowrap;
+            /* ── CHANGED: was white-space:nowrap, now wraps header text ── */
+            white-space: normal;
+            word-wrap: break-word;
             font-size: 12px;
+            vertical-align: bottom;
         }
-        th:hover { background-color: #002d6e; }
-        th.sort-arrow { margin-left: 4px; opacity: 0.6; font-size: 10px; }
+        th:hover { background-color: #002d6e; }.sort-arrow { margin-left: 4px; opacity: 0.6; font-size: 10px; }
         tr:nth-child(even):not(.category-header) { background-color: #f2f2f2; }
         tr:hover:not(.category-header) { background-color: #e8f4fd; }.category-header {
             background-color: #e9ecef !important;
@@ -92,7 +94,7 @@
             border-left: 5px solid #004085;
         }
 
-        /* Column widths */.col-mgi       { width: 10%; }.col-common    { width: 7%;  }.col-type      { width: 8%;  }.col-desc      { width: 18%; }.col-bg        { width: 7%;  }.col-coords    { width: 10%; }.col-ortho     { width: 5%;  }.col-pub       { width: 12%; }.col-avail     { width: 8%;  }.col-rrid      { width: 10%; }.col-chrompos  { width: 5%;  }
+        /* Column widths */.col-mgi      { width: 10%; }.col-common   { width: 7%;  }.col-type     { width: 8%;  }.col-desc     { width: 18%; }.col-bg       { width: 7%;  }.col-coords   { width: 10%; }.col-ortho    { width: 5%;  }.col-pub      { width: 12%; }.col-avail    { width: 8%;  }.col-rrid     { width: 10%; }.col-chrompos { width: 5%;  }
 
         /* Links */.rrid { font-weight: bold; color: #0056b3; text-decoration: none; }.rrid:hover { text-decoration: underline; }
         a { color: #0056b3; text-decoration: none; font-size: 11px; word-break: break-all; }
@@ -130,7 +132,7 @@
 
 <h1>Down Syndrome (DS) Mouse Models: Comprehensive Reference</h1>
 <p style="text-align:center; font-size:13px; color:#555;">
-    Table 1. DS Mouse Models — All coordinates based on Mouse GRCm39 and Human GRCh38 unless otherwise noted.
+    All coordinates based on Mouse GRCm39 and Human GRCh38 unless otherwise noted.
 </p>
 
 <!-- ── Stats ── -->
@@ -191,11 +193,6 @@
 
 
 <script>
-/* ═══════════════════════════════════════════════════════════════
-   MANUAL DATABASE
-   All records are manually curated. To add a new record, append
-   an object to the RECORDS array following the same structure.
-═══════════════════════════════════════════════════════════════ */
 const RECORDS = [
 
     // ─────────────────────────────────────────────
@@ -879,33 +876,18 @@ const RECORDS = [
     },
 ];
 
-/* ═══════════════════════════════════════════════════════════════
-   STATE
-═══════════════════════════════════════════════════════════════ */
 let filtered    = [];
 let sortState   = { col: "type", asc: true };
 let currentPage = 1;
 const PER_PAGE  = 30;
 
-/* ═══════════════════════════════════════════════════════════════
-   DOM REFS
-═══════════════════════════════════════════════════════════════ */
 const $tbody      = document.getElementById("table-body");
 const $search     = document.getElementById("search-input");
 const $typeFilter = document.getElementById("type-filter");
 const $pagination = document.getElementById("pagination");
 
-/* ═══════════════════════════════════════════════════════════════
-   HELPERS
-═══════════════════════════════════════════════════════════════ */
 function esc(s) {
     return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
-}
-
-function linkCell(text, url, cls = "") {
-    if (!text) return "—";
-    if (!url)  return esc(text);
-    return `<a href="${esc(url)}" target="_blank" class="${cls}">${esc(text)}</a>`;
 }
 
 function rridCell(rrid) {
@@ -917,22 +899,15 @@ function rridCell(rrid) {
     return esc(rrid);
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   POPULATE TYPE FILTER
-═══════════════════════════════════════════════════════════════ */
 function populateTypeFilter() {
     const types = [...new Set(RECORDS.map(r => r.type))].sort();
     $typeFilter.innerHTML = `<option value="">All Types</option>` +
         types.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join("");
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   FILTER + SEARCH
-═══════════════════════════════════════════════════════════════ */
 function applyFilters() {
     const q   = $search.value.toLowerCase().trim();
     const typ = $typeFilter.value;
-
     filtered = RECORDS.filter(r => {
         const matchType = !typ || r.type === typ;
         const matchQ    = !q  || [
@@ -942,15 +917,11 @@ function applyFilters() {
         ].some(v => (v || "").toLowerCase().includes(q));
         return matchType && matchQ;
     });
-
     currentPage = 1;
     renderTable();
     updateStats();
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SORT
-═══════════════════════════════════════════════════════════════ */
 function sortBy(col) {
     sortState.asc = (sortState.col === col) ? !sortState.asc : true;
     sortState.col = col;
@@ -963,68 +934,47 @@ function sortBy(col) {
     renderTable();
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   RENDER TABLE
-═══════════════════════════════════════════════════════════════ */
 function renderTable() {
     const start = (currentPage - 1) * PER_PAGE;
     const slice = filtered.slice(start, start + PER_PAGE);
-
     if (slice.length === 0) {
-        $tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:30px;color:#888;">
-            No records match your search.</td></tr>`;
+        $tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:30px;color:#888;">No records match your search.</td></tr>`;
         renderPagination();
         return;
     }
-
-    // Group by type for section headers
     const groups = {};
     for (const r of slice) {
         if (!groups[r.type]) groups[r.type] = [];
         groups[r.type].push(r);
     }
-
     let html = "";
     for (const [type, rows] of Object.entries(groups)) {
         html += `<tr class="category-header"><td colspan="10">${esc(type)}</td></tr>`;
         for (const r of rows) {
             html += `<tr>
-                <td>
-                    ${r.mgiLink
-                        ? `<a href="${esc(r.mgiLink)}" target="_blank">${esc(r.mgiName)}</a>`
-                        : esc(r.mgiName)}
-                </td>
+                <td>${r.mgiLink ? `<a href="${esc(r.mgiLink)}" target="_blank">${esc(r.mgiName)}</a>` : esc(r.mgiName)}</td>
                 <td>${esc(r.commonName)}</td>
                 <td>${esc(r.type)}</td>
                 <td>${esc(r.description)}</td>
                 <td>${esc(r.background)}</td>
                 <td class="coords">${esc(r.coords)}</td>
                 <td style="text-align:center">${esc(r.orthologs)}</td>
-                <td>${r.pubLink
-                        ? `${esc(r.publication)}<br/><a href="${esc(r.pubLink)}" target="_blank">${esc(r.pubLink)}</a>`
-                        : esc(r.publication)}</td>
-                <td>${r.availLink
-                        ? `<a href="${esc(r.availLink)}" target="_blank">${esc(r.availability)}</a>`
-                        : esc(r.availability)}</td>
+                <td>${r.pubLink ? `${esc(r.publication)}<br/><a href="${esc(r.pubLink)}" target="_blank">${esc(r.pubLink)}</a>` : esc(r.publication)}</td>
+                <td>${r.availLink ? `<a href="${esc(r.availLink)}" target="_blank">${esc(r.availability)}</a>` : esc(r.availability)}</td>
                 <td>${rridCell(r.rrid)}</td>
             </tr>`;
         }
     }
-
     $tbody.innerHTML = html;
     renderPagination();
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   PAGINATION
-═══════════════════════════════════════════════════════════════ */
 function renderPagination() {
     const total = Math.ceil(filtered.length / PER_PAGE);
     if (total <= 1) { $pagination.innerHTML = ""; return; }
     let html = "";
     for (let i = 1; i <= total; i++) {
-        html += `<button class="${i === currentPage ? "active" : ""}"
-                         onclick="goPage(${i})">${i}</button>`;
+        html += `<button class="${i === currentPage ? "active" : ""}" onclick="goPage(${i})">${i}</button>`;
     }
     $pagination.innerHTML = html;
 }
@@ -1035,17 +985,11 @@ function goPage(n) {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   STATS
-═══════════════════════════════════════════════════════════════ */
 function updateStats() {
     document.getElementById("stat-total").textContent   = RECORDS.length;
     document.getElementById("stat-showing").textContent = filtered.length;
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   EXPORT CSV
-═══════════════════════════════════════════════════════════════ */
 function exportCSV() {
     const cols = ["mgiName","commonName","type","description","background",
                   "coords","orthologs","publication","pubLink","availability","availLink","rrid"];
@@ -1060,20 +1004,13 @@ function exportCSV() {
     a.click();
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   SORT HEADERS
-═══════════════════════════════════════════════════════════════ */
 document.querySelectorAll("th[data-col]").forEach(th => {
     th.addEventListener("click", () => sortBy(th.dataset.col));
 });
-
 document.getElementById("export-btn").addEventListener("click", exportCSV);
 $search.addEventListener("input", applyFilters);
 $typeFilter.addEventListener("change", applyFilters);
 
-/* ═══════════════════════════════════════════════════════════════
-   INIT
-═══════════════════════════════════════════════════════════════ */
 populateTypeFilter();
 applyFilters();
 </script>
