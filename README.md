@@ -15,19 +15,32 @@
 ## 📋 Overview
 This repository serves as a centralized hub for researchers to identify and compare **Down Syndrome (DS) mouse models**. It translates complex genomic data into a user-friendly, searchable, and filterable web interface — all powered by a single self-contained `index.html` file with no external dependencies or build steps required.
 
-### ✨ Key Features
-* 🔍 **Instant Search** — Filter across all fields simultaneously: strain name, RRID, type, description, genetic background, publication, and more.
-* 🗂️ **Type Filtering** — Narrow results by model category: Segmental Trisomy, Translocation, Transchromosomic, Duplication, or Deletion.
-* 🗺️ **Genomic Precision** — All coordinates mapped to **GRCm39** (Mouse) and **GRCh38** (Human) unless otherwise noted.
-* 🔗 **Integrated Resources** — One-click access to **JAX**, **Infrafrontier/EMMA**, **PubMed**, **MGI**, and the **SciCrunch RRID Resolver**.
-* ↕️ **Sortable Columns** — Click any column header to sort ascending or descending.
-* ⬇️ **CSV Export** — Download the currently filtered dataset as a `.csv` file.
-* 📄 **Pagination** — 30 records per page for clean navigation.
+The dataset was originally compiled from:
+
+> Folz, A., Sloan, K., Roper, R.J. (2025). Mouse Models of Down Syndrome. In: Ye, B., Reeves, R. (eds) *Genetic Models of Down Syndrome*. Springer, Cham. https://doi.org/10.1007/978-3-031-78611-2_1
+
+---
+
+## ✨ Key Features
+
+- 🔍 **Instant Search** — Filter across all fields simultaneously: strain name, RRID, type, description, genetic background, publication, and more.
+- 🗂️ **Type Filtering** — Narrow results by model category: Segmental Trisomy, Translocation, Transchromosomic, Duplication, or Deletion.
+- 🗺️ **Genomic Precision** — All coordinates mapped to **GRCm39** (Mouse) and **GRCh38** (Human) unless otherwise noted.
+- 🔗 **Integrated Resources** — One-click access to **JAX**, **Infrafrontier/EMMA**, **PubMed**, **MGI**, and the **SciCrunch RRID Resolver**.
+- ↕️ **Sortable Columns** — Click any column header to sort ascending or descending.
+- ⬇️ **CSV Export** — Download the currently filtered dataset as a `.csv` file.
+- 📄 **Pagination** — 30 records per page for clean navigation.
 
 ---
 
 ## 🗂️ Repository Structure
-DS_Rodent_Models_Database/ │ ├── index.html # Main database — all records and UI logic live here ├── README.md # This file ├── CONTRIBUTING.md # Contribution guidelines and submission template └── LICENSE # MIT License
+
+    DS_Rodent_Models_Database/
+    │
+    ├── index.html        # Main database — all records and UI logic live here
+    ├── README.md         # This file
+    ├── CONTRIBUTING.md   # Contribution guidelines and submission template
+    └── LICENSE           # MIT License
 
 ---
 
@@ -37,19 +50,19 @@ All records are stored as JavaScript objects inside the `RECORDS` array in `inde
 
 | Field | Required | Description |
 |---|---|---|
-| `type` | ✅ | Model category: `"Segmental Trisomy"`, `"Translocation"`, `"Transchromosomic"`, `"Duplication"`, or `"Deletion"` |
-| `mgiName` | ✅ | Official MGI approved strain designation |
-| `mgiLink` | ⬜ | URL to the MGI record — use `""` if unavailable |
-| `commonName` | ✅ | Lab or common name (e.g. `"Ts65Dn"`, `"Dp1Tyb"`) |
-| `description` | ✅ | Short description of the genetic modification |
-| `background` | ✅ | Genetic background strain (e.g. `"B6"`, `"B6EiC3Sn"`) |
-| `coords` | ✅ | Chromosomal position in GRCm39 — use `"N/A"` if unknown |
-| `orthologs` | ✅ | Number of Hsa21 orthologous genes at dosage imbalance |
-| `publication` | ✅ | First publication citation (Author et al., Year) |
-| `pubLink` | ⬜ | PubMed URL — use `""` if unavailable |
-| `availability` | ✅ | Stock number (e.g. `"JAX:001924"`) or lab name |
-| `availLink` | ⬜ | URL to JAX, EMMA, or lab page — use `""` if unavailable |
-| `rrid` | ✅ | Full RRID string (e.g. `"RRID:IMSR_JAX:001924"`) or lab name if no RRID exists |
+| type | ✅ | Model category: Segmental Trisomy, Translocation, Transchromosomic, Duplication, or Deletion |
+| mgiName | ✅ | Official MGI approved strain designation |
+| mgiLink | ⬜ | URL to the MGI record — leave blank if unavailable |
+| commonName | ✅ | Lab or common name e.g. Ts65Dn, Dp1Tyb |
+| description | ✅ | Short description of the genetic modification |
+| background | ✅ | Genetic background strain e.g. B6, B6EiC3Sn |
+| coords | ✅ | Chromosomal position in GRCm39 — use N/A if unknown |
+| orthologs | ✅ | Number of Hsa21 orthologous genes at dosage imbalance |
+| publication | ✅ | First publication citation (Author et al., Year) |
+| pubLink | ⬜ | PubMed URL — leave blank if unavailable |
+| availability | ✅ | Stock number e.g. JAX:001924 or lab name |
+| availLink | ⬜ | URL to JAX, EMMA, or lab page — leave blank if unavailable |
+| rrid | ✅ | Full RRID string e.g. RRID:IMSR_JAX:001924 or lab name if no RRID exists |
 
 ---
 
