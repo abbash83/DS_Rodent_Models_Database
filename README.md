@@ -1,50 +1,37 @@
 # 🧬 Down Syndrome Mouse Models Database
-> A comprehensive, interactive, and searchable reference for DS research models.
+> A community-driven interactive reference for DS research models.
 
-![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
-![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Contributions](https://img.shields.io/badge/Contributions-Welcome-blue.svg)
+[![Contributions Welcome](https://img.shields.io/badge/Contributions-Welcome-brightgreen.svg)](./CONTRIBUTING.md)
+[![RRID Registered](https://img.shields.io/badge/RRID-Included-blue.svg)](https://www.rrids.org/)
 
----
+## 🌐 Live Table
+[**View the Interactive Database Here**](https://your-username.github.io/your-repo/models.html)
 
-## 🌐 Live Access
-**View the Interactive Table here:** 👉  https://abbash83.github.io/DS_Rodent_Models_Database/
+## 📋 Project Summary
+This repository tracks 40+ specialized mouse models, providing critical data on:
+- **Genomic Coordinates**: Mapped to GRCm39.
+- **Gene Dosage**: Precise counts of orthologous genes.
+- **Traceability**: Official **RRIDs** for standardized publication citation.
 
----
+## 🤝 How to Contribute (Submit a New Model)
+We encourage researchers to update this database via Pull Requests:
 
-## 📋 Overview
-This repository serves as a centralized hub for researchers to identify and compare **Down Syndrome (DS) mouse models**. It translates complex genomic data into a user-friendly, searchable web interface.
+1. **Fork** the repository.
+2. **Update `models.html`**: Add a new row to the `<tbody>`.
+3. **Include RRID**: Search for the model on [RRIDs.org](https://www.rrids.org/) and include the resolver link.
+4. **Submit PR**: Our team will verify coordinates and merge the update.
 
-### ✨ Key Features
-* 🔍 **Instant Filtering**: Search across all fields including Strain Name, Gene, or Author.
-* 🗺️ **Genomic Precision**: All coordinates are mapped to **GRCm39** (Mouse) and **GRCm38** (Human).
-* 🔗 **Integrated Resources**: One-click access to **JAX**, **Infrafrontier**, and **PubMed**.
-
----
-
-## 🤝 How to Contribute
-We welcome the community to help keep this database up-to-date. If you have a new model or an update to existing data:
-
-1. **Fork** this repository.
-2. **Add** your data to `models.html` (see the [Submission Template](#-submission-template) below).
-3. **Submit a Pull Request**. Our team will review the genomic coordinates and descriptions before approving the merge.
-
-For detailed steps, please read our [**Contributing Guidelines**](./CONTRIBUTING.md).
-
----
-
-## 📝 Submission Template
-When adding a row to the `<tbody>` in `models.html`, please use the following structure:
-
+### Row Template:
 ```html
 <tr>
-    <td><a href="MGI_LINK" target="_blank">MGI Name</a></td>
+    <td>MGI Link</td>
     <td>Common Name</td>
-    <td>Model Type</td>
-    <td>Detailed Short Description</td>
-    <td>Genetic Background</td>
-    <td>Chr Position (GRCm39)</td>
+    <td>Type</td>
+    <td>Description</td>
+    <td>Background Strain</td>
+    <td>GRCm39 Coords</td>
     <td>Gene Count</td>
-    <td><a href="PUBMED_LINK" target="_blank">Author, Year</a></td>
-    <td><a href="AVAILABILITY_LINK" target="_blank">Stock # / Lab</a></td>
+    <td>Publication Link</td>
+    <td>RRID Link</td>
+    <td>Stock Link</td>
 </tr>
