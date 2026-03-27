@@ -1,4 +1,4 @@
-# 🧬 Down Syndrome Mouse Models Database
+# 🧬 Down Syndrome Rodent Models Database
 > A comprehensive, interactive, and searchable reference for DS rodent research models.
 
 ![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
@@ -8,12 +8,12 @@
 ---
 
 ## 🌐 Live Access
-**View the Interactive Table here:** 👉 [**DS Mouse Models Database**](https://abbash83.github.io/DS_Rodent_Models_Database/)
+**View the Interactive Table here:** 👉 [**DS Rodent Models Database**](https://abbash83.github.io/DS_Rodent_Models_Database/)
 
 ---
 
 ## 📋 Overview
-This repository serves as a centralized hub for researchers to identify and compare **Down Syndrome (DS) mouse models**. It translates complex genomic data into a user-friendly, searchable, and filterable web interface — all powered by a single self-contained `index.html` file with no external dependencies or build steps required.
+This repository serves as a centralized hub for researchers to identify and compare **Down Syndrome (DS) Rodent models**. It translates complex genomic data into a user-friendly, searchable, and filterable web interface — all powered by a single self-contained `index.html` file with no external dependencies or build steps required.
 
 The dataset was originally compiled from:
 
