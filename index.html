@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DS Rodent Models Database | abbash83</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <span class="brand">DS <strong>Preclinical Database</strong></span>
+            <div class="nav-links">
+                <a href="https://github.com/abbash83/DS-Rodent-Models-Database" target="_blank">View on GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header class="hero">
+            <h1>Down Syndrome Rodent Models</h1>
+            <p>A live database of genetic models for the T21 research community.</p>
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Filter by name, type, or RRID...">
+            </div>
+        </header>
+
+        <section class="stats-grid">
+            <div class="stat-card">
+                <h3 id="modelCount">0</h3>
+                <p>Models Listed</p>
+            </div>
+            <div class="stat-card">
+                <h3>ARRIVE</h3>
+                <p>Compliant Reporting</p>
+            </div>
+        </section>
+
+        <main class="content-card">
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Model Name</th>
+                            <th>Type</th>
+                            <th>RRID</th>
+                            <th>Hsa21 Orthologs</th>
+                            <th>Links</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+    <script src="models.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
