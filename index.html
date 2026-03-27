@@ -5,57 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comprehensive Down Syndrome Mouse Models Reference</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.5;
-            color: #333;
-            margin: 20px;
-            background-color: #f8f9fa;
-        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.5; color: #333; margin: 20px; background-color: #f8f9fa; }
         h1 { color: #2c3e50; text-align: center; }
-
-        /* ── Status Banner ── */
-        #rrid-status-bar {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 12px 0 6px;
-            padding: 10px 16px;
-            border-radius: 6px;
-            font-size: 13px;
-            font-weight: 500;
-            transition: background 0.3s;
-        }
-        #rrid-status-bar.loading { background: #e8f4fd; color: #1a5276; border: 1px solid #aed6f1; }
-        #rrid-status-bar.success { background: #eafaf1; color: #1e8449; border: 1px solid #a9dfbf; }
-        #rrid-status-bar.error   { background: #fdf2f2; color: #c0392b; border: 1px solid #f5b7b1; }
-        #rrid-status-bar.info    { background: #fefce8; color: #7d6608; border: 1px solid #f9e79f; }
-        .spinner {
-            width: 15px; height: 15px;
-            border: 2px solid #aac4de;
-            border-top-color: #2e6da4;
-            border-radius: 50%;
-            animation: spin 0.75s linear infinite;
-            flex-shrink: 0;
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ── Stats Bar ── */
-        #stats-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-bottom: 10px;
-        }
-        .stat-pill {
-            background: #fff;
-            border: 1px solid #dee2e6;
-            border-radius: 20px;
-            padding: 4px 14px;
-            font-size: 12px;
-            color: #555;
-        }
-        .stat-pill strong { color: #004085; }
 
         /* ── Controls ── */
         #controls {
@@ -63,7 +14,7 @@
             flex-wrap: wrap;
             gap: 8px;
             align-items: center;
-            margin-bottom: 10px;
+            margin: 14px 0 10px;
         }
         #search-input {
             flex: 1 1 220px;
@@ -72,39 +23,35 @@
             border-radius: 5px;
             font-size: 13px;
         }
-        #type-filter, #source-filter {
+        #type-filter {
             padding: 7px 10px;
             border: 1px solid #ced4da;
             border-radius: 5px;
             font-size: 13px;
             background: #fff;
-        }
-        .ctrl-btn {
+        }.ctrl-btn {
             padding: 7px 14px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 12px;
             font-weight: 600;
-        }
-        .btn-refresh  { background: #004085; color: #fff; }
-        .btn-refresh:hover { background: #002752; }
-        .btn-export   { background: #e9ecef; color: #333; }
-        .btn-export:hover { background: #ced4da; }
+        }.btn-export { background: #004085; color: #fff; }.btn-export:hover { background: #002752; }
 
-        /* ── New Records Panel ── */
-        #new-records-panel {
-            display: none;
-            background: #fff8e1;
-            border: 1px solid #f9ca24;
-            border-radius: 6px;
-            padding: 12px 16px;
+        /* ── Stats ── */
+        #stats-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
             margin-bottom: 10px;
-            font-size: 12.5px;
-        }
-        #new-records-panel h3 { color: #7d6608; margin: 0 0 8px; font-size: 13px; }
-        #new-records-panel ul { margin: 0; padding-left: 18px; }
-        #new-records-panel li { margin-bottom: 3px; }
+        }.stat-pill {
+            background: #fff;
+            border: 1px solid #dee2e6;
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 12px;
+            color: #555;
+        }.stat-pill strong { color: #004085; }
 
         /* ── Table ── */
         table {
@@ -113,12 +60,15 @@
             margin-top: 10px;
             background-color: #fff;
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            table-layout: fixed;
         }
         th, td {
             border: 1px solid #dee2e6;
-            padding: 10px 12px;
+            padding: 9px 11px;
             text-align: left;
-            font-size: 13px;
+            font-size: 12.5px;
+            vertical-align: top;
+            word-wrap: break-word;
         }
         th {
             background-color: #004085;
@@ -129,39 +79,24 @@
             cursor: pointer;
             user-select: none;
             white-space: nowrap;
+            font-size: 12px;
         }
         th:hover { background-color: #002d6e; }
-        th .sort-arrow { margin-left: 4px; opacity: 0.6; font-size: 11px; }
+        th.sort-arrow { margin-left: 4px; opacity: 0.6; font-size: 10px; }
         tr:nth-child(even):not(.category-header) { background-color: #f2f2f2; }
-        tr:hover:not(.category-header) { background-color: #e8f4fd; }
-
-        .category-header {
+        tr:hover:not(.category-header) { background-color: #e8f4fd; }.category-header {
             background-color: #e9ecef !important;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
             color: #495057;
             border-left: 5px solid #004085;
         }
 
-        /* RRID links */
-        .rrid { font-weight: bold; color: #0056b3; text-decoration: none; }
-        .rrid:hover { text-decoration: underline; }
+        /* Column widths */.col-mgi       { width: 10%; }.col-common    { width: 7%;  }.col-type      { width: 8%;  }.col-desc      { width: 18%; }.col-bg        { width: 7%;  }.col-coords    { width: 10%; }.col-ortho     { width: 5%;  }.col-pub       { width: 12%; }.col-avail     { width: 8%;  }.col-rrid      { width: 10%; }.col-chrompos  { width: 5%;  }
 
-        /* Coords */
-        .coords { font-family: 'Courier New', Courier, monospace; color: #6610f2; }
-
-        /* Source badges */
-        .badge {
-            display: inline-block;
-            padding: 2px 7px;
-            border-radius: 10px;
-            font-size: 11px;
-            font-weight: 600;
-            white-space: nowrap;
-        }
-        .badge-manual { background: #d5f5e3; color: #1e8449; }
-        .badge-auto   { background: #d6eaf8; color: #1a5276; }
-        .badge-new    { background: #fdebd0; color: #a04000; }
+        /* Links */.rrid { font-weight: bold; color: #0056b3; text-decoration: none; }.rrid:hover { text-decoration: underline; }
+        a { color: #0056b3; text-decoration: none; font-size: 11px; word-break: break-all; }
+        a:hover { text-decoration: underline; }.coords { font-family: 'Courier New', Courier, monospace; color: #6610f2; font-size: 11px; }
 
         /* ── Pagination ── */
         #pagination {
@@ -182,213 +117,775 @@
         #pagination button.active { background: #004085; color: #fff; border-color: #004085; }
         #pagination button:hover:not(.active) { background: #e8f4fd; }
 
-        /* ── Footer ── */
         footer {
             text-align: center;
             margin-top: 20px;
             font-size: 11px;
             color: #888;
         }
-        footer a { color: #0056b3; }
+        footer a { color: #0056b3; font-size: 11px; }
     </style>
 </head>
 <body>
 
 <h1>Down Syndrome (DS) Mouse Models: Comprehensive Reference</h1>
 <p style="text-align:center; font-size:13px; color:#555;">
-    Coordinates based on Mouse GRCm39 and Human GRCh38 unless otherwise noted.
-    Auto-updated from <a href="https://rrid.site/data/source/nlx_154697-1/search" target="_blank">RRID source nlx_154697-1</a>.
+    Table 1. DS Mouse Models — All coordinates based on Mouse GRCm39 and Human GRCh38 unless otherwise noted.
 </p>
-
-<!-- ── Status Banner ── -->
-<div id="rrid-status-bar" class="loading">
-    <div class="spinner" id="status-spinner"></div>
-    <span id="status-msg">Initialising — loading manual records and fetching RRID data…</span>
-</div>
 
 <!-- ── Stats ── -->
 <div id="stats-bar">
-    <div class="stat-pill">Total: <strong id="stat-total">—</strong></div>
-    <div class="stat-pill">Manual: <strong id="stat-manual">—</strong></div>
-    <div class="stat-pill">Auto-imported: <strong id="stat-auto">—</strong></div>
-    <div class="stat-pill">New this session: <strong id="stat-new">—</strong></div>
-    <div class="stat-pill">Last fetch: <strong id="stat-last">—</strong></div>
+    <div class="stat-pill">Total Records: <strong id="stat-total">—</strong></div>
+    <div class="stat-pill">Showing: <strong id="stat-showing">—</strong></div>
 </div>
 
 <!-- ── Controls ── -->
 <div id="controls">
-    <input type="text" id="search-input" placeholder="🔍 Search name, RRID, type…" />
+    <input type="text" id="search-input" placeholder="🔍 Search name, RRID, type, description…" />
     <select id="type-filter"><option value="">All Types</option></select>
-    <select id="source-filter">
-        <option value="">All Sources</option>
-        <option value="manual">Manual Only</option>
-        <option value="auto">Auto-Imported Only</option>
-    </select>
-    <button class="ctrl-btn btn-refresh" id="refresh-btn">🔄 Refresh RRID</button>
-    <button class="ctrl-btn btn-export"  id="export-btn">⬇ Export CSV</button>
-</div>
-
-<!-- ── New Records Alert ── -->
-<div id="new-records-panel">
-    <h3>🆕 New RRID records auto-imported (not in manual database)</h3>
-    <ul id="new-records-list"></ul>
+    <button class="ctrl-btn btn-export" id="export-btn">⬇ Export CSV</button>
 </div>
 
 <!-- ── Table ── -->
-<div id="table-container">
-    <table id="main-table">
-        <thead>
-            <tr>
-                <th data-col="name">Model Name <span class="sort-arrow">⇅</span></th>
-                <th data-col="type">Type <span class="sort-arrow">⇅</span></th>
-                <th data-col="description">Description / Genetic Detail</th>
-                <th data-col="coords">Chromosomal Position (GRCm39)</th>
-                <th data-col="orthologs">Hsa21 Orthologs <span class="sort-arrow">⇅</span></th>
-                <th data-col="rrid">RRID / Source <span class="sort-arrow">⇅</span></th>
-                <th data-col="origin">Origin <span class="sort-arrow">⇅</span></th>
-            </tr>
-        </thead>
-        <tbody id="table-body">
-            <tr><td colspan="7" style="text-align:center;padding:30px;color:#888;">Loading…</td></tr>
-        </tbody>
-    </table>
-</div>
+<table id="main-table">
+    <colgroup>
+        <col class="col-mgi"/>
+        <col class="col-common"/>
+        <col class="col-type"/>
+        <col class="col-desc"/>
+        <col class="col-bg"/>
+        <col class="col-coords"/>
+        <col class="col-ortho"/>
+        <col class="col-pub"/>
+        <col class="col-avail"/>
+        <col class="col-rrid"/>
+    </colgroup>
+    <thead>
+        <tr>
+            <th data-col="mgiName">MGI Approved Name <span class="sort-arrow">⇅</span></th>
+            <th data-col="commonName">Lab / Common Name <span class="sort-arrow">⇅</span></th>
+            <th data-col="type">Type of DS Model <span class="sort-arrow">⇅</span></th>
+            <th data-col="description">Short Description</th>
+            <th data-col="background">Genetic Background <span class="sort-arrow">⇅</span></th>
+            <th data-col="coords">Chromosomal Position (MGI)</th>
+            <th data-col="orthologs">Hsa21 Orthologs <span class="sort-arrow">⇅</span></th>
+            <th data-col="publication">First Publication</th>
+            <th data-col="availability">Availability</th>
+            <th data-col="rrid">RRID / Source <span class="sort-arrow">⇅</span></th>
+        </tr>
+    </thead>
+    <tbody id="table-body"></tbody>
+</table>
 
 <!-- ── Pagination ── -->
 <div id="pagination"></div>
 
-<p style="font-size: 11px; color: #777;">
-    *Note: Tc1 count includes duplications and anticipated single copy genes.<br>
-    <strong>🟢 Manual</strong> = curated entry  | 
-    <strong>🔵 Auto</strong> = imported from RRID source nlx_154697-1  | 
-    <strong>🟠 New</strong> = newly discovered this session
+<p style="font-size:11px; color:#777; margin-top:6px;">
+    *Note: Tc1 count includes duplications and anticipated single copy genes.
 </p>
 
 <footer>
     DS Rodent Models Database •
-    <a href="https://github.com/abbash83/DS_Rodent_Models_Database" target="_blank">GitHub Repository</a> •
-    RRID data from <a href="https://rrid.site/data/source/nlx_154697-1/search" target="_blank">rrid.site / nlx_154697-1</a>
-    via <a href="https://scicrunch.org" target="_blank">SciCrunch</a>
+    <a href="https://github.com/abbash83/DS_Rodent_Models_Database" target="_blank">GitHub Repository</a>
 </footer>
 
 
-<!-- ══════════════════════════════════════════════════════════════
-     JAVASCRIPT
-══════════════════════════════════════════════════════════════ -->
 <script>
 /* ═══════════════════════════════════════════════════════════════
-   CONFIG
-   ═══════════════════════════════════════════════════════════════
-   RRID_SOURCE_SEARCH : The public RRID search page for nlx_154697-1
-   SCICRUNCH_SEARCH   : SciCrunch ElasticSearch API (no key needed for
-                        public sources; add key if you have one)
-   CACHE_KEY          : localStorage key for persisting fetched records
-   CACHE_TTL_MS       : Re-fetch after 24 h
-   PAGE_SIZE          : Rows per page
-═══════════════════════════════════════════════════════════════ */
-const CFG = {
-    RRID_SOURCE_SEARCH : "https://rrid.site/data/source/nlx_154697-1/search",
-    // Public SciCrunch search endpoint — returns JSON for a given source
-    SCICRUNCH_SEARCH   : "https://scicrunch.org/api/1/dataservices/federation/data/nlx_154697-1",
-    SCICRUNCH_API_KEY  : "",          // Optional: paste your free key from scicrunch.org/register
-    RESOLVER_BASE      : "https://scicrunch.org/resolver/",
-    CACHE_KEY          : "ds_rrid_v2_nlx_154697-1",
-    CACHE_TTL_MS       : 24 * 60 * 60 * 1000,
-    PAGE_SIZE          : 30,
-};
-
-/* ═══════════════════════════════════════════════════════════════
    MANUAL DATABASE
-   These are the original hand-curated records from the HTML table.
-   The `rridKey` field is the normalised RRID string used for
-   deduplication against auto-imported records.
+   All records are manually curated. To add a new record, append
+   an object to the RECORDS array following the same structure.
 ═══════════════════════════════════════════════════════════════ */
-const MANUAL_RECORDS = [
-    // ── Segmental Trisomy ──
-    { name:"Ts65Dn (001924)", type:"Segmental Trisomy",
-      description:"Trisomy for a marker chromosome (Mrpl39 to telomere of Mmu16) translocated to Mmu17.",
-      coords:"Chr 16: 84,351,351 to Tel; Chr 17: 9,426,822", orthologs:"101",
-      rrid:"RRID:IMSR_JAX:001924", origin:"manual" },
-    { name:"Ts65Dn (005252)", type:"Segmental Trisomy",
-      description:"Congenic version of 001924; homozygous for wild-type Pde6b to prevent retinal degeneration.",
-      coords:"Chr 16: 84,351,351 to Tel; Chr 17: 9,426,822", orthologs:"101",
-      rrid:"RRID:IMSR_JAX:005252", origin:"manual" },
-    { name:"Ts66Yah", type:"Segmental Trisomy",
-      description:"CRISPR/Cas9 derivative of Ts65Dn; removes non-Hsa21 homologous region from Mmu17.",
-      coords:"N/A", orthologs:"101",
-      rrid:"RRID:IMSR_JAX:036600", origin:"manual" },
+const RECORDS = [
 
-    // ── Translocation ──
-    { name:"Ts1Cje", type:"Translocation",
-      description:"Trisomic for Sod1 to Mx1 on Mmu16 translocated to Mmu12; Sod1 is inactivated.",
-      coords:"Chr 16: ~119,278,499 (Dnahc11)", orthologs:"64",
-      rrid:"RRID:IMSR_JAX:004861", origin:"manual" },
-    { name:"Ts2Cje", type:"Translocation",
-      description:"Spontaneous Robertsonian fusion between Ts65Dn marker and Mmu12.",
-      coords:"N/A", orthologs:"101",
-      rrid:"RRID:IMSR_JAX:004850", origin:"manual" },
+    // ─────────────────────────────────────────────
+    // SEGMENTAL TRISOMY MODELS
+    // ─────────────────────────────────────────────
+    {
+        type        : "Segmental Trisomy",
+        mgiName     : "Ts(17<16>)65Dn (001924)",
+        mgiLink     : "https://www.informatics.jax.org/marker/MGI:2178111",
+        commonName  : "Ts65Dn (001924)",
+        description : "Trisomy for a marker chromosome containing a segment of Mrpl39 to the telomere of Mmu16 homologous to Hsa21, translocated to the centromeric end of Mmu17.",
+        background  : "B6EiC3Sn",
+        coords      : "Breakpoint is Chr 16: 84,351,351 bp and Chr 17 9,426,822 bp",
+        orthologs   : "101",
+        publication : "Davisson MT, et al., 1993",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/8115398/",
+        availability: "JAX:001924",
+        availLink   : "https://www.jax.org/strain/001924",
+        rrid        : "RRID:IMSR_JAX:001924",
+    },
+    {
+        type        : "Segmental Trisomy",
+        mgiName     : "Ts(17<16>)65Dn (005252)",
+        mgiLink     : "https://www.informatics.jax.org/marker/MGI:2178111",
+        commonName  : "Ts65Dn (005252)",
+        description : "Trisomy for a marker chromosome containing a segment of Mrpl39 to the telomere of Mmu16 homologous to Hsa21, translocated to the centromeric end of Mmu17. These mice are homozygous for the wild-type allele of Pde6b to eliminate possible retinal degeneration and have slightly different phenotypes than Ts65Dn 001924.",
+        background  : "B6EiC3Sn.BLiA",
+        coords      : "Breakpoint is Chr 16: 84,351,351 bp and Chr 17 9,426,822 bp",
+        orthologs   : "101",
+        publication : "Costa AC et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/19720087/",
+        availability: "JAX:005252",
+        availLink   : "https://www.jax.org/strain/005252",
+        rrid        : "RRID:IMSR_JAX:005252",
+    },
+    {
+        type        : "Segmental Trisomy",
+        mgiName     : "Ts(17th)66Yah",
+        mgiLink     : "https://www.informatics.jax.org/allele/MGI:6459295",
+        commonName  : "Ts66Yah",
+        description : "This mouse strain is derived from the Ts65Dn 01924 strain and removes the non Hsa21 homologous Pisd-ps2 to Pde10a region derived from Mmu17 in the Ts65Dn mouse using CRISPR/Cas9.",
+        background  : "B6C3B",
+        coords      : "N/A",
+        orthologs   : "101",
+        publication : "Duchon A, et al., 2022",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/36374158/",
+        availability: "JAX:036600",
+        availLink   : "https://www.jax.org/strain/036600",
+        rrid        : "RRID:IMSR_JAX:036600",
+    },
 
-    // ── Transchromosomic ──
-    { name:"Tc1", type:"Transchromosomic",
-      description:"Contains ~75% of Hsa21; mosaic with internal deletions and rearrangements.",
-      coords:"N/A", orthologs:"227*",
-      rrid:"RRID:IMSR_JAX:010801", origin:"manual" },
-    { name:"TcMAC21", type:"Transchromosomic",
-      description:"Contains 93% representation of Hsa21 as a freely segregating chromosome.",
-      coords:"N/A", orthologs:"581",
-      rrid:"RRID:IMSR_JAX:035561", origin:"manual" },
+    // ─────────────────────────────────────────────
+    // TRANSLOCATION MODELS
+    // ─────────────────────────────────────────────
+    {
+        type        : "Translocation",
+        mgiName     : "Ts(16C-tel)1Cje",
+        mgiLink     : "https://www.informatics.jax.org/marker/MGI:3623021",
+        commonName  : "Ts1Cje",
+        description : "Mice are trisomic for Sod1 to Mx1 and 94 genes on Mmu16 that are translocated to Mmu12, deleting 7 genes from Mmu12. Sod1 is not functionally triplicated because the Sod1 gene in the translocated segment is inactivated by the insertion of the neomycin resistance sequence. These mice are monosomic for 7 genes in Mmu12.",
+        background  : "B6EiC3Sn",
+        coords      : "Translocation breakpoint between positions 119,278,499 and 119,289,499, in the Dnahc11 gene, between exons 35 and 41.",
+        orthologs   : "64",
+        publication : "Sago H, et al., 1998",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/9600952/",
+        availability: "JAX:004861",
+        availLink   : "https://www.jax.org/strain/004861",
+        rrid        : "RRID:IMSR_JAX:004861",
+    },
+    {
+        type        : "Translocation",
+        mgiName     : "Rb(12.Ts17\u{1D65}Dn)2Cje",
+        mgiLink     : "https://www.informatics.jax.org/allele/MGI:3531161",
+        commonName  : "Ts2Cje",
+        description : "Spontaneous fusion between the small marker chromosome in Ts65Dn mice (carrying Mrpl39 to the distal end of Mmu16) with Mmu12, creating a Robertsonian translocation chromosome.",
+        background  : "B6EiC3Sn",
+        coords      : "N/A",
+        orthologs   : "101",
+        publication : "Villar AJ, et al., 2005",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/15859352/",
+        availability: "JAX:004850",
+        availLink   : "https://www.jax.org/strain/004850",
+        rrid        : "RRID:IMSR_JAX:004850",
+    },
 
-    // ── Duplication ──
-    { name:"Ts1Rhr",     type:"Duplication", description:"Cre-mediated; Cbr1 to Fam3b duplication.",           coords:"Chr16: 93404725-97306136", orthologs:"28",  rrid:"RRID:IMSR_JAX:005383", origin:"manual" },
-    { name:"Dp(16)1Yey", type:"Duplication", description:"Cre-mediated; Lipi to Zbtb21 duplication.",          coords:"Chr16: 75155590-97794739", orthologs:"117", rrid:"RRID:IMSR_JAX:013530", origin:"manual" },
-    { name:"Dp(16)2Yey", type:"Duplication", description:"Cre-mediated; Tiam1 to Kcnj6 duplication.",          coords:"Chr16: 89583999-94798555", orthologs:"52",  rrid:"RRID:IMSR_JAX:018852", origin:"manual" },
-    { name:"Dp(10)1Yey", type:"Duplication", description:"Cre-mediated; Prmt2 to Pdxk duplication (Mmu10).",   coords:"Chr10: 76043060-78300782", orthologs:"37",  rrid:"RRID:IMSR_JAX:013529", origin:"manual" },
-    { name:"Dp(17)1Yey", type:"Duplication", description:"Cre-mediated; Abcg1 to Rrp1b duplication (Mmu17).", coords:"Chr17: 31276672-32281839", orthologs:"18",  rrid:"RRID:IMSR_JAX:013531", origin:"manual" },
-    { name:"Dp(16)3Yey", type:"Duplication", description:"Cre-mediated; Tiam1 to Il10rb duplication.",         coords:"N/A",                     orthologs:"17",  rrid:"RRID:IMSR_JAX:024906", origin:"manual" },
-    { name:"Dp(16)4Yey", type:"Duplication", description:"Cre-mediated; Ifnar1 to Kcnj6 duplication.",         coords:"N/A",                     orthologs:"35",  rrid:"RRID:IMSR_JAX:024908", origin:"manual" },
-    { name:"Ts1Yah",     type:"Duplication", description:"Cre-mediated; Abcg1 to Cbs duplication (Hsa21q22 syntenic).", coords:"Chr17: 31276672-31856173", orthologs:"13", rrid:"RRID:IMSR_EM:01987", origin:"manual" },
-    { name:"Ts2Yah",     type:"Duplication", description:"Cre-mediated; Hspa13 to App duplication (Hsa21q11-q21).",     coords:"Chr16: 75552078-84970840", orthologs:"19", rrid:"RRID:IMSR_EM:02101", origin:"manual" },
-    { name:"Ts3Yah",     type:"Duplication", description:"Inactivation of Cstb/Col6a1; duplication of Hsa21 segment.",  coords:"N/A", orthologs:"25", rrid:"Herault Lab", origin:"manual" },
-    { name:"Ts4Yah",     type:"Duplication", description:"Inactivation of Cstb/Prmt2; duplication of Hsa21 segment.",   coords:"N/A", orthologs:"36", rrid:"Herault Lab", origin:"manual" },
-    { name:"Ts5Yah",     type:"Duplication", description:"Inactivation of App/Runx1; duplication of Hsa21 segment.",    coords:"Chr16: 84954440-92826149", orthologs:"60", rrid:"Herault Lab", origin:"manual" },
-    { name:"Dp1Tyb",     type:"Duplication", description:"Cre-mediated; Lipi to Zbtb21 duplication.",          coords:"Chr16: 74930370-97982380", orthologs:"117", rrid:"RRID:IMSR_JAX:037183", origin:"manual" },
-    { name:"Dp2Tyb",     type:"Duplication", description:"Cre-mediated; Mis18a to Runx1 duplication.",         coords:"Chr16: 90563769-93062456", orthologs:"32",  rrid:"RRID:IMSR_EM:10558",  origin:"manual" },
-    { name:"Dp3Tyb",     type:"Duplication", description:"Cre-mediated; Mir802 to Zbtb21 duplication.",        coords:"Chr16: 93054020-97982380", orthologs:"37",  rrid:"RRID:IMSR_EM:10559",  origin:"manual" },
-    { name:"Dp4Tyb",     type:"Duplication", description:"Cre-mediated; Mir802 to Dscr3 duplication.",         coords:"Chr16: 93054020-94546849", orthologs:"14",  rrid:"RRID:IMSR_EM:10560",  origin:"manual" },
-    { name:"Dp5Tyb",     type:"Duplication", description:"Cre-mediated; Dyrk1a to B3galt5 duplication.",       coords:"Chr16: 94538615-96331804", orthologs:"12",  rrid:"RRID:IMSR_EM:10561",  origin:"manual" },
-    { name:"Dp6Tyb",     type:"Duplication", description:"Cre-mediated; Igsf5 to Zbtb21 duplication.",         coords:"Chr16: 96327324-97982380", orthologs:"11",  rrid:"RRID:IMSR_EM:10562",  origin:"manual" },
-    { name:"Dp7Tyb",     type:"Duplication", description:"Cre-mediated; Mis18a to Il10rb duplication.",        coords:"Chr16: 90563769-91443378", orthologs:"13",  rrid:"Tybulewicz Lab",       origin:"manual" },
-    { name:"Dp8Tyb",     type:"Duplication", description:"Cre-mediated; Ifnar1 to Runx1 duplication.",         coords:"Chr16: 91436064-93062456", orthologs:"19",  rrid:"Tybulewicz Lab",       origin:"manual" },
-    { name:"Dp9Tyb",     type:"Duplication", description:"Cre-mediated; Lipi to Hunk duplication.",            coords:"Chr16: 74930370-90577148", orthologs:"48",  rrid:"RRID:IMSR_EM:10565",  origin:"manual" },
+    // ─────────────────────────────────────────────
+    // TRANSCHROMOSOMIC MODELS
+    // ─────────────────────────────────────────────
+    {
+        type        : "Transchromosomic",
+        mgiName     : "Tc(HSA21)1Tybemcf",
+        mgiLink     : "",
+        commonName  : "Tc1",
+        description : "Contains ~75% of Hsa21; mosaic with internal deletions and rearrangements.",
+        background  : "B6;129",
+        coords      : "N/A",
+        orthologs   : "227*",
+        publication : "O'Doherty A, et al., 2005",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/16272420/",
+        availability: "JAX:010801",
+        availLink   : "https://www.jax.org/strain/010801",
+        rrid        : "RRID:IMSR_JAX:010801",
+    },
+    {
+        type        : "Transchromosomic",
+        mgiName     : "Tc(HSA21)MAC21",
+        mgiLink     : "",
+        commonName  : "TcMAC21",
+        description : "Contains 93% representation of Hsa21 as a freely segregating chromosome.",
+        background  : "B6;129",
+        coords      : "N/A",
+        orthologs   : "581",
+        publication : "Kazuki Y, et al., 2020",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/32051612/",
+        availability: "JAX:035561",
+        availLink   : "https://www.jax.org/strain/035561",
+        rrid        : "RRID:IMSR_JAX:035561",
+    },
 
-    // ── Deletion ──
-    { name:"Ms1Rhr",     type:"Deletion", description:"Cre-mediated; Cbr1 to Fam3b deletion.",         coords:"Chr16: 93404725-97306136", orthologs:"29", rrid:"RRID:IMSR_JAX:005654", origin:"manual" },
-    { name:"Df(10)1Yey", type:"Deletion", description:"Cre-mediated; Prmt2 to Pdxk deletion.",         coords:"Chr10: 76043060-78300782", orthologs:"37", rrid:"RRID:IMSR_JAX:017439", origin:"manual" },
-    { name:"Df(17)1Yey", type:"Deletion", description:"Cre-mediated; Abcg1 to Rrp1b deletion.",        coords:"Chr17: 31276672-32281839", orthologs:"18", rrid:"RRID:IMSR_JAX:017440", origin:"manual" },
-    { name:"Df(16)2Yey", type:"Deletion", description:"Cre-mediated; Tiam1 to Kcnj6 deletion.",        coords:"Chr16: 89583999-94798555", orthologs:"52", rrid:"RRID:IMSR_JAX:018853", origin:"manual" },
-    { name:"Df(16)3Yey", type:"Deletion", description:"Cre-mediated; Tiam1 to Il10rb deletion.",       coords:"N/A", orthologs:"17", rrid:"RRID:IMSR_JAX:024907", origin:"manual" },
-    { name:"Df(16)4Yey", type:"Deletion", description:"Cre-mediated; Ifnar1 to Kcnj6 deletion.",       coords:"N/A", orthologs:"35", rrid:"RRID:IMSR_JAX:024908", origin:"manual" },
-    { name:"Df(16)5Yey", type:"Deletion", description:"Cre-mediated; Setd4 to Kcnj6 deletion.",        coords:"N/A", orthologs:"15", rrid:"RRID:IMSR_JAX:028289", origin:"manual" },
-    { name:"Df(16)6Yey", type:"Deletion", description:"Cre-mediated; Kcnj15 to Mx2 deletion.",         coords:"N/A", orthologs:"16", rrid:"RRID:IMSR_JAX:028292", origin:"manual" },
-    { name:"Df(16)7Yey", type:"Deletion", description:"Cre-mediated; Dyrk1a to Kcnj6 deletion.",       coords:"N/A", orthologs:"2",  rrid:"RRID:IMSR_JAX:028290", origin:"manual" },
-    { name:"Df(16)8Yey", type:"Deletion", description:"Cre-mediated; Lipi to Ncam2 deletion.",         coords:"N/A", orthologs:"15", rrid:"RRID:IMSR_JAX:038567", origin:"manual" },
-    { name:"Df(17)2Yey", type:"Deletion", description:"Cre-mediated; Scaf8 to Pde10a deletion.",       coords:"N/A", orthologs:"0",  rrid:"RRID:IMSR_JAX:038566", origin:"manual" },
-    { name:"Ms1Yah",     type:"Deletion", description:"Cre-mediated; Col6a1 to Prmt2 deletion.",       coords:"Chr10: 76043060-76561878", orthologs:"12", rrid:"RRID:IMSR_EM:01808", origin:"manual" },
-    { name:"Ms2Yah",     type:"Deletion", description:"Cre-mediated; Abcg1 to Cbs deletion.",          coords:"Chr17: 31276672-31856173", orthologs:"13", rrid:"RRID:IMSR_EM:01812", origin:"manual" },
-    { name:"Ms3Yah",     type:"Deletion", description:"Cre-mediated; Hspa13 to App deletion.",         coords:"Chr16: 75552078-84970840", orthologs:"19", rrid:"RRID:IMSR_EM:02100", origin:"manual" },
-    { name:"Ms4Yah",     type:"Deletion", description:"Cre-mediated; Cstb to Prmt2 deletion.",         coords:"Chr10: 76043060-78263456", orthologs:"36", rrid:"RRID:IMSR_EM:02099", origin:"manual" },
-    { name:"Ms5Yah",     type:"Deletion", description:"Cre-mediated; App to Runx1 deletion.",          coords:"Chr16: 84749554-92622962", orthologs:"60", rrid:"Herault Lab",         origin:"manual" },
+    // ─────────────────────────────────────────────
+    // DUPLICATION MODELS
+    // ─────────────────────────────────────────────
+    {
+        type        : "Duplication",
+        mgiName     : "Ts1Rhr",
+        mgiLink     : "",
+        commonName  : "Ts1Rhr",
+        description : "Cre-mediated; Cbr1 to Fam3b duplication.",
+        background  : "B6",
+        coords      : "Chr16: 93,404,725–97,306,136",
+        orthologs   : "28",
+        publication : "Reeves RH, et al., 1995",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/7566098/",
+        availability: "JAX:005383",
+        availLink   : "https://www.jax.org/strain/005383",
+        rrid        : "RRID:IMSR_JAX:005383",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp(16)1Yey",
+        mgiLink     : "",
+        commonName  : "Dp(16)1Yey",
+        description : "Cre-mediated; Lipi to Zbtb21 duplication.",
+        background  : "B6",
+        coords      : "Chr16: 75,155,590–97,794,739",
+        orthologs   : "117",
+        publication : "Li Z, et al., 2007",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/17660530/",
+        availability: "JAX:013530",
+        availLink   : "https://www.jax.org/strain/013530",
+        rrid        : "RRID:IMSR_JAX:013530",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp(16)2Yey",
+        mgiLink     : "",
+        commonName  : "Dp(16)2Yey",
+        description : "Cre-mediated; Tiam1 to Kcnj6 duplication.",
+        background  : "B6",
+        coords      : "Chr16: 89,583,999–94,798,555",
+        orthologs   : "52",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:018852",
+        availLink   : "https://www.jax.org/strain/018852",
+        rrid        : "RRID:IMSR_JAX:018852",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp(10)1Yey",
+        mgiLink     : "",
+        commonName  : "Dp(10)1Yey",
+        description : "Cre-mediated; Prmt2 to Pdxk duplication (Mmu10).",
+        background  : "B6",
+        coords      : "Chr10: 76,043,060–78,300,782",
+        orthologs   : "37",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:013529",
+        availLink   : "https://www.jax.org/strain/013529",
+        rrid        : "RRID:IMSR_JAX:013529",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp(17)1Yey",
+        mgiLink     : "",
+        commonName  : "Dp(17)1Yey",
+        description : "Cre-mediated; Abcg1 to Rrp1b duplication (Mmu17).",
+        background  : "B6",
+        coords      : "Chr17: 31,276,672–32,281,839",
+        orthologs   : "18",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:013531",
+        availLink   : "https://www.jax.org/strain/013531",
+        rrid        : "RRID:IMSR_JAX:013531",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp(16)3Yey",
+        mgiLink     : "",
+        commonName  : "Dp(16)3Yey",
+        description : "Cre-mediated; Tiam1 to Il10rb duplication.",
+        background  : "B6",
+        coords      : "N/A",
+        orthologs   : "17",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:024906",
+        availLink   : "https://www.jax.org/strain/024906",
+        rrid        : "RRID:IMSR_JAX:024906",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp(16)4Yey",
+        mgiLink     : "",
+        commonName  : "Dp(16)4Yey",
+        description : "Cre-mediated; Ifnar1 to Kcnj6 duplication.",
+        background  : "B6",
+        coords      : "N/A",
+        orthologs   : "35",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:024908",
+        availLink   : "https://www.jax.org/strain/024908",
+        rrid        : "RRID:IMSR_JAX:024908",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Ts1Yah",
+        mgiLink     : "",
+        commonName  : "Ts1Yah",
+        description : "Cre-mediated; Abcg1 to Cbs duplication (Hsa21q22 syntenic).",
+        background  : "B6",
+        coords      : "Chr17: 31,276,672–31,856,173",
+        orthologs   : "13",
+        publication : "Lopes Pereira P, et al., 2009",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/19521500/",
+        availability: "EMMA:01987",
+        availLink   : "https://www.infrafrontier.eu/search?keyword=EM:01987",
+        rrid        : "RRID:IMSR_EM:01987",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Ts2Yah",
+        mgiLink     : "",
+        commonName  : "Ts2Yah",
+        description : "Cre-mediated; Hspa13 to App duplication (Hsa21q11-q21).",
+        background  : "B6",
+        coords      : "Chr16: 75,552,078–84,970,840",
+        orthologs   : "19",
+        publication : "Duchon A, et al., 2011",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/21953411/",
+        availability: "EMMA:02101",
+        availLink   : "https://www.infrafrontier.eu/search?keyword=EM:02101",
+        rrid        : "RRID:IMSR_EM:02101",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Ts3Yah",
+        mgiLink     : "",
+        commonName  : "Ts3Yah",
+        description : "Inactivation of Cstb/Col6a1; duplication of Hsa21 segment.",
+        background  : "B6",
+        coords      : "N/A",
+        orthologs   : "25",
+        publication : "Herault Lab",
+        pubLink     : "",
+        availability: "Herault Lab",
+        availLink   : "",
+        rrid        : "Herault Lab",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Ts4Yah",
+        mgiLink     : "",
+        commonName  : "Ts4Yah",
+        description : "Inactivation of Cstb/Prmt2; duplication of Hsa21 segment.",
+        background  : "B6",
+        coords      : "N/A",
+        orthologs   : "36",
+        publication : "Herault Lab",
+        pubLink     : "",
+        availability: "Herault Lab",
+        availLink   : "",
+        rrid        : "Herault Lab",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Ts5Yah",
+        mgiLink     : "",
+        commonName  : "Ts5Yah",
+        description : "Inactivation of App/Runx1; duplication of Hsa21 segment.",
+        background  : "B6",
+        coords      : "Chr16: 84,954,440–92,826,149",
+        orthologs   : "60",
+        publication : "Herault Lab",
+        pubLink     : "",
+        availability: "Herault Lab",
+        availLink   : "",
+        rrid        : "Herault Lab",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp1Tyb",
+        mgiLink     : "",
+        commonName  : "Dp1Tyb",
+        description : "Cre-mediated; Lipi to Zbtb21 duplication.",
+        background  : "B6",
+        coords      : "Chr16: 74,930,370–97,982,380",
+        orthologs   : "117",
+        publication : "Lana-Elola E, et al., 2016",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/27629046/",
+        availability: "JAX:037183",
+        availLink   : "https://www.jax.org/strain/037183",
+        rrid        : "RRID:IMSR_JAX:037183",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp2Tyb",
+        mgiLink     : "",
+        commonName  : "Dp2Tyb",
+        description : "Cre-mediated; Mis18a to Runx1 duplication.",
+        background  : "B6",
+        coords      : "Chr16: 90,563,769–93,062,456",
+        orthologs   : "32",
+        publication : "Lana-Elola E, et al., 2016",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/27629046/",
+        availability: "EMMA:10558",
+        availLink   : "https://www.infrafrontier.eu/search?keyword=EM:10558",
+        rrid        : "RRID:IMSR_EM:10558",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp3Tyb",
+        mgiLink     : "",
+        commonName  : "Dp3Tyb",
+        description : "Cre-mediated; Mir802 to Zbtb21 duplication.",
+        background  : "B6",
+        coords      : "Chr16: 93,054,020–97,982,380",
+        orthologs   : "37",
+        publication : "Lana-Elola E, et al., 2016",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/27629046/",
+        availability: "EMMA:10559",
+        availLink   : "https://www.infrafrontier.eu/search?keyword=EM:10559",
+        rrid        : "RRID:IMSR_EM:10559",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp4Tyb",
+        mgiLink     : "",
+        commonName  : "Dp4Tyb",
+        description : "Cre-mediated; Mir802 to Dscr3 duplication.",
+        background  : "B6",
+        coords      : "Chr16: 93,054,020–94,546,849",
+        orthologs   : "14",
+        publication : "Lana-Elola E, et al., 2016",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/27629046/",
+        availability: "EMMA:10560",
+        availLink   : "https://www.infrafrontier.eu/search?keyword=EM:10560",
+        rrid        : "RRID:IMSR_EM:10560",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp5Tyb",
+        mgiLink     : "",
+        commonName  : "Dp5Tyb",
+        description : "Cre-mediated; Dyrk1a to B3galt5 duplication.",
+        background  : "B6",
+        coords      : "Chr16: 94,538,615–96,331,804",
+        orthologs   : "12",
+        publication : "Lana-Elola E, et al., 2016",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/27629046/",
+        availability: "EMMA:10561",
+        availLink   : "https://www.infrafrontier.eu/search?keyword=EM:10561",
+        rrid        : "RRID:IMSR_EM:10561",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp6Tyb",
+        mgiLink     : "",
+        commonName  : "Dp6Tyb",
+        description : "Cre-mediated; Igsf5 to Zbtb21 duplication.",
+        background  : "B6",
+        coords      : "Chr16: 96,327,324–97,982,380",
+        orthologs   : "11",
+        publication : "Lana-Elola E, et al., 2016",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/27629046/",
+        availability: "EMMA:10562",
+        availLink   : "https://www.infrafrontier.eu/search?keyword=EM:10562",
+        rrid        : "RRID:IMSR_EM:10562",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp7Tyb",
+        mgiLink     : "",
+        commonName  : "Dp7Tyb",
+        description : "Cre-mediated; Mis18a to Il10rb duplication.",
+        background  : "B6",
+        coords      : "Chr16: 90,563,769–91,443,378",
+        orthologs   : "13",
+        publication : "Tybulewicz Lab",
+        pubLink     : "",
+        availability: "Tybulewicz Lab",
+        availLink   : "",
+        rrid        : "Tybulewicz Lab",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp8Tyb",
+        mgiLink     : "",
+        commonName  : "Dp8Tyb",
+        description : "Cre-mediated; Ifnar1 to Runx1 duplication.",
+        background  : "B6",
+        coords      : "Chr16: 91,436,064–93,062,456",
+        orthologs   : "19",
+        publication : "Tybulewicz Lab",
+        pubLink     : "",
+        availability: "Tybulewicz Lab",
+        availLink   : "",
+        rrid        : "Tybulewicz Lab",
+    },
+    {
+        type        : "Duplication",
+        mgiName     : "Dp9Tyb",
+        mgiLink     : "",
+        commonName  : "Dp9Tyb",
+        description : "Cre-mediated; Lipi to Hunk duplication.",
+        background  : "B6",
+        coords      : "Chr16: 74,930,370–90,577,148",
+        orthologs   : "48",
+        publication : "Lana-Elola E, et al., 2016",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/27629046/",
+        availability: "EMMA:10565",
+        availLink   : "https://www.infrafrontier.eu/search?keyword=EM:10565",
+        rrid        : "RRID:IMSR_EM:10565",
+    },
+
+    // ─────────────────────────────────────────────
+    // DELETION MODELS
+    // ─────────────────────────────────────────────
+    {
+        type        : "Deletion",
+        mgiName     : "Ms1Rhr",
+        mgiLink     : "",
+        commonName  : "Ms1Rhr",
+        description : "Cre-mediated; Cbr1 to Fam3b deletion.",
+        background  : "B6",
+        coords      : "Chr16: 93,404,725–97,306,136",
+        orthologs   : "29",
+        publication : "Belichenko PV, et al., 2009",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/19129401/",
+        availability: "JAX:005654",
+        availLink   : "https://www.jax.org/strain/005654",
+        rrid        : "RRID:IMSR_JAX:005654",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Df(10)1Yey",
+        mgiLink     : "",
+        commonName  : "Df(10)1Yey",
+        description : "Cre-mediated; Prmt2 to Pdxk deletion.",
+        background  : "B6",
+        coords      : "Chr10: 76,043,060–78,300,782",
+        orthologs   : "37",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:017439",
+        availLink   : "https://www.jax.org/strain/017439",
+        rrid        : "RRID:IMSR_JAX:017439",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Df(17)1Yey",
+        mgiLink     : "",
+        commonName  : "Df(17)1Yey",
+        description : "Cre-mediated; Abcg1 to Rrp1b deletion.",
+        background  : "B6",
+        coords      : "Chr17: 31,276,672–32,281,839",
+        orthologs   : "18",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:017440",
+        availLink   : "https://www.jax.org/strain/017440",
+        rrid        : "RRID:IMSR_JAX:017440",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Df(16)2Yey",
+        mgiLink     : "",
+        commonName  : "Df(16)2Yey",
+        description : "Cre-mediated; Tiam1 to Kcnj6 deletion.",
+        background  : "B6",
+        coords      : "Chr16: 89,583,999–94,798,555",
+        orthologs   : "52",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:018853",
+        availLink   : "https://www.jax.org/strain/018853",
+        rrid        : "RRID:IMSR_JAX:018853",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Df(16)3Yey",
+        mgiLink     : "",
+        commonName  : "Df(16)3Yey",
+        description : "Cre-mediated; Tiam1 to Il10rb deletion.",
+        background  : "B6",
+        coords      : "N/A",
+        orthologs   : "17",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:024907",
+        availLink   : "https://www.jax.org/strain/024907",
+        rrid        : "RRID:IMSR_JAX:024907",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Df(16)4Yey",
+        mgiLink     : "",
+        commonName  : "Df(16)4Yey",
+        description : "Cre-mediated; Ifnar1 to Kcnj6 deletion.",
+        background  : "B6",
+        coords      : "N/A",
+        orthologs   : "35",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:024908",
+        availLink   : "https://www.jax.org/strain/024908",
+        rrid        : "RRID:IMSR_JAX:024908",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Df(16)5Yey",
+        mgiLink     : "",
+        commonName  : "Df(16)5Yey",
+        description : "Cre-mediated; Setd4 to Kcnj6 deletion.",
+        background  : "B6",
+        coords      : "N/A",
+        orthologs   : "15",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:028289",
+        availLink   : "https://www.jax.org/strain/028289",
+        rrid        : "RRID:IMSR_JAX:028289",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Df(16)6Yey",
+        mgiLink     : "",
+        commonName  : "Df(16)6Yey",
+        description : "Cre-mediated; Kcnj15 to Mx2 deletion.",
+        background  : "B6",
+        coords      : "N/A",
+        orthologs   : "16",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:028292",
+        availLink   : "https://www.jax.org/strain/028292",
+        rrid        : "RRID:IMSR_JAX:028292",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Df(16)7Yey",
+        mgiLink     : "",
+        commonName  : "Df(16)7Yey",
+        description : "Cre-mediated; Dyrk1a to Kcnj6 deletion.",
+        background  : "B6",
+        coords      : "N/A",
+        orthologs   : "2",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:028290",
+        availLink   : "https://www.jax.org/strain/028290",
+        rrid        : "RRID:IMSR_JAX:028290",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Df(16)8Yey",
+        mgiLink     : "",
+        commonName  : "Df(16)8Yey",
+        description : "Cre-mediated; Lipi to Ncam2 deletion.",
+        background  : "B6",
+        coords      : "N/A",
+        orthologs   : "15",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:038567",
+        availLink   : "https://www.jax.org/strain/038567",
+        rrid        : "RRID:IMSR_JAX:038567",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Df(17)2Yey",
+        mgiLink     : "",
+        commonName  : "Df(17)2Yey",
+        description : "Cre-mediated; Scaf8 to Pde10a deletion.",
+        background  : "B6",
+        coords      : "N/A",
+        orthologs   : "0",
+        publication : "Yu T, et al., 2010",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/20643205/",
+        availability: "JAX:038566",
+        availLink   : "https://www.jax.org/strain/038566",
+        rrid        : "RRID:IMSR_JAX:038566",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Ms1Yah",
+        mgiLink     : "",
+        commonName  : "Ms1Yah",
+        description : "Cre-mediated; Col6a1 to Prmt2 deletion.",
+        background  : "B6",
+        coords      : "Chr10: 76,043,060–76,561,878",
+        orthologs   : "12",
+        publication : "Lopes Pereira P, et al., 2009",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/19521500/",
+        availability: "EMMA:01808",
+        availLink   : "https://www.infrafrontier.eu/search?keyword=EM:01808",
+        rrid        : "RRID:IMSR_EM:01808",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Ms2Yah",
+        mgiLink     : "",
+        commonName  : "Ms2Yah",
+        description : "Cre-mediated; Abcg1 to Cbs deletion.",
+        background  : "B6",
+        coords      : "Chr17: 31,276,672–31,856,173",
+        orthologs   : "13",
+        publication : "Lopes Pereira P, et al., 2009",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/19521500/",
+        availability: "EMMA:01812",
+        availLink   : "https://www.infrafrontier.eu/search?keyword=EM:01812",
+        rrid        : "RRID:IMSR_EM:01812",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Ms3Yah",
+        mgiLink     : "",
+        commonName  : "Ms3Yah",
+        description : "Cre-mediated; Hspa13 to App deletion.",
+        background  : "B6",
+        coords      : "Chr16: 75,552,078–84,970,840",
+        orthologs   : "19",
+        publication : "Duchon A, et al., 2011",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/21953411/",
+        availability: "EMMA:02100",
+        availLink   : "https://www.infrafrontier.eu/search?keyword=EM:02100",
+        rrid        : "RRID:IMSR_EM:02100",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Ms4Yah",
+        mgiLink     : "",
+        commonName  : "Ms4Yah",
+        description : "Cre-mediated; Cstb to Prmt2 deletion.",
+        background  : "B6",
+        coords      : "Chr10: 76,043,060–78,263,456",
+        orthologs   : "36",
+        publication : "Duchon A, et al., 2011",
+        pubLink     : "https://pubmed.ncbi.nlm.nih.gov/21953411/",
+        availability: "EMMA:02099",
+        availLink   : "https://www.infrafrontier.eu/search?keyword=EM:02099",
+        rrid        : "RRID:IMSR_EM:02099",
+    },
+    {
+        type        : "Deletion",
+        mgiName     : "Ms5Yah",
+        mgiLink     : "",
+        commonName  : "Ms5Yah",
+        description : "Cre-mediated; App to Runx1 deletion.",
+        background  : "B6",
+        coords      : "Chr16: 84,749,554–92,622,962",
+        orthologs   : "60",
+        publication : "Herault Lab",
+        pubLink     : "",
+        availability: "Herault Lab",
+        availLink   : "",
+        rrid        : "Herault Lab",
+    },
 ];
 
 /* ═══════════════════════════════════════════════════════════════
    STATE
 ═══════════════════════════════════════════════════════════════ */
-let allRecords      = [];
-let filteredRecords = [];
-let sortState       = { col: "name", asc: true };
-let currentPage     = 1;
-const PER_PAGE      = CFG.PAGE_SIZE;
-let newThisSession  = 0;
+let filtered    = [];
+let sortState   = { col: "type", asc: true };
+let currentPage = 1;
+const PER_PAGE  = 30;
 
 /* ═══════════════════════════════════════════════════════════════
    DOM REFS
@@ -396,251 +893,120 @@ let newThisSession  = 0;
 const $tbody      = document.getElementById("table-body");
 const $search     = document.getElementById("search-input");
 const $typeFilter = document.getElementById("type-filter");
-const $srcFilter  = document.getElementById("source-filter");
 const $pagination = document.getElementById("pagination");
-const $statusBar  = document.getElementById("rrid-status-bar");
-const $statusMsg  = document.getElementById("status-msg");
-const $spinner    = document.getElementById("status-spinner");
-const $newPanel   = document.getElementById("new-records-panel");
-const $newList    = document.getElementById("new-records-list");
 
 /* ═══════════════════════════════════════════════════════════════
-   STATUS HELPERS
+   HELPERS
 ═══════════════════════════════════════════════════════════════ */
-function setStatus(type, msg) {
-    $statusBar.className = type;
-    $statusMsg.textContent = msg;
-    $spinner.style.display = (type === "loading") ? "block" : "none";
+function esc(s) {
+    return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
 
-function updateStats() {
-    const manual = allRecords.filter(r => r.origin === "manual").length;
-    const auto   = allRecords.filter(r => r.origin === "auto").length;
-    document.getElementById("stat-total").textContent  = allRecords.length;
-    document.getElementById("stat-manual").textContent = manual;
-    document.getElementById("stat-auto").textContent   = auto;
-    document.getElementById("stat-new").textContent    = newThisSession;
-    document.getElementById("stat-last").textContent   =
-        new Date().toLocaleString([], { dateStyle:"short", timeStyle:"short" });
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   NORMALISE RRID KEY
-   Strips whitespace and lowercases for reliable deduplication.
-═══════════════════════════════════════════════════════════════ */
-function rridKey(str) {
-    return (str || "").trim().toLowerCase();
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   FETCH RRID RECORDS FROM SCICRUNCH
-   Strategy:
-   1. Check localStorage cache (24 h TTL).
-   2. Try SciCrunch federation API (requires API key if set).
-   3. Fall back to scraping the public RRID search page via a
-      CORS proxy (allorigins.win) — no key required.
-   4. Parse whichever response we get into a normalised array.
-═══════════════════════════════════════════════════════════════ */
-async function fetchRRIDRecords(forceRefresh = false) {
-    // ── 1. Cache check ──
-    if (!forceRefresh) {
-        try {
-            const cached = localStorage.getItem(CFG.CACHE_KEY);
-            if (cached) {
-                const { ts, data } = JSON.parse(cached);
-                if (Date.now() - ts < CFG.CACHE_TTL_MS) {
-                    console.log(`[RRID] Cache hit — ${data.length} records`);
-                    return data;
-                }
-            }
-        } catch(e) { /* corrupt cache */ }
-    }
-
-    // ── 2. Try SciCrunch API ──
-    try {
-        setStatus("loading", "Querying SciCrunch API for nlx_154697-1 records…");
-        const params = new URLSearchParams({ size: 500, from: 0 });
-        if (CFG.SCICRUNCH_API_KEY) params.set("key", CFG.SCICRUNCH_API_KEY);
-
-        const res = await fetch(`${CFG.SCICRUNCH_SEARCH}?${params}`, {
-            headers: { "Accept": "application/json" }
-        });
-        if (res.ok) {
-            const json = await res.json();
-            const hits = json.data || json.hits?.hits || [];
-            if (hits.length > 0) {
-                const records = hits.map(h => normaliseSciCrunchRecord(h));
-                cacheRecords(records);
-                return records;
-            }
-        }
-    } catch(e) {
-        console.warn("[RRID] SciCrunch API failed:", e.message);
-    }
-
-    // ── 3. Fall back: public RRID search page via CORS proxy ──
-    try {
-        setStatus("loading", "Fetching public RRID search page (CORS proxy)…");
-        // Request JSON format from rrid.site
-        const target = encodeURIComponent(
-            "https://rrid.site/data/source/nlx_154697-1/search?format=json&count=500"
-        );
-        const proxyURL = `https://api.allorigins.win/get?url=${target}`;
-        const res = await fetch(proxyURL);
-        if (res.ok) {
-            const wrapper = await res.json();
-            const parsed  = JSON.parse(wrapper.contents);
-            const items   = parsed.data || parsed.results || parsed || [];
-            if (Array.isArray(items) && items.length > 0) {
-                const records = items.map(h => normaliseRRIDSiteRecord(h));
-                cacheRecords(records);
-                return records;
-            }
-        }
-    } catch(e) {
-        console.warn("[RRID] CORS proxy fetch failed:", e.message);
-    }
-
-    // ── 4. All remote fetches failed — return empty (manual records still show) ──
-    console.warn("[RRID] All remote fetches failed. Only manual records will be shown.");
-    return [];
-}
-
-function cacheRecords(records) {
-    try {
-        localStorage.setItem(CFG.CACHE_KEY, JSON.stringify({ ts: Date.now(), data: records }));
-    } catch(e) { /* storage full */ }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   NORMALISE RECORDS
-   Map different API response shapes into a consistent object.
-═══════════════════════════════════════════════════════════════ */
-function normaliseSciCrunchRecord(h) {
-    // SciCrunch federation API shape
-    const src  = h._source || h;
-    const rrid = src.rrid || src.identifier || src.curie || "";
-    return {
-        name        : src.name || src.label || rrid,
-        type        : src.type || src.resourceType || "Mouse Model",
-        description : src.description || src.definition || "",
-        coords      : src.genomicCoordinates || "N/A",
-        orthologs   : src.orthologCount || "—",
-        rrid        : rrid,
-        origin      : "auto",
-    };
-}
-
-function normaliseRRIDSiteRecord(h) {
-    // rrid.site JSON shape
-    const rrid = h.rrid || h.identifier || h.curie || "";
-    return {
-        name        : h.name || h.label || rrid,
-        type        : h.type || h.resourceType || "Mouse Model",
-        description : h.description || h.definition || "",
-        coords      : h.genomicCoordinates || "N/A",
-        orthologs   : h.orthologCount || "—",
-        rrid        : rrid,
-        origin      : "auto",
-    };
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   MERGE MANUAL + AUTO
-   Manual records always take priority. Auto records are only
-   added if their RRID does not already exist in the manual set.
-═══════════════════════════════════════════════════════════════ */
-function mergeRecords(autoRecords) {
-    const manualKeys = new Set(MANUAL_RECORDS.map(r => rridKey(r.rrid)));
-    const newRecords = [];
-
-    for (const r of autoRecords) {
-        const k = rridKey(r.rrid);
-        if (!k || manualKeys.has(k)) continue;   // skip if already in manual DB
-        r.origin = "new";                         // flag as new this session
-        newRecords.push(r);
-        manualKeys.add(k);
-    }
-
-    newThisSession = newRecords.length;
-
-    // Show new-records panel if any
-    if (newRecords.length > 0) {
-        $newPanel.style.display = "block";
-        $newList.innerHTML = newRecords.map(r => {
-            const link = r.rrid.startsWith("RRID:")
-                ? `<a href="${CFG.RESOLVER_BASE}${encodeURIComponent(r.rrid)}"
-                      class="rrid" target="_blank">${r.rrid}</a>`
-                : r.rrid;
-            return `<li><strong>${escHtml(r.name)}</strong> — ${link}</li>`;
-        }).join("");
-    }
-
-    return [...MANUAL_RECORDS, ...newRecords];
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   RENDER TABLE
-═══════════════════════════════════════════════════════════════ */
-function escHtml(s) {
-    return String(s || "")
-        .replace(/&/g,"&amp;").replace(/</g,"&lt;")
-        .replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+function linkCell(text, url, cls = "") {
+    if (!text) return "—";
+    if (!url)  return esc(text);
+    return `<a href="${esc(url)}" target="_blank" class="${cls}">${esc(text)}</a>`;
 }
 
 function rridCell(rrid) {
     if (!rrid) return "—";
     if (rrid.startsWith("RRID:")) {
-        const url = `${CFG.RESOLVER_BASE}${encodeURIComponent(rrid)}`;
-        return `<a href="${url}" class="rrid" target="_blank" title="View on SciCrunch">${escHtml(rrid)}</a>`;
+        const url = `https://scicrunch.org/resolver/${encodeURIComponent(rrid)}`;
+        return `<a href="${url}" class="rrid" target="_blank">${esc(rrid)}</a>`;
     }
-    return escHtml(rrid);   // plain text for "Herault Lab" etc.
+    return esc(rrid);
 }
 
-function originBadge(origin) {
-    if (origin === "manual") return `<span class="badge badge-manual">🟢 Manual</span>`;
-    if (origin === "new")    return `<span class="badge badge-new">🟠 New</span>`;
-    return `<span class="badge badge-auto">🔵 Auto</span>`;
+/* ═══════════════════════════════════════════════════════════════
+   POPULATE TYPE FILTER
+═══════════════════════════════════════════════════════════════ */
+function populateTypeFilter() {
+    const types = [...new Set(RECORDS.map(r => r.type))].sort();
+    $typeFilter.innerHTML = `<option value="">All Types</option>` +
+        types.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join("");
 }
 
-function buildTypeGroups(records) {
-    // Group records by type, preserving insertion order
-    const groups = {};
-    for (const r of records) {
-        const t = r.type || "Other";
-        if (!groups[t]) groups[t] = [];
-        groups[t].push(r);
-    }
-    return groups;
+/* ═══════════════════════════════════════════════════════════════
+   FILTER + SEARCH
+═══════════════════════════════════════════════════════════════ */
+function applyFilters() {
+    const q   = $search.value.toLowerCase().trim();
+    const typ = $typeFilter.value;
+
+    filtered = RECORDS.filter(r => {
+        const matchType = !typ || r.type === typ;
+        const matchQ    = !q  || [
+            r.mgiName, r.commonName, r.type,
+            r.description, r.background,
+            r.coords, r.rrid, r.publication
+        ].some(v => (v || "").toLowerCase().includes(q));
+        return matchType && matchQ;
+    });
+
+    currentPage = 1;
+    renderTable();
+    updateStats();
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   SORT
+═══════════════════════════════════════════════════════════════ */
+function sortBy(col) {
+    sortState.asc = (sortState.col === col) ? !sortState.asc : true;
+    sortState.col = col;
+    const dir = sortState.asc ? 1 : -1;
+    filtered.sort((a, b) => {
+        const av = String(a[col] || "").toLowerCase();
+        const bv = String(b[col] || "").toLowerCase();
+        return av < bv ? -dir : av > bv ? dir : 0;
+    });
+    renderTable();
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RENDER TABLE
+═══════════════════════════════════════════════════════════════ */
 function renderTable() {
-    // Pagination slice
     const start = (currentPage - 1) * PER_PAGE;
-    const slice = filteredRecords.slice(start, start + PER_PAGE);
+    const slice = filtered.slice(start, start + PER_PAGE);
 
     if (slice.length === 0) {
-        $tbody.innerHTML = `<tr><td colspan="7" style="text-align:center;padding:30px;color:#888;">
+        $tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:30px;color:#888;">
             No records match your search.</td></tr>`;
         renderPagination();
         return;
     }
 
-    // Group the current page slice by type
-    const groups = buildTypeGroups(slice);
-    let html = "";
+    // Group by type for section headers
+    const groups = {};
+    for (const r of slice) {
+        if (!groups[r.type]) groups[r.type] = [];
+        groups[r.type].push(r);
+    }
 
+    let html = "";
     for (const [type, rows] of Object.entries(groups)) {
-        html += `<tr class="category-header"><td colspan="7">${escHtml(type)}</td></tr>`;
+        html += `<tr class="category-header"><td colspan="10">${esc(type)}</td></tr>`;
         for (const r of rows) {
             html += `<tr>
-                <td>${escHtml(r.name)}</td>
-                <td>${escHtml(r.type)}</td>
-                <td>${escHtml(r.description)}</td>
-                <td class="coords">${escHtml(r.coords)}</td>
-                <td>${escHtml(r.orthologs)}</td>
+                <td>
+                    ${r.mgiLink
+                        ? `<a href="${esc(r.mgiLink)}" target="_blank">${esc(r.mgiName)}</a>`
+                        : esc(r.mgiName)}
+                </td>
+                <td>${esc(r.commonName)}</td>
+                <td>${esc(r.type)}</td>
+                <td>${esc(r.description)}</td>
+                <td>${esc(r.background)}</td>
+                <td class="coords">${esc(r.coords)}</td>
+                <td style="text-align:center">${esc(r.orthologs)}</td>
+                <td>${r.pubLink
+                        ? `${esc(r.publication)}<br/><a href="${esc(r.pubLink)}" target="_blank">${esc(r.pubLink)}</a>`
+                        : esc(r.publication)}</td>
+                <td>${r.availLink
+                        ? `<a href="${esc(r.availLink)}" target="_blank">${esc(r.availability)}</a>`
+                        : esc(r.availability)}</td>
                 <td>${rridCell(r.rrid)}</td>
-                <td>${originBadge(r.origin)}</td>
             </tr>`;
         }
     }
@@ -653,9 +1019,8 @@ function renderTable() {
    PAGINATION
 ═══════════════════════════════════════════════════════════════ */
 function renderPagination() {
-    const total = Math.ceil(filteredRecords.length / PER_PAGE);
+    const total = Math.ceil(filtered.length / PER_PAGE);
     if (total <= 1) { $pagination.innerHTML = ""; return; }
-
     let html = "";
     for (let i = 1; i <= total; i++) {
         html += `<button class="${i === currentPage ? "active" : ""}"
@@ -671,129 +1036,46 @@ function goPage(n) {
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   SEARCH & FILTER
+   STATS
 ═══════════════════════════════════════════════════════════════ */
-function applyFilters() {
-    const q   = $search.value.toLowerCase().trim();
-    const typ = $typeFilter.value;
-    const src = $srcFilter.value;
-
-    filteredRecords = allRecords.filter(r => {
-        const matchQ = !q ||
-            (r.name        || "").toLowerCase().includes(q) ||
-            (r.rrid        || "").toLowerCase().includes(q) ||
-            (r.type        || "").toLowerCase().includes(q) ||
-            (r.description || "").toLowerCase().includes(q) ||
-            (r.coords      || "").toLowerCase().includes(q);
-
-        const matchType = !typ || r.type === typ;
-
-        const matchSrc = !src ||
-            (src === "manual" && r.origin === "manual") ||
-            (src === "auto"   && (r.origin === "auto" || r.origin === "new"));
-
-        return matchQ && matchType && matchSrc;
-    });
-
-    currentPage = 1;
-    renderTable();
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   SORT
-═══════════════════════════════════════════════════════════════ */
-function sortBy(col) {
-    if (sortState.col === col) {
-        sortState.asc = !sortState.asc;
-    } else {
-        sortState.col = col;
-        sortState.asc = true;
-    }
-    const dir = sortState.asc ? 1 : -1;
-    allRecords.sort((a, b) => {
-        const av = String(a[col] || "").toLowerCase();
-        const bv = String(b[col] || "").toLowerCase();
-        return av < bv ? -dir : av > bv ? dir : 0;
-    });
-    applyFilters();
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   POPULATE TYPE FILTER DROPDOWN
-═══════════════════════════════════════════════════════════════ */
-function populateTypeFilter() {
-    const types = [...new Set(allRecords.map(r => r.type).filter(Boolean))].sort();
-    $typeFilter.innerHTML = `<option value="">All Types</option>` +
-        types.map(t => `<option value="${escHtml(t)}">${escHtml(t)}</option>`).join("");
+function updateStats() {
+    document.getElementById("stat-total").textContent   = RECORDS.length;
+    document.getElementById("stat-showing").textContent = filtered.length;
 }
 
 /* ═══════════════════════════════════════════════════════════════
    EXPORT CSV
 ═══════════════════════════════════════════════════════════════ */
 function exportCSV() {
-    const cols = ["name","type","description","coords","orthologs","rrid","origin"];
+    const cols = ["mgiName","commonName","type","description","background",
+                  "coords","orthologs","publication","pubLink","availability","availLink","rrid"];
     const header = cols.join(",");
-    const rows = filteredRecords.map(r =>
+    const rows = filtered.map(r =>
         cols.map(c => `"${String(r[c]||"").replace(/"/g,'""')}"`).join(",")
     );
-    const blob = new Blob([header + "\n" + rows.join("\n")], { type:"text/csv" });
+    const blob = new Blob([header + "\n" + rows.join("\n")], { type: "text/csv" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "DS_Rodent_Models.csv";
+    a.download = "DS_Mouse_Models.csv";
     a.click();
 }
 
 /* ═══════════════════════════════════════════════════════════════
-   MAIN INIT
+   SORT HEADERS
 ═══════════════════════════════════════════════════════════════ */
-async function init(forceRefresh = false) {
-    setStatus("loading", "Fetching RRID records from nlx_154697-1…");
-    $newPanel.style.display = "none";
-    newThisSession = 0;
-
-    let autoRecords = [];
-    try {
-        autoRecords = await fetchRRIDRecords(forceRefresh);
-    } catch(e) {
-        setStatus("error", `RRID fetch error: ${e.message}. Showing manual records only.`);
-    }
-
-    allRecords = mergeRecords(autoRecords);
-    populateTypeFilter();
-    applyFilters();
-    updateStats();
-
-    if (autoRecords.length > 0) {
-        setStatus("success",
-            `✅ Loaded ${allRecords.length} records — ${MANUAL_RECORDS.length} manual + ` +
-            `${allRecords.length - MANUAL_RECORDS.length} auto-imported from RRID nlx_154697-1. ` +
-            `${newThisSession} new this session.`
-        );
-    } else {
-        setStatus("info",
-            `ℹ️ RRID API unreachable — showing ${MANUAL_RECORDS.length} manual records only. ` +
-            `Click 🔄 Refresh to retry.`
-        );
-    }
-}
-
-/* ═══════════════════════════════════════════════════════════════
-   EVENT LISTENERS
-═══════════════════════════════════════════════════════════════ */
-$search.addEventListener("input",  applyFilters);
-$typeFilter.addEventListener("change", applyFilters);
-$srcFilter.addEventListener("change",  applyFilters);
-
-document.getElementById("refresh-btn").addEventListener("click", () => init(true));
-document.getElementById("export-btn").addEventListener("click",  exportCSV);
-
-// Column sort on header click
 document.querySelectorAll("th[data-col]").forEach(th => {
     th.addEventListener("click", () => sortBy(th.dataset.col));
 });
 
-// ── Boot ──
-init();
+document.getElementById("export-btn").addEventListener("click", exportCSV);
+$search.addEventListener("input", applyFilters);
+$typeFilter.addEventListener("change", applyFilters);
+
+/* ═══════════════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════════════ */
+populateTypeFilter();
+applyFilters();
 </script>
 </body>
 </html>
