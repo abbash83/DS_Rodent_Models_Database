@@ -931,7 +931,7 @@ function updateStats() {
     document.getElementById("stat-showing").textContent = filtered.length;
 }
 
-function function exportCSV() {
+function exportCSV() {
     const date = new Date().toISOString().slice(0, 10);
     const wb = XLSX.utils.book_new();
     const wsData = [];
