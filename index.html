@@ -130,7 +130,7 @@
 </head>
 <body>
 
-<h1>Down Syndrome (DS) Mouse Models: Comprehensive Reference</h1>
+<h1>Down Syndrome (DS) Rodent Models: Comprehensive Reference</h1>
 <p style="text-align:center; font-size:13px; color:#555;">
     All coordinates based on Mouse GRCm39 and Human GRCh38 unless otherwise noted.
 </p>
@@ -1000,7 +1000,7 @@ function exportCSV() {
     const blob = new Blob([header + "\n" + rows.join("\n")], { type: "text/csv" });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
-    a.download = "DS_Mouse_Models.csv";
+    a.download = "DS_Rodent_Models.csv";
     a.click();
 }
 
