@@ -932,232 +932,28 @@ function updateStats() {
 }
 
 function exportCSV() {
-    const date = new Date().toISOString().slice(0, 10);
-    const wb = XLSX.utils.book_new();
-    const wsData = [];
-
-    // ── Title Row ──
-    wsData.push(["Down Syndrome (DS) Rodent Models: Comprehensive Reference"]);
-    wsData.push([`Exported: ${date} | Source: https://abbash83.github.io/DS_Rodent_Models_Database/`]);
-    wsData.push([
-        "Data compiled from: Folz, A., Sloan, K., & Roper, R.J. (2025). Mouse Models of Down Syndrome. " +
-        "In: Ye, B., Reeves, R. (eds) Genetic Models of Down Syndrome. Springer, Cham. " +
-        "https://doi.org/10.1007/978-3-031-78611-2_1"
-    ]);
-    wsData.push(["All coordinates based on Mouse GRCm39 and Human GRCh38 unless otherwise noted."]);
-    wsData.push([]); // blank spacer
-
-    // ── Column Headers ──
-    wsData.push([
-        "Type of DS Model",
-        "MGI Approved Name",
-        "MGI Link",
-        "Lab / Common Name",
-        "Short Description",
-        "Genetic Background",
-        "Chromosomal Position (MGI)",
-        "Hsa21 Orthologs (GRCm39)",
-        "First Publication",
-        "Publication Link",
-        "Availability",
-        "Availability Link",
-        "RRID / Source"
-    ]);
-
-    const headerRowIndex = wsData.length; // track for styling
-
-    // ── Group and write records ──
-    const groups = {};
-    for (const r of filtered) {
-        if (!groups[r.type]) groups[r.type] = [];
-        groups[r.type].push(r);
-    }
-
-    const categoryRows = [];
-    for (const [type, records] of Object.entries(groups)) {
-        categoryRows.push(wsData.length); // track category row index
-        wsData.push([type]); // category header
-        for (const r of records) {
-            wsData.push([
-                r.type         || "",
-                r.mgiName      || "",
-                r.mgiLink      || "",
-                r.commonName   || "",
-                r.description  || "",
-                r.background   || "",
-                r.coords       || "",
-                r.orthologs    || "",
-                r.publication  || "",
-                r.pubLink      || "",
-                r.availability || "",
-                r.availLink    || "",
-                r.rrid         || ""
-            ]);
-        }
-    }
-
-    // ── Build worksheet ──
-    const ws = XLSX.utils.aoa_to_sheet(wsData);
-
-    // ── Column widths ──
-    ws["!cols"] = [
-        { wch: 22  }, // Type
-        { wch: 28  }, // MGI Name
-        { wch: 45  }, // MGI Link
-        { wch: 18  }, // Common Name
-        { wch: 55  }, // Description
-        { wch: 18  }, // Background
-        { wch: 35  }, // Coords
-        { wch: 12  }, // Orthologs
-        { wch: 28  }, // Publication
-        { wch: 45  }, // Pub Link
-        { wch: 18  }, // Availability
-        { wch: 45  }, // Avail Link
-        { wch: 30  }, // RRID
-    ];
-
-    // ── Row heights ──
-    ws["!rows"] = [];
-    ws["!rows"][0] = { hpt: 28 }; // title row taller
-    ws["!rows"][5] = { hpt: 20 }; // header row taller
-
-    // ── Merge title across all columns ──
-    ws["!merges"] = [
-        { s: { r: 0, c: 0 }, e: { r: 0, c: 12 } }, // title
-        { s: { r: 1, c: 0 }, e: { r: 1, c: 12 } }, // subtitle
-        { s: { r: 2, c: 0 }, e: { r: 2, c: 12 } }, // citation
-        { s: { r: 3, c: 0 }, e: { r: 3, c: 12 } }, // coordinates note
-    ];
-
-    // ── Cell styles ──
-    const styleTitle = {
-        font: { name: "Calibri", sz: 16, bold: true, color: { rgb: "FFFFFF" } },
-        fill: { fgColor: { rgb: "004085" } },
-        alignment: { horizontal: "center", vertical: "center", wrapText: true }
-    };
-    const styleSubtitle = {
-        font: { name: "Calibri", sz: 10, italic: true, color: { rgb: "FFFFFF" } },
-        fill: { fgColor: { rgb: "004085" } },
-        alignment: { horizontal: "center", vertical: "center", wrapText: true }
-    };
-    const styleCitation = {
-        font: { name: "Calibri", sz: 9, italic: true, color: { rgb: "555555" } },
-        fill: { fgColor: { rgb: "EEF2F7" } },
-        alignment: { horizontal: "left", vertical: "center", wrapText: true }
-    };
-    const styleCoordNote = {
-        font: { name: "Calibri", sz: 9, italic: true, color: { rgb: "777777" } },
-        fill: { fgColor: { rgb: "F8F9FA" } },
-        alignment: { horizontal: "left", vertical: "center", wrapText: true }
-    };
-    const styleHeader = {
-        font: { name: "Calibri", sz: 11, bold: true, color: { rgb: "FFFFFF" } },
-        fill: { fgColor: { rgb: "004085" } },
-        alignment: { horizontal: "center", vertical: "center", wrapText: true },
-        border: {
-            top:    { style: "thin", color: { rgb: "FFFFFF" } },
-            bottom: { style: "thin", color: { rgb: "FFFFFF" } },
-            left:   { style: "thin", color: { rgb: "FFFFFF" } },
-            right:  { style: "thin", color: { rgb: "FFFFFF" } }
-        }
-    };
-    const styleCategory = {
-        font: { name: "Calibri", sz: 11, bold: true, color: { rgb: "004085" } },
-        fill: { fgColor: { rgb: "D6E4F0" } },
-        alignment: { horizontal: "left", vertical: "center" },
-        border: {
-            left:   { style: "medium", color: { rgb: "004085" } },
-            bottom: { style: "thin",   color: { rgb: "004085" } },
-            top:    { style: "thin",   color: { rgb: "004085" } }
-        }
-    };
-    const styleDataEven = {
-        font: { name: "Calibri", sz: 10, color: { rgb: "222222" } },
-        fill: { fgColor: { rgb: "FFFFFF" } },
-        alignment: { vertical: "top", wrapText: true },
-        border: {
-            top:    { style: "hair", color: { rgb: "DEE2E6" } },
-            bottom: { style: "hair", color: { rgb: "DEE2E6" } },
-            left:   { style: "hair", color: { rgb: "DEE2E6" } },
-            right:  { style: "hair", color: { rgb: "DEE2E6" } }
-        }
-    };
-    const styleDataOdd = {
-        font: { name: "Calibri", sz: 10, color: { rgb: "222222" } },
-        fill: { fgColor: { rgb: "F2F6FA" } },
-        alignment: { vertical: "top", wrapText: true },
-        border: {
-            top:    { style: "hair", color: { rgb: "DEE2E6" } },
-            bottom: { style: "hair", color: { rgb: "DEE2E6" } },
-            left:   { style: "hair", color: { rgb: "DEE2E6" } },
-            right:  { style: "hair", color: { rgb: "DEE2E6" } }
-        }
-    };
-    const styleLinkCell = {
-        font: { name: "Calibri", sz: 10, color: { rgb: "0056B3" }, underline: true },
-        fill: { fgColor: { rgb: "FFFFFF" } },
-        alignment: { vertical: "top", wrapText: true }
-    };
-    const styleOrtholog = {
-        font: { name: "Calibri", sz: 10, bold: true, color: { rgb: "004085" } },
-        fill: { fgColor: { rgb: "FFFFFF" } },
-        alignment: { horizontal: "center", vertical: "top" }
-    };
-
-    // Helper to get Excel cell address
-    const cellAddr = (r, c) => XLSX.utils.encode_cell({ r, c });
-
-    // ── Apply title styles ──
-    ws[cellAddr(0, 0)] = { v: ws[cellAddr(0, 0)]?.v || "Down Syndrome (DS) Rodent Models: Comprehensive Reference", t: "s", s: styleTitle };
-    ws[cellAddr(1, 0)] = { v: ws[cellAddr(1, 0)]?.v || "", t: "s", s: styleSubtitle };
-    ws[cellAddr(2, 0)] = { v: ws[cellAddr(2, 0)]?.v || "", t: "s", s: styleCitation };
-    ws[cellAddr(3, 0)] = { v: ws[cellAddr(3, 0)]?.v || "", t: "s", s: styleCoordNote };
-
-    // ── Apply header row styles ──
-    const headerRow = headerRowIndex - 1;
-    for (let c = 0; c < 13; c++) {
-        const addr = cellAddr(headerRow, c);
-        if (ws[addr]) ws[addr].s = styleHeader;
-    }
-
-    // ── Apply category and data row styles ──
-    let dataRowCount = 0;
-    for (let r = headerRowIndex; r < wsData.length; r++) {
-        const isCategoryRow = categoryRows.includes(r);
-        if (isCategoryRow) {
-            // Style category header across all columns
-            for (let c = 0; c < 13; c++) {
-                const addr = cellAddr(r, c);
-                if (!ws[addr]) ws[addr] = { v: "", t: "s" };
-                ws[addr].s = styleCategory;
-            }
-            // Merge category label across all columns
-            if (!ws["!merges"]) ws["!merges"] = [];
-            ws["!merges"].push({ s: { r, c: 0 }, e: { r, c: 12 } });
-            dataRowCount = 0;
-        } else {
-            const isEven = dataRowCount % 2 === 0;
-            for (let c = 0; c < 13; c++) {
-                const addr = cellAddr(r, c);
-                if (!ws[addr]) ws[addr] = { v: "", t: "s" };
-                // Link columns get blue underline style
-                if (c === 2 || c === 9 || c === 11) {
-                    ws[addr].s = styleLinkCell;
-                } else if (c === 7) {
-                    // Orthologs centered and bold
-                    ws[addr].s = styleOrtholog;
-                } else {
-                    ws[addr].s = isEven ? styleDataEven : styleDataOdd;
-                }
-            }
-            dataRowCount++;
-        }
-    }
-
-    // ── Freeze top rows and header ──
-    ws["!freeze"] = { xSplit: 0, ySplit: headerRowIndex };
-
-    // ── Add to workbook and save ──
-    XLSX.utils.book_append_sheet(wb, ws, "DS Rodent Models");
-    XLSX.writeFile(wb, `DS_Rodent_Models_${date}.xlsx`);
+    const cols = ["mgiName","commonName","type","description","background",
+                  "coords","orthologs","publication","pubLink","availability","availLink","rrid"];
+    const header = cols.join(",");
+    const rows = filtered.map(r =>
+        cols.map(c => `"${String(r[c]||"").replace(/"/g,'""')}"`).join(",")
+    );
+    const blob = new Blob([header + "\n" + rows.join("\n")], { type: "text/csv" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "DS_Rodent_Models.csv";
+    a.click();
 }
+
+document.querySelectorAll("th[data-col]").forEach(th => {
+    th.addEventListener("click", () => sortBy(th.dataset.col));
+});
+document.getElementById("export-btn").addEventListener("click", exportCSV);
+$search.addEventListener("input", applyFilters);
+$typeFilter.addEventListener("change", applyFilters);
+
+populateTypeFilter();
+applyFilters();
+</script>
+</body>
+</html>
