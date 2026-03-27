@@ -30,6 +30,28 @@
 <body>
 
 <h1>Down Syndrome (DS) Rodent Models: Comprehensive Reference</h1>
+<!-- ── Guidelines Banner ── -->
+<div style="
+    background: #e8f4fd;
+    border-left: 4px solid #004085;
+    border-radius: 5px;
+    padding: 10px 16px;
+    margin: 10px 0 6px;
+    font-size: 12px;
+    color: #333;
+    line-height: 1.6;
+">
+    📋 <strong>Behavioral Phenotyping &amp; ARRIVE Guidelines:</strong>
+    Researchers using these models should follow the DS-specific behavioral phenotyping
+    protocols and ARRIVE reporting standards described in
+    <a href="https://doi.org/10.1002/cpmo.79" target="_blank">
+        Roper et al. (2020), <em>Current Protocols in Mouse Biology</em>, 10, e79
+    </a>.
+    Full protocols and guidelines are available in the
+    <a href="https://github.com/abbash83/DS_Rodent_Models_Database/blob/main/behavioral_phenotyping_guidelines.md" target="_blank">
+        GitHub repository
+    </a>.
+</div>
 <p style="text-align:center; font-size:13px; color:#555;">
     All coordinates based on Mouse GRCm39 and Human GRCh38 unless otherwise noted.
 </p>
@@ -44,7 +66,7 @@
     <select id="type-filter"><option value="">All Types</option></select>
     <button class="ctrl-btn btn-export" id="export-btn">⬇ Export CSV</button>
 </div>
-
+    
 <table id="main-table">
     <colgroup>
         <col class="col-mgi"/><col class="col-common"/><col class="col-type"/>
@@ -77,6 +99,15 @@
 <footer>
     DS Rodent Models Database •
     <a href="https://github.com/abbash83/DS_Rodent_Models_Database" target="_blank">GitHub Repository</a>
+     •
+    <a href="https://github.com/abbash83/DS_Rodent_Models_Database/blob/main/behavioral_phenotyping_guidelines.md" target="_blank">Behavioral Phenotyping &amp; ARRIVE Guidelines</a>
+    <br style="margin-top:4px;">
+    <span style="color:#aaa;">
+        Behavioral phenotyping protocols and ARRIVE guidelines adapted from:
+        Roper et al. (2020). <em>Behavioral phenotyping for Down syndrome in mice.</em>
+        <em>Current Protocols in Mouse Biology</em>, 10, e79.
+        <a href="https://doi.org/10.1002/cpmo.79" target="_blank">doi: 10.1002/cpmo.79</a>
+    </span>
 </footer>
 
 <script>
