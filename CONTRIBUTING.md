@@ -1,5 +1,3 @@
-Copy everything below this line and paste it into GitHub:
-
 🤝 Contributing to the DS Mouse Models Database
 Thank you for helping keep this database accurate and up-to-date! This guide explains exactly how to add a new record or correct an existing one.
 
