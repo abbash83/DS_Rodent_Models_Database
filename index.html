@@ -933,11 +933,11 @@ function updateStats() {
 }
 
 function exportCSV() {
-    const cols = ["mgiName","commonName","type","description","background",
+    const cols = ["mgiName","mgiLink","commonName","type","description","background",
                   "coords","orthologs","publication","pubLink","availability","availLink","rrid"];
 
     const displayHeaders = [
-        "MGI Approved Name","Lab / Common Name","Type of DS Model","Short Description",
+        "MGI Approved Name","MGI Link","Lab / Common Name","Type of DS Model","Short Description",
         "Genetic Background","Chromosomal Position (MGI)","Hsa21 Orthologs",
         "First Publication","Publication Link","Availability","Availability Link","RRID / Source"
     ];
