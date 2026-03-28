@@ -25,6 +25,43 @@
         #pagination button:hover:not(.active) { background: #e8f4fd; }
         footer { text-align: center; margin-top: 20px; font-size: 11px; color: #888; }
         footer a { color: #0056b3; font-size: 11px; }
+        * { box-sizing: border-box; }
+
+#table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+
+#card-container { display: none; }.type-header-card {
+    background: #e9ecef; border-left: 5px solid #004085;
+    padding: 8px 12px; font-weight: bold; font-size: 13px;
+    color: #495057; margin: 14px 0 6px; border-radius: 4px;
+}.model-card {
+    background: #fff; border: 1px solid #dee2e6; border-radius: 8px;
+    padding: 12px 14px; margin-bottom: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+}.card-title { font-size: 14px; font-weight: 700; color: #004085; margin-bottom: 4px; }.card-title a { font-size: 14px; font-weight: 700; color: #004085; }.card-subtitle { font-size: 12px; color: #6c757d; margin-bottom: 8px; }.card-badge {
+    display: inline-block; background: #004085; color: #fff;
+    font-size: 10px; font-weight: 600; padding: 2px 8px;
+    border-radius: 12px; margin-bottom: 8px;
+}.card-desc { font-size: 12px; color: #444; margin-bottom: 8px; line-height: 1.5; }.card-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 6px 10px; font-size: 11.5px; margin-bottom: 8px;
+}.card-field label {
+    display: block; font-weight: 600; color: #555;
+    font-size: 10px; text-transform: uppercase;
+    letter-spacing: 0.4px; margin-bottom: 1px;
+}.card-field span,.card-field a { color: #333; font-size: 11.5px; word-break: break-word; }.card-links {
+    display: flex; flex-wrap: wrap; gap: 6px;
+    margin-top: 8px; padding-top: 8px; border-top: 1px solid #f0f0f0;
+}.card-link-btn {
+    display: inline-block; padding: 4px 10px; border-radius: 4px;
+    font-size: 11px; font-weight: 600; text-decoration: none; border: 1px solid;
+}.card-link-btn.mgi   { background:#e8f4fd; border-color:#004085; color:#004085; }.card-link-btn.pub   { background:#fff3cd; border-color:#856404; color:#856404; }.card-link-btn.avail { background:#d4edda; border-color:#155724; color:#155724; }.card-link-btn.rrid  { background:#f3e6ff; border-color:#6610f2; color:#6610f2; }
+
+@media (max-width: 700px) {
+    #table-wrap     { display: none; }
+    #card-container { display: block; }
+    #controls { flex-direction: column; }
+    #search-input, #type-filter,.ctrl-btn { width: 100%; flex: none; }.card-grid { grid-template-columns: 1fr; }
+}
     </style>
 </head>
 <body>
@@ -88,6 +125,7 @@
     <button class="ctrl-btn btn-export" id="export-btn">⬇ Export CSV</button>
 </div>
     
+<div id="table-wrap">
 <table id="main-table">
     <colgroup>
         <col class="col-mgi"/><col class="col-common"/><col class="col-type"/>
@@ -110,7 +148,8 @@
     </thead>
     <tbody id="table-body"></tbody>
 </table>
-
+</div>
+<div id="card-container"></div>
 <div id="pagination"></div>
 
 <p style="font-size:11px; color:#777; margin-top:6px;">
@@ -823,7 +862,8 @@ let sortState   = { col: "type", asc: true };
 let currentPage = 1;
 const PER_PAGE  = 30;
 
-const $tbody      = document.getElementById("table-body");
+const $tbody = document.getElementById("table-body");
+const $cards = document.getElementById("card-container");
 const $search     = document.getElementById("search-input");
 const $typeFilter = document.getElementById("type-filter");
 const $pagination = document.getElementById("pagination");
@@ -861,6 +901,7 @@ function applyFilters() {
     });
     currentPage = 1;
     renderTable();
+    renderCards(); 
     updateStats();
 }
 
@@ -874,6 +915,7 @@ function sortBy(col) {
         return av < bv ? -dir : av > bv ? dir : 0;
     });
     renderTable();
+    renderCards();
 }
 
 function renderTable() {
@@ -910,6 +952,61 @@ function renderTable() {
     $tbody.innerHTML = html;
     renderPagination();
 }
+function renderCards() {
+    const start = (currentPage - 1) * PER_PAGE;
+    const slice = filtered.slice(start, start + PER_PAGE);
+    if (slice.length === 0) {
+        $cards.innerHTML = `<p style="text-align:center;color:#888;padding:30px;">No records match your search.</p>`;
+        return;
+    }
+    const groups = {};
+    for (const r of slice) {
+        if (!groups[r.type]) groups[r.type] = [];
+        groups[r.type].push(r);
+    }
+    let html = "";
+    for (const [type, rows] of Object.entries(groups)) {
+        html += `<div class="type-header-card">${esc(type)}</div>`;
+        for (const r of rows) {
+            const rridUrl = r.rrid && r.rrid.startsWith("RRID:")
+                ? `https://scicrunch.org/resolver/${encodeURIComponent(r.rrid)}` : "";
+            html += `
+            <div class="model-card">
+                <div class="card-title">
+                    ${r.mgiLink ? `<a href="${esc(r.mgiLink)}" target="_blank">${esc(r.mgiName)}</a>` : esc(r.mgiName)}
+                </div>
+                <div class="card-subtitle">${esc(r.commonName)}</div>
+                <div class="card-badge">${esc(r.type)}</div>
+                <div class="card-desc">${esc(r.description)}</div>
+                <div class="card-grid">
+                    <div class="card-field">
+                        <label>Genetic Background</label>
+                        <span>${esc(r.background)}</span>
+                    </div>
+                    <div class="card-field">
+                        <label>Hsa21 Orthologs</label>
+                        <span>${esc(r.orthologs)}</span>
+                    </div>
+                    <div class="card-field">
+                        <label>Chromosomal Position</label>
+                        <span class="coords">${esc(r.coords)}</span>
+                    </div>
+                    <div class="card-field">
+                        <label>Availability</label>
+                        <span>${r.availLink ? `<a href="${esc(r.availLink)}" target="_blank">${esc(r.availability)}</a>` : esc(r.availability)}</span>
+                    </div>
+                </div>
+                <div class="card-links">
+                    ${r.mgiLink   ? `<a class="card-link-btn mgi"   href="${esc(r.mgiLink)}"   target="_blank">MGI Record</a>` : ""}
+                    ${r.pubLink   ? `<a class="card-link-btn pub"   href="${esc(r.pubLink)}"   target="_blank">${esc(r.publication)}</a>` : `<span style="font-size:11px;color:#888;">${esc(r.publication)}</span>`}
+                    ${r.availLink ? `<a class="card-link-btn avail" href="${esc(r.availLink)}" target="_blank">${esc(r.availability)}</a>` : ""}
+                    ${rridUrl     ? `<a class="card-link-btn rrid"  href="${rridUrl}"           target="_blank">${esc(r.rrid)}</a>` : `<span style="font-size:11px;color:#888;">${esc(r.rrid)}</span>`}
+                </div>
+            </div>`;
+        }
+    }
+    $cards.innerHTML = html;
+}
 
 function renderPagination() {
     const total = Math.ceil(filtered.length / PER_PAGE);
@@ -924,6 +1021,7 @@ function renderPagination() {
 function goPage(n) {
     currentPage = n;
     renderTable();
+    renderCards();
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
