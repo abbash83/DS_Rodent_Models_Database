@@ -30,7 +30,7 @@ Full protocols and ARRIVE guidelines adapted for DS mouse models are available i
 ## ✨ Key Features
 
 - 🔍 **Instant Search** — Filter across all fields simultaneously: strain name, RRID, type, description, genetic background, publication, and more.
-- 🗂️ **Type Filtering** — Narrow results by model category: Segmental Trisomy, Translocation, Transchromosomic, Duplication, or Deletion.
+- 🗂️ **Type Filtering** — Narrow results by model category: Segmental Trisomy, Translocation, Transchromosomic, Duplication, Deletion, or Rat Model.
 - 🗺️ **Genomic Precision** — All coordinates mapped to **GRCm39** (Mouse) and **GRCh38** (Human) unless otherwise noted.
 - 🔗 **Integrated Resources** — One-click access to **JAX**, **Infrafrontier/EMMA**, **PubMed**, **MGI**, and the **SciCrunch RRID Resolver**.
 - ↕️ **Sortable Columns** — Click any column header to sort ascending or descending.
@@ -57,7 +57,7 @@ All records are stored as JavaScript objects inside the `RECORDS` array in `inde
 
 | Field | Required | Description |
 |---|---|---|
-| type | ✅ | Model category: Segmental Trisomy, Translocation, Transchromosomic, Duplication, or Deletion |
+| type | ✅ | Model category: Segmental Trisomy, Translocation, Transchromosomic, Duplication, Deletion, or Rat Model |
 | mgiName | ✅ | Official MGI approved strain designation |
 | mgiLink | ⬜ | URL to the MGI record — leave blank if unavailable |
 | commonName | ✅ | Lab or common name e.g. Ts65Dn, Dp1Tyb |
