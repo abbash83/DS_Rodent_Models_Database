@@ -7,6 +7,10 @@
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.5; color: #333; margin: 20px; background-color: #f8f9fa; }
         h1 { color: #2c3e50; text-align: center; }
+        #main-table td:first-child,
+        #main-table td:first-child a{
+        font-size: 12.5px;
+        }
         #controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 14px 0 10px; }
         #search-input { flex: 1 1 220px; padding: 7px 11px; border: 1px solid #ced4da; border-radius: 5px; font-size: 13px; }
         #type-filter { padding: 7px 10px; border: 1px solid #ced4da; border-radius: 5px; font-size: 13px; background: #fff; }.ctrl-btn { padding: 7px 14px; border: none; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 600; }.btn-export { background: #004085; color: #fff; }.btn-export:hover { background: #002752; }
@@ -17,7 +21,7 @@
         th:hover { background-color: #002d6e; }.sort-arrow { margin-left: 4px; opacity: 0.6; font-size: 10px; }
         tr:nth-child(even):not(.category-header) { background-color: #f2f2f2; }
         tr:hover:not(.category-header) { background-color: #e8f4fd; }.category-header { background-color: #e9ecef !important; font-weight: bold; font-size: 13px; color: #495057; border-left: 5px solid #004085; }.col-mgi    { width: 10%; }.col-common { width: 7%;  }.col-type   { width: 8%;  }.col-desc   { width: 18%; }.col-bg     { width: 7%;  }.col-coords { width: 10%; }.col-ortho  { width: 5%;  }.col-pub    { width: 12%; }.col-avail  { width: 8%;  }.col-rrid   { width: 10%; }.rrid { font-weight: bold; color: #0056b3; text-decoration: none; }.rrid:hover { text-decoration: underline; }
-        a { color: #0056b3; text-decoration: none; font-size: 11px; word-break: break-all; }
+        a { color: #0056b3; text-decoration: none; font-size: inherit; word-break: break-all; }
         a:hover { text-decoration: underline; }.coords { font-family: 'Courier New', Courier, monospace; color: #6610f2; font-size: 11px; }
         /* Pagination (top + bottom) */.pagination{
   display:flex;
@@ -195,7 +199,7 @@
             <th data-col="description">Short Description</th>
             <th data-col="background">Genetic Background <span class="sort-arrow">⇅</span></th>
             <th data-col="coords">Chromosomal Position (MGI)</th>
-            <th data-col="orthologs">Hsa21 Orthologs <span class="sort-arrow">⇅</span></th>
+            <th data-col="orthologs" class="nowrap">Hsa21 Orthologs <span class="sort-arrow">⇅</span></th>
             <th data-col="publication">First Publication</th>
             <th data-col="availability">Availability</th>
             <th data-col="rrid">RRID / Source <span class="sort-arrow">⇅</span></th>
@@ -319,7 +323,7 @@ const RECORDS = [
         mgiName     : "Tc(HSA21)1TybEmcf",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:3814702",
         commonName  : "Tc1",
-        description : "Contains freely segregating copy of Hsa21, with ~75% of Hsa21 in mouse. Mice are mosaic for the extra chromosome. The copy of Hsa21 has internal deletions and rearrangements (Gribble SM et al., 2013).",
+        description : "Contains freely segregating copy of Hsa21, with ~75% of Hsa21 in mouse. Mice are mosaic for the extra chromosome. The copy of Hsa21 has internal deletions and rearrangements (Gribble SM et al., 2013). https://pubmed.ncbi.nlm.nih.gov/23596509/.",
         background  : "B6129S",
         coords      : "N/A",
         orthologs   : "227*",
@@ -1073,7 +1077,7 @@ function applyFilters() {
         const matchType = !typ || r.type === typ;
         const matchQ    = !q  || [
             r.mgiName, r.commonName, r.type,
-            r.description, r.background,
+            r.background,
             r.coords, r.rrid, r.publication
         ].some(v => (v || "").toLowerCase().includes(q));
         return matchType && matchQ;
