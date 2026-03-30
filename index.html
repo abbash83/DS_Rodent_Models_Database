@@ -19,10 +19,14 @@
         tr:hover:not(.category-header) { background-color: #e8f4fd; }.category-header { background-color: #e9ecef !important; font-weight: bold; font-size: 13px; color: #495057; border-left: 5px solid #004085; }.col-mgi    { width: 10%; }.col-common { width: 7%;  }.col-type   { width: 8%;  }.col-desc   { width: 18%; }.col-bg     { width: 7%;  }.col-coords { width: 10%; }.col-ortho  { width: 5%;  }.col-pub    { width: 12%; }.col-avail  { width: 8%;  }.col-rrid   { width: 10%; }.rrid { font-weight: bold; color: #0056b3; text-decoration: none; }.rrid:hover { text-decoration: underline; }
         a { color: #0056b3; text-decoration: none; font-size: 11px; word-break: break-all; }
         a:hover { text-decoration: underline; }.coords { font-family: 'Courier New', Courier, monospace; color: #6610f2; font-size: 11px; }
-        #pagination { display: flex; justify-content: center; gap: 6px; flex-wrap: wrap; margin: 14px 0; }
-        #pagination button { padding: 5px 11px; border: 1px solid #ced4da; border-radius: 4px; background: #fff; cursor: pointer; font-size: 12px; }
-        #pagination button.active { background: #004085; color: #fff; border-color: #004085; }
-        #pagination button:hover:not(.active) { background: #e8f4fd; }
+        #pagination-top{
+        position: sticky;
+        top: 0;
+        z-index: 20;
+        background: #f8f9fa;
+        padding: 8px 0;
+        border-bottom: 1px solid #e9ecef;
+    }
         footer { text-align: center; margin-top: 20px; font-size: 11px; color: #888; }
         footer a { color: #0056b3; font-size: 11px; }
         * { box-sizing: border-box; }
@@ -124,7 +128,9 @@
     <select id="type-filter"><option value="">All Types</option></select>
     <button class="ctrl-btn btn-export" id="export-btn">⬇ Export CSV</button>
 </div>
-    
+
+<div id="pagination-top" class="pagination"></div>
+
 <div id="table-wrap">
 <table id="main-table">
     <colgroup>
@@ -150,7 +156,7 @@
 </table>
 </div>
 <div id="card-container"></div>
-<div id="pagination"></div>
+<div id="pagination" class="pagination"></div>
 
 <p style="font-size:11px; color:#777; margin-top:6px;">
     *Note: Tc1 count includes duplications and anticipated single copy genes.
@@ -990,6 +996,7 @@ const $cards = document.getElementById("card-container");
 const $search     = document.getElementById("search-input");
 const $typeFilter = document.getElementById("type-filter");
 const $pagination = document.getElementById("pagination");
+const $paginationTop = document.getElementById("pagination-top");
 
 function esc(s) {
     return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
@@ -1133,12 +1140,20 @@ function renderCards() {
 
 function renderPagination() {
     const total = Math.ceil(filtered.length / PER_PAGE);
-    if (total <= 1) { $pagination.innerHTML = ""; return; }
+
+    if (total <= 1) {
+        $pagination.innerHTML = "";
+        $paginationTop.innerHTML = "";
+        return;
+    }
+
     let html = "";
     for (let i = 1; i <= total; i++) {
         html += `<button class="${i === currentPage ? "active" : ""}" onclick="goPage(${i})">${i}</button>`;
     }
+
     $pagination.innerHTML = html;
+    $paginationTop.innerHTML = html;
 }
 
 function goPage(n) {
