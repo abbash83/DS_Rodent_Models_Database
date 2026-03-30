@@ -7,7 +7,7 @@
     <style>
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.5; color: #333; margin: 20px; background-color: #f8f9fa; }
         h1 { color: #2c3e50; text-align: center; }
-        th.nowrap { white-space: nowrap; }
+        th.nowrap { white-space: nowrap !important; }
         #main-table td:first-child,
         #main-table td:first-child a{
         font-size: 12.5px;
@@ -21,14 +21,16 @@
         th { background-color: #004085; color: white; position: sticky; top: 0; z-index: 10; cursor: pointer; user-select: none; white-space: normal; word-wrap: break-word; font-size: 12px; vertical-align: bottom; }
         th:hover { background-color: #002d6e; }.sort-arrow { margin-left: 4px; opacity: 0.6; font-size: 10px; }
         tr:nth-child(even):not(.category-header) { background-color: #f2f2f2; }
-        tr:hover:not(.category-header) { background-color: #e8f4fd; }.category-header { background-color: #e9ecef !important; font-weight: bold; font-size: 13px; color: #495057; border-left: 5px solid #004085; }.col-mgi    { width: 10%; }.col-common { width: 7%;  }.col-type   { width: 8%;  }.col-desc   { width: 18%; }.col-bg     { width: 7%;  }.col-coords { width: 10%; }.col-ortho  { width: 5%;  }.col-pub    { width: 12%; }.col-avail  { width: 8%;  }.col-rrid   { width: 10%; }.rrid { font-weight: bold; color: #0056b3; text-decoration: none; }.rrid:hover { text-decoration: underline; }
+        tr:hover:not(.category-header) { background-color: #e8f4fd; }.category-header { background-color: #e9ecef !important; font-weight: bold; font-size: 13px; color: #495057; border-left: 5px solid #004085; }.col-mgi    { width: 10%; }.col-common { width: 7%;  }.col-type   { width: 8%;  }.col-desc   { width: 15%; }.col-bg     { width: 7%;  }.col-coords { width: 10%; }.col-ortho  { width: 10%;  }.col-pub    { width: 12%; }.col-avail  { width: 8%;  }.col-rrid   { width: 10%; }.rrid { font-weight: bold; color: #0056b3; text-decoration: none; }.rrid:hover { text-decoration: underline; }
         a { color: #0056b3; text-decoration: none; font-size: inherit; word-break: break-all; }
         a:hover { text-decoration: underline; }.coords { font-family: 'Courier New', Courier, monospace; color: #6610f2; font-size: 11px; }
         /* Pagination (top + bottom) */.pagination{
   display:flex;
   justify-content:center;
   margin: 14px 0;
-}.pagination.pager{
+}
+.pagination.pager
+{
   display:flex;
   justify-content:center;
   align-items:center;
