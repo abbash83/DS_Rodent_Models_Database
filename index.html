@@ -12,6 +12,30 @@
         #main-table td:first-child a{
         font-size: 12.5px;
         }
+        /* Orthologs header: big title + smaller subtitle, wrapped */
+th.th-title{
+  display:block;
+  font-size: 12.5px;   /* bigger than your th default (12px) */
+  font-weight: 700;
+  line-height: 1.15;
+  white-space: normal;
+}
+
+th.th-sub{
+  display:block;
+  font-size: 10px;     /* smaller */
+  font-weight: 600;
+  opacity: 0.9;
+  line-height: 1.15;
+  margin-top: 2px;
+  white-space: normal;
+}
+
+/* Ensure this specific header wraps nicely */
+th[data-col="orthologs"]{
+  white-space: normal;
+  word-break: break-word;
+}
         #controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 14px 0 10px; }
         #search-input { flex: 1 1 220px; padding: 7px 11px; border: 1px solid #ced4da; border-radius: 5px; font-size: 13px; }
         #type-filter { padding: 7px 10px; border: 1px solid #ced4da; border-radius: 5px; font-size: 13px; background: #fff; }.ctrl-btn { padding: 7px 14px; border: none; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 600; }.btn-export { background: #004085; color: #fff; }.btn-export:hover { background: #002752; }
@@ -202,7 +226,11 @@
             <th data-col="description">Short Description</th>
             <th data-col="background">Genetic Background <span class="sort-arrow">⇅</span></th>
             <th data-col="coords">Chromosomal Position (MGI)</th>
-            <th data-col="orthologs" class="nowrap"> Number of Hsa21 orthologous genes at dosage imbalance (Excluding Krtap genes)(GRCm39) <span class="sort-arrow">⇅</span></th>
+            <th data-col="orthologs" class="col-ortho">
+  <span class="th-title">Number of Hsa 21 orthologs</span>
+  <span class="th-sub">(dosage imbalance; excluding Krtap genes; GRCm39)</span>
+  <span class="sort-arrow">⇅</span>
+</th>
             <th data-col="publication">First Publication</th>
             <th data-col="availability">Availability</th>
             <th data-col="rrid">RRID/Source <span class="sort-arrow">⇅</span></th>
@@ -344,7 +372,7 @@ const RECORDS = [
         description : "Contains freely segregating copy of Hsa21 with 93% of Hsa21 represented in the mouse.",
         background  : "B6D2",
         coords      : "N/A",
-        orthologs   : "581",
+        orthologs   : "581 (144 orthologous Protein coding genes)",
         publication : "Kazuki Y, et al., 2020",
         pubLink     : "https://pubmed.ncbi.nlm.nih.gov/32597754/",
         availability: "JAX:035561",
@@ -574,7 +602,7 @@ const RECORDS = [
         description : "Cre-mediated chromosomal rearrangement on Mmu16 between Cldn17 and Brwd1",
         background  : "B6",
         coords      : "Chr16:88302695-95883726",
-        orthologs   : "106",
+        orthologs   : "73",
         publication : "Ahumada Saavedra JT et al., 2024",
         pubLink     : "https://pubmed.ncbi.nlm.nih.gov/40982554/",
         availability: "Herault's lab",
@@ -589,7 +617,7 @@ const RECORDS = [
         description : "Cre-mediated chromosomal rearrangement on Mmu16 between Tmprss15 and Setd4",
         background  : "B6",
         coords      : "Chr16:78749896-93400951",
-        orthologs   : "108",
+        orthologs   : "75",
         publication : "Ahumada Saavedra JT et al., 2024",
         pubLink     : "https://pubmed.ncbi.nlm.nih.gov/40982554/",
         availability: "Herault's lab",
@@ -619,7 +647,7 @@ const RECORDS = [
         description : "Cre-mediated chromosomal rearrangement on Mmu16 between Tmprss15 to Zfp295",
         background  : "B6",
         coords      : "Chr16:78749896-97794739",
-        orthologs   : "154",
+        orthologs   : "121",
         publication : "Ahumada Saavedra JT et al., 2024",
         pubLink     : "https://pubmed.ncbi.nlm.nih.gov/40982554/",
         availability: "Herault's lab",
@@ -634,7 +662,7 @@ const RECORDS = [
         description : "Cre-mediated chromosomal rearrangement on Mmu16 between Cldn17 to Vps26c, up to the sequence of Dyrk1a which is inactivated",
         background  : "B6",
         coords      : "Chr16:88302695-94327488",
-        orthologs   : "96",
+        orthologs   : "63",
         publication : "Ahumada Saavedra JT et al., 2024",
         pubLink     : "https://pubmed.ncbi.nlm.nih.gov/40982554/",
         availability: "Herault's lab",
@@ -1132,12 +1160,12 @@ const RECORDS = [
 {
     type        : "Rat Model Transchromosomic",
     mgiName     : "Tc(HSA21)1Kaz",
-    mgiLink     : "",
+    mgiLink     : "https://www.anim.med.kyoto-u.ac.jp/nbr/strainsx/Strains_d.aspx?StrainID=1360&StrainsDir=Asc&StrainsPageSize=20&s_Strainname=Tc(HSA21)1Yakaz",
     commonName  : "TcHSA21rat",
     description : "First transchromosomic rat model of Down syndrome. Contains a freely segregating, EGFP-labeled human chromosome 21 (HSA21) with >93% of HSA21 protein-coding genes. Maintained via female transmission on Wistar background.",
     background  : "Wistar (Crlj:WI)",
     coords      : "HSA21 loxP insertion at NC_000021.9: 13,021,348–13,028,858; two deletions detected by WGS: Del1 (17,843,345–23,995,878) and Del2 (28,195,594–30,325,968)",
-    orthologs   : "214 / 230 (93%) HSA21 protein-coding genes",
+    orthologs   : "214 (145 orthologous protein coding genes)",
     publication : "Kazuki Y, et al., 2022",
     pubLink     : "https://pubmed.ncbi.nlm.nih.gov/35077668/",
     availability: "Contact authors (Tottori University / Johns Hopkins)",
@@ -1274,7 +1302,10 @@ function renderCards() {
                         <span>${esc(r.background)}</span>
                     </div>
                     <div class="card-field">
-                        <label>Number of Hsa21 orthologous genes at dosage imbalance (Excluding Krtap genes) (GRCm39)</label>
+                       <label>Number of Hsa 21 orthologs</label>
+<span style="display:block;font-size:10px;color:#666;margin-top:2px;">
+  (dosage imbalance; excluding Krtap genes; GRCm39)
+</span>
                         <span>${esc(r.orthologs)}</span>
                     </div>
                     <div class="card-field">
