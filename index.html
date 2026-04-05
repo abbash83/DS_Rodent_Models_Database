@@ -197,15 +197,15 @@
     <thead>
         <tr>
             <th data-col="mgiName">MGI Approved Name <span class="sort-arrow">⇅</span></th>
-            <th data-col="commonName">Lab / Common Name <span class="sort-arrow">⇅</span></th>
+            <th data-col="commonName">Lab/Common Name <span class="sort-arrow">⇅</span></th>
             <th data-col="type">Type of DS Model <span class="sort-arrow">⇅</span></th>
             <th data-col="description">Short Description</th>
             <th data-col="background">Genetic Background <span class="sort-arrow">⇅</span></th>
             <th data-col="coords">Chromosomal Position (MGI)</th>
-            <th data-col="orthologs" class="nowrap">Hsa21 Orthologs <span class="sort-arrow">⇅</span></th>
+            <th data-col="orthologs" class="nowrap"> Number of Hsa21 orthologous genes at dosage imbalance (Excluding Krtap genes)(GRCm39) <span class="sort-arrow">⇅</span></th>
             <th data-col="publication">First Publication</th>
             <th data-col="availability">Availability</th>
-            <th data-col="rrid">RRID / Source <span class="sort-arrow">⇅</span></th>
+            <th data-col="rrid">RRID/Source <span class="sort-arrow">⇅</span></th>
         </tr>
     </thead>
     <tbody id="table-body"></tbody>
@@ -1274,7 +1274,7 @@ function renderCards() {
                         <span>${esc(r.background)}</span>
                     </div>
                     <div class="card-field">
-                        <label>Hsa21 Orthologs</label>
+                        <label>Number of Hsa21 orthologous genes at dosage imbalance (Excluding Krtap genes) (GRCm39)</label>
                         <span>${esc(r.orthologs)}</span>
                     </div>
                     <div class="card-field">
@@ -1334,9 +1334,9 @@ function exportCSV() {
                   "coords","orthologs","publication","pubLink","availability","availLink","rrid"];
 
     const displayHeaders = [
-        "MGI Approved Name","MGI Link","Lab / Common Name","Type of DS Model","Short Description",
-        "Genetic Background","Chromosomal Position (MGI)","Hsa21 Orthologs",
-        "First Publication","Publication Link","Availability","Availability Link","RRID / Source"
+        "MGI Approved Name","MGI Link","Lab/Common Name","Type of DS Model","Short Description",
+        "Genetic Background","Chromosomal Position (MGI)","Number of Hsa21 orthologous genes at dosage imbalance (Excluding Krtap genes) (GRCm39)",
+        "First Publication","Publication Link","Availability","Availability Link","RRID/Source"
     ];
 
     const now = new Date().toLocaleDateString("en-US", {
