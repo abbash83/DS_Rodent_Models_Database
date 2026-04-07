@@ -222,12 +222,12 @@ th[data-col="orthologs"]{
     </colgroup>
     <thead>
         <tr>
-            <th data-col="mgiName">MGI Approved Name <span class="sort-arrow">⇅</span></th>
+            <th id="th-name" data-col="mgiName">Approved Name / ID <span class="sort-arrow">⇅</span></th>
             <th data-col="commonName">Lab/Common Name <span class="sort-arrow">⇅</span></th>
             <th data-col="type">Type of DS Model <span class="sort-arrow">⇅</span></th>
             <th data-col="description">Short Description</th>
             <th data-col="background">Genetic Background <span class="sort-arrow">⇅</span></th>
-            <th data-col="coords">Chromosomal Position (MGI)</th>
+            <th id="th-coords" data-col="coords">Genomic Coordinates</th>
             <th data-col="orthologs" class="col-ortho">
   <span class="th-title">Number of Hsa 21 orthologs</span>
   <span class="th-sub">(dosage imbalance; excluding Krtap genes; GRCm39)</span>
@@ -1248,6 +1248,24 @@ const $rodentFilter = document.getElementById("rodent-filter");
 const $pagination = document.getElementById("pagination");
 const $paginationTop = document.getElementById("pagination-top");
 
+function updateSpeciesHeaders() {
+    const thName   = document.getElementById("th-name");
+    const thCoords = document.getElementById("th-coords");
+
+    const rodent = ($rodentFilter && $rodentFilter.value) ? $rodentFilter.value : "";
+
+    if (rodent === "Mouse") {
+        thName.innerHTML     = `MGI Approved Name <span class="sort-arrow">⇅</span>`;
+        thCoords.textContent = "Chromosomal Position (MGI)";
+    } else if (rodent === "Rat") {
+        thName.innerHTML     = `Rat Approved Name / ID <span class="sort-arrow">⇅</span>`;
+        thCoords.textContent = "Rat Genomic Coordinates";
+    } else {
+        thName.innerHTML     = `Approved Name / ID <span class="sort-arrow">⇅</span>`;
+        thCoords.textContent = "Genomic Coordinates";
+    }
+}
+
 function esc(s) {
     return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
@@ -1292,10 +1310,11 @@ function applyFilters() {
         return matchRodent && matchType && matchQ;
     });
 
-    currentPage = 1;
-    renderTable();
-    renderCards();
-    updateStats();
+ currentPage = 1;
+updateSpeciesHeaders();
+renderTable();
+renderCards();
+updateStats();
 }
 
 function sortBy(col) {
@@ -1430,6 +1449,7 @@ function goPage(n) {
     window.scrollTo({ top: 0, behavior: "smooth" });
 }
 
+
 function updateStats() {
     document.getElementById("stat-total").textContent   = RECORDS.length;
     document.getElementById("stat-showing").textContent = filtered.length;
@@ -1489,6 +1509,7 @@ $rodentFilter.addEventListener("change", applyFilters);
 
 populateRodentFilter();
 populateTypeFilter();
+updateSpeciesHeaders();
 applyFilters();
 </script>
 </body>
