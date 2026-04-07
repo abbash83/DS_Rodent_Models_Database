@@ -1270,6 +1270,16 @@ function esc(s) {
     return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
 
+function linkifyText(s) {
+    const text = String(s || "");
+    // Escape first, then linkify the escaped text
+    const safe = esc(text);
+
+    // Linkify http(s) URLs
+    return safe.replace(/(https?:\/\/[^\s<]+)/g, (url) => {
+        return `<a href="${url}" target="_blank" rel="noopener noreferrer">${url}</a>`;
+    });
+}
 function rridCell(rrid) {
     if (!rrid) return "—";
     if (rrid.startsWith("RRID:")) {
@@ -1351,10 +1361,10 @@ function renderTable() {
                 <td>${r.mgiLink ? `<a href="${esc(r.mgiLink)}" target="_blank">${esc(r.mgiName)}</a>` : esc(r.mgiName)}</td>
                 <td>${esc(r.commonName)}</td>
                 <td>${esc(r.type)}</td>
-                <td>${esc(r.description)}</td>
+                <td>${linkifyText(r.description)}</td>
                 <td>${esc(r.background)}</td>
                 <td class="coords">${esc(r.coords)}</td>
-                <td style="text-align:center">${esc(r.orthologs)}</td>
+                <td style="text-align:center">${linkifyText(r.orthologs)}</td>
                 <td>${r.pubLink ? `${esc(r.publication)}<br/><a href="${esc(r.pubLink)}" target="_blank">${esc(r.pubLink)}</a>` : esc(r.publication)}</td>
                 <td>${r.availLink ? `<a href="${esc(r.availLink)}" target="_blank">${esc(r.availability)}</a>` : esc(r.availability)}</td>
                 <td>${rridCell(r.rrid)}</td>
@@ -1389,7 +1399,7 @@ function renderCards() {
                 </div>
                 <div class="card-subtitle">${esc(r.commonName)}</div>
                 <div class="card-badge">${esc(r.type)}</div>
-                <div class="card-desc">${esc(r.description)}</div>
+                <div class="card-desc">${linkifyText(r.description)}</div>
                 <div class="card-grid">
                     <div class="card-field">
                         <label>Genetic Background</label>
@@ -1400,7 +1410,7 @@ function renderCards() {
 <span style="display:block;font-size:10px;color:#666;margin-top:2px;">
   (protein coding genes;dosage imbalance; excluding Krtap genes; GRCm39)
 </span>
-                        <span>${esc(r.orthologs)}</span>
+                        <span>${linkifyText(r.orthologs)}</span>
                     </div>
                     <div class="card-field">
                         <label>Chromosomal Position</label>
