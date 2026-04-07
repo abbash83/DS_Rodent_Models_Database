@@ -39,6 +39,7 @@ th[data-col="orthologs"]{
         #controls { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 14px 0 10px; }
         #search-input { flex: 1 1 220px; padding: 7px 11px; border: 1px solid #ced4da; border-radius: 5px; font-size: 13px; }
         #type-filter { padding: 7px 10px; border: 1px solid #ced4da; border-radius: 5px; font-size: 13px; background: #fff; }.ctrl-btn { padding: 7px 14px; border: none; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 600; }.btn-export { background: #004085; color: #fff; }.btn-export:hover { background: #002752; }
+        #rodent-filter { padding: 7px 10px; border: 1px solid #ced4da; border-radius: 5px; font-size: 13px; background: #fff; }
         #stats-bar { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 10px; }.stat-pill { background: #fff; border: 1px solid #dee2e6; border-radius: 20px; padding: 4px 14px; font-size: 12px; color: #555; }.stat-pill strong { color: #004085; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; background-color: #fff; box-shadow: 0 2px 5px rgba(0,0,0,0.1); table-layout: fixed; }
         th, td { border: 1px solid #dee2e6; padding: 9px 11px; text-align: left; font-size: 12.5px; vertical-align: top; word-wrap: break-word; }
@@ -204,7 +205,8 @@ th[data-col="orthologs"]{
 </div>
 
 <div id="controls">
-    <input type="text" id="search-input" placeholder="🔍 Search name, RRID, type, description…" />
+    <input type="text" id="search-input" placeholder="🔍 Search name, RRID, rodent, type, description…" />
+    <select id="rodent-filter"><option value="">All Rodents</option></select>
     <select id="type-filter"><option value="">All Types</option></select>
     <button class="ctrl-btn btn-export" id="export-btn">⬇ Export CSV</button>
 </div>
@@ -267,6 +269,7 @@ const RECORDS = [
     // SEGMENTAL TRISOMY MODELS
     // ─────────────────────────────────────────────
     {
+        rodent      : "Mouse",
         type        : "Segmental Trisomy",
         mgiName     : "Ts(17<16>)65Dn (001924)",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:2178111",
@@ -282,6 +285,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:001924",
     },
     {
+        rodent      : "Mouse",
         type        : "Segmental Trisomy",
         mgiName     : "Ts(17<16>)65Dn (005252)",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:2178111",
@@ -297,6 +301,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:005252",
     },
     {
+        rodent      : "Mouse",
         type        : "Segmental Trisomy",
         mgiName     : "Ts(17\u00B9\u2076)66Yah",
         mgiLink     : "https://www.informatics.jax.org/allele/MGI:6459295",
@@ -316,6 +321,7 @@ const RECORDS = [
     // TRANSLOCATION MODELS
     // ─────────────────────────────────────────────
     {
+        rodent      : "Mouse",
         type        : "Translocation",
         mgiName     : "Ts(16C-tel)1Cje",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:3623021",
@@ -331,6 +337,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:004861",
     },
     {
+        rodent      : "Mouse",
         type        : "Translocation",
         mgiName     : "Rb(12.Ts17\u00B9\u207665Dn)2Cje",
         mgiLink     : "https://www.informatics.jax.org/allele/MGI:3531161",
@@ -350,6 +357,7 @@ const RECORDS = [
     // TRANSCHROMOSOMIC MODELS
     // ─────────────────────────────────────────────
     {
+        rodent      : "Mouse",
         type        : "Transchromosomic",
         mgiName     : "Tc(HSA21)1TybEmcf",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:3814702",
@@ -365,6 +373,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:010801",
     },
     {
+        rodent      : "Mouse",
         type        : "Transchromosomic",
         mgiName     : "Tc(HSA21,CAG-EGFP)1Yakaz",
         mgiLink     : "https://www.informatics.jax.org/allele/MGI:6386757",
@@ -384,6 +393,7 @@ const RECORDS = [
     // DUPLICATION MODELS
     // ─────────────────────────────────────────────
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Cbr1-Fam3b)1Rhr",
         mgiLink     : "https://www.informatics.jax.org/allele/MGI:3487283",
@@ -399,6 +409,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:005383",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Lipi-Zbtb21)1Yey",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:3714521",
@@ -414,6 +425,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:013530",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Tiam1-Kcnj6)6Yey",
         // ── CORRECTED: MGI:5305761 → MGI:5305765 ──
@@ -430,6 +442,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:018852",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(10Prmt2-Pdxk)2Yey",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:4461397",
@@ -445,6 +458,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:013529",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(17Abcg1-Rrp1b)3Yey",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:4461398",
@@ -460,6 +474,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:013531",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Tiam1-Il10rb)8Yey",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:5562362",
@@ -475,6 +490,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:024906",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Ifnar1-Kcnj6)10Yey",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:5562361",
@@ -490,6 +506,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:024908",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(17Abcg1-Cbs)1Yah",
         mgiLink     : "https://www.informatics.jax.org/allele/key/573485",
@@ -505,6 +522,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_EM:01987",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Hspa13-App)2Yah",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:5519054",
@@ -520,6 +538,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_EM:02101",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(10Col6a1-Cstb)3Yah",
         mgiLink     : "",
@@ -535,6 +554,7 @@ const RECORDS = [
         rrid        : "Herault's lab",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(10Prmt2-Cstb)4Yah",
         mgiLink     : "",
@@ -550,6 +570,7 @@ const RECORDS = [
         rrid        : "Herault's lab",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16App-Runx1)5Yah",
         mgiLink     : "",
@@ -565,6 +586,7 @@ const RECORDS = [
         rrid        : "Herault's lab",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Samsn1-Cldn17)7Yah",
         mgiLink     : "",
@@ -580,6 +602,7 @@ const RECORDS = [
         rrid        : "Herault's lab",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Tiam1-Clic6))8Yah",
         mgiLink     : "",
@@ -595,6 +618,7 @@ const RECORDS = [
         rrid        : "Herault's lab",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Cldn17-Brwd1))9Yah",
         mgiLink     : "",
@@ -610,6 +634,7 @@ const RECORDS = [
         rrid        : "Herault's lab",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Tmprss15-Setd4)10Yah",
         mgiLink     : "",
@@ -625,6 +650,7 @@ const RECORDS = [
         rrid        : "Herault's lab",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Tmprss15-Grik1)11Yah",
         mgiLink     : "",
@@ -640,6 +666,7 @@ const RECORDS = [
         rrid        : "Herault's lab",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Tmprss15-Zbtb21)12Yah",
         mgiLink     : "",
@@ -655,6 +682,7 @@ const RECORDS = [
         rrid        : "Herault's lab",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Cldn17-Vps26c(Dyrk1aKO))13Yah",
         mgiLink     : "",
@@ -670,6 +698,7 @@ const RECORDS = [
         rrid        : "Herault's lab",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Lipi-Zbtb21)1TybEmcf",
         mgiLink     : "https://www.informatics.jax.org/allele/MGI:5703798",
@@ -685,6 +714,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_EM:10563",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Mis18a-Runx1)2TybEmcf",
         mgiLink     : "https://www.informatics.jax.org/allele/key/864151",
@@ -700,6 +730,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_EM:10558",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Mir802-Zbtb21)3TybEmcf",
         mgiLink     : "https://www.informatics.jax.org/allele/key/864152",
@@ -715,6 +746,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_EM:10559",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Mir802-Vps26c)4TybEmcf",
         mgiLink     : "https://www.informatics.jax.org/allele/key/864153",
@@ -730,6 +762,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_EM:10560",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Dyrk1a-B3galt5)5TybEmcf",
         mgiLink     : "https://www.informatics.jax.org/allele/key/864154",
@@ -745,6 +778,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_EM:10561",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Igsf5-Zbtb21)6TybEmcf",
         mgiLink     : "https://www.informatics.jax.org/allele/key/864155",
@@ -760,6 +794,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_EM:10562",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Mis18a-Il10rb)7TybEmcf",
         mgiLink     : "",
@@ -775,6 +810,7 @@ const RECORDS = [
         rrid        : "Tybulewicz Lab",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Ifnar1-Runx1)8TybEmcf",
         mgiLink     : "",
@@ -790,6 +826,7 @@ const RECORDS = [
         rrid        : "Tybulewicz Lab",
     },
     {
+        rodent      : "Mouse",
         type        : "Duplication",
         mgiName     : "Dp(16Lipi-Hunk)9TybEmcf",
         mgiLink     : "https://www.informatics.jax.org/allele/key/864158",
@@ -809,6 +846,7 @@ const RECORDS = [
     // DELETION MODELS
     // ─────────────────────────────────────────────
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(16Cbr1-Fam3b)1Rhr",
         mgiLink     : "https://www.informatics.jax.org/allele/key/33727",
@@ -824,6 +862,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:005654",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(10Prmt2-Pdxk)4Yey",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:4818366",
@@ -839,6 +878,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:017439",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(17Abcg1-Rrp1b)5Yey",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:4818367",
@@ -854,6 +894,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:017440",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(16Tiam1-Kcnj6)7Yey",
         // ── CORRECTED: MGI:5305762 → MGI:5305766 ──
@@ -870,6 +911,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:018853",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(16Tiam1-Il10rb)9Yey",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:5562360",
@@ -885,6 +927,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:024907",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(16Ifnar1-Kcnj6)11Yey",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:5562359",
@@ -900,6 +943,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:024908",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(16Setd4-Kcnj6)12Yey",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:5689443",
@@ -915,6 +959,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:028289",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(16Kcnj15-Mx2)13Yey",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:5689444",
@@ -930,6 +975,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:028292",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(16Dyrk1a-Kcnj6)14Yey",
         mgiLink     : "https://www.informatics.jax.org/marker/MGI:5689445",
@@ -945,6 +991,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:028290",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(16Lipi-Ncam2)8Yey/J",
         mgiLink     : "https://www.informatics.jax.org/allele/MGI:7509496",
@@ -960,6 +1007,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:038567",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(17Scaf8-Pde10a)2Yey/J",
         mgiLink     : "https://www.informatics.jax.org/allele/MGI:7509492",
@@ -975,6 +1023,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_JAX:038566",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(10Prmt2-Col6a1)1Yah",
         mgiLink     : "https://www.informatics.jax.org/allele/key/626329",
@@ -990,6 +1039,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_EM:01808",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(17Abcg1-Cbs)2Yah",
         mgiLink     : "https://www.informatics.jax.org/allele/key/573484",
@@ -1005,6 +1055,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_EM:01812",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(16Hspa13-App)3Yah",
         mgiLink     : "https://www.informatics.jax.org/allele/MGI:5519049?page=alleleDetail&id=MGI:5519049",
@@ -1020,6 +1071,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_EM:02100",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(10Prmt2-Cstb)4Yah",
         mgiLink     : "https://www.informatics.jax.org/allele/MGI:4868385",
@@ -1035,6 +1087,7 @@ const RECORDS = [
         rrid        : "RRID:IMSR_EM:02099",
     },
     {
+        rodent      : "Mouse",
         type        : "Deletion",
         mgiName     : "Del(16App-Runx1)5Yah",
         mgiLink     : "https://www.informatics.jax.org/allele/key/820097",
@@ -1053,7 +1106,8 @@ const RECORDS = [
 // RAT MODELS
 // ─────────────────────────────────────────────
 {
-    type        : "Rat Model Duplication",
+    rodent      : "Rat",
+    type        : "Duplication",
     mgiName     : "Dp(11Lipi-Zfp295)1Yah",
     mgiLink     : "",
     commonName  : "Dp(Rno11)",
@@ -1068,7 +1122,8 @@ const RECORDS = [
     rrid        : "Herault's Lab",
 },
 {
-    type        : "Rat Model Duplication",
+    rodent      : "Rat",
+    type        : "Duplication",
     mgiName     : "Dp(20Umodl1-Prmt2)2Yah",
     mgiLink     : "",
     commonName  : "Dp(Rno20)",
@@ -1083,7 +1138,8 @@ const RECORDS = [
     rrid        : "Herault's Lab",
 },
 {
-    type        : "Rat Model Deletion",
+    rodent      : "Rat",
+    type        : "Deletion",
     mgiName     : "Del(11Lipi-Zfp295)3Yah",
     mgiLink     : "",
     commonName  : "Del(Rno20)",
@@ -1098,7 +1154,8 @@ const RECORDS = [
     rrid        : "Herault's Lab",
 },
 {
-    type        : "Rat Model Deletion",
+    rodent      : "Rat",
+    type        : "Deletion",
     mgiName     : "Del(11Dyrk1a)4Yah",
     mgiLink     : "",
     commonName  : "Del(Dyrk1a)",
@@ -1113,7 +1170,8 @@ const RECORDS = [
     rrid        : "Herault's Lab",
 },
 {
-    type        : "Rat Model Duplication",
+    rodent      : "Rat",
+    type        : "Duplication",
     mgiName     : "Dp(11Dyrk1a)5Yah",
     mgiLink     : "",
     commonName  : "Dp(Dyrk1a)",
@@ -1128,7 +1186,8 @@ const RECORDS = [
     rrid        : "Herault's Lab",
 },
 {
-    type        : "Rat Model Duplication",
+    rodent      : "Rat",
+    type        : "Duplication",
     mgiName     : "Dp(11Dyrk1a)6Yah",
     mgiLink     : "",
     commonName  : "Dp(Dyrk1a)",
@@ -1143,7 +1202,8 @@ const RECORDS = [
     rrid        : "Herault's Lab",
 },
 {
-    type        : "Rat Model Duplication",
+    rodent      : "Rat",
+    type        : "Duplication",
     mgiName     : "Dp(20Cbs)7Yah",
     mgiLink     : "",
     commonName  : "Dp(Dyrk1a)",
@@ -1158,7 +1218,8 @@ const RECORDS = [
     rrid        : "Herault's Lab",
 },
 {
-    type        : "Rat Model Transchromosomic",
+    rodent      : "Rat",
+    type        : "Transchromosomic",
     mgiName     : "Tc(HSA21)1Kaz",
     mgiLink     : "https://www.anim.med.kyoto-u.ac.jp/nbr/strainsx/Strains_d.aspx?StrainID=1360&StrainsDir=Asc&StrainsPageSize=20&s_Strainname=Tc(HSA21)1Yakaz",
     commonName  : "TcHSA21rat",
@@ -1183,6 +1244,7 @@ const $tbody = document.getElementById("table-body");
 const $cards = document.getElementById("card-container");
 const $search     = document.getElementById("search-input");
 const $typeFilter = document.getElementById("type-filter");
+const $rodentFilter = document.getElementById("rodent-filter");
 const $pagination = document.getElementById("pagination");
 const $paginationTop = document.getElementById("pagination-top");
 
@@ -1205,21 +1267,34 @@ function populateTypeFilter() {
         types.map(t => `<option value="${esc(t)}">${esc(t)}</option>`).join("");
 }
 
+function populateRodentFilter() {
+    const rodents = [...new Set(RECORDS.map(r => r.rodent).filter(Boolean))].sort();
+    $rodentFilter.innerHTML = `<option value="">All Rodents</option>` +
+        rodents.map(x => `<option value="${esc(x)}">${esc(x)}</option>`).join("");
+}
+
 function applyFilters() {
-    const q   = $search.value.toLowerCase().trim();
-    const typ = $typeFilter.value;
+    const q      = $search.value.toLowerCase().trim();
+    const typ    = $typeFilter.value;
+    const rodent = $rodentFilter.value;
+
     filtered = RECORDS.filter(r => {
-        const matchType = !typ || r.type === typ;
-        const matchQ    = !q  || [
+        const matchRodent = !rodent || r.rodent === rodent;
+        const matchType   = !typ || r.type === typ;
+
+        const matchQ = !q || [
+            r.rodent,
             r.mgiName, r.commonName, r.type,
             r.background,
             r.coords, r.rrid, r.publication
         ].some(v => (v || "").toLowerCase().includes(q));
-        return matchType && matchQ;
+
+        return matchRodent && matchType && matchQ;
     });
+
     currentPage = 1;
     renderTable();
-    renderCards(); 
+    renderCards();
     updateStats();
 }
 
@@ -1361,14 +1436,14 @@ function updateStats() {
 }
 
 function exportCSV() {
-    const cols = ["mgiName","mgiLink","commonName","type","description","background",
-                  "coords","orthologs","publication","pubLink","availability","availLink","rrid"];
+   const cols = ["rodent","mgiName","mgiLink","commonName","type","description","background",
+              "coords","orthologs","publication","pubLink","availability","availLink","rrid"];
 
     const displayHeaders = [
-        "MGI Approved Name","MGI Link","Lab/Common Name","Type of DS Model","Short Description",
-        "Genetic Background","Chromosomal Position (MGI)","Number of Hsa21 orthologous genes at dosage imbalance (Excluding Krtap genes) (GRCm39)",
-        "First Publication","Publication Link","Availability","Availability Link","RRID/Source"
-    ];
+    "Rodent","MGI Approved Name","MGI Link","Lab/Common Name","Type of DS Model","Short Description",
+    "Genetic Background","Chromosomal Position (MGI)","Number of Hsa21 orthologous genes at dosage imbalance (Excluding Krtap genes) (GRCm39)",
+    "First Publication","Publication Link","Availability","Availability Link","RRID/Source"
+];
 
     const now = new Date().toLocaleDateString("en-US", {
         year: "numeric", month: "long", day: "numeric"
@@ -1410,7 +1485,9 @@ document.querySelectorAll("th[data-col]").forEach(th => {
 document.getElementById("export-btn").addEventListener("click", exportCSV);
 $search.addEventListener("input", applyFilters);
 $typeFilter.addEventListener("change", applyFilters);
+$rodentFilter.addEventListener("change", applyFilters);
 
+populateRodentFilter();
 populateTypeFilter();
 applyFilters();
 </script>
