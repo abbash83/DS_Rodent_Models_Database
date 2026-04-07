@@ -222,7 +222,7 @@ th[data-col="orthologs"]{
     </colgroup>
     <thead>
         <tr>
-            <th id="th-name" data-col="mgiName">Approved Name / ID <span class="sort-arrow">⇅</span></th>
+            <th id="th-name" data-col="mgiName">Approved Name/ID <span class="sort-arrow">⇅</span></th>
             <th data-col="commonName">Lab/Common Name <span class="sort-arrow">⇅</span></th>
             <th data-col="type">Type of DS Model <span class="sort-arrow">⇅</span></th>
             <th data-col="description">Short Description</th>
@@ -381,7 +381,7 @@ const RECORDS = [
         description : "Contains freely segregating copy of Hsa21 with 93% of Hsa21 represented in the mouse.",
         background  : "B6D2",
         coords      : "N/A",
-        orthologs   : "581 (144 orthologous Protein coding genes)",
+        orthologs   : "144",
         publication : "Kazuki Y, et al., 2020",
         pubLink     : "https://pubmed.ncbi.nlm.nih.gov/32597754/",
         availability: "JAX:035561",
@@ -1226,7 +1226,7 @@ const RECORDS = [
     description : "First transchromosomic rat model of Down syndrome. Contains a freely segregating, EGFP-labeled human chromosome 21 (HSA21) with >93% of HSA21 protein-coding genes. Maintained via female transmission on Wistar background.",
     background  : "Wistar (Crlj:WI)",
     coords      : "HSA21 loxP insertion at NC_000021.9: 13,021,348–13,028,858; two deletions detected by WGS: Del1 (17,843,345–23,995,878) and Del2 (28,195,594–30,325,968)",
-    orthologs   : "214 (145 orthologous protein coding genes)",
+    orthologs   : "145",
     publication : "Kazuki Y, et al., 2022",
     pubLink     : "https://pubmed.ncbi.nlm.nih.gov/35077668/",
     availability: "Contact authors (Tottori University / Johns Hopkins)",
@@ -1258,10 +1258,10 @@ function updateSpeciesHeaders() {
         thName.innerHTML     = `MGI Approved Name <span class="sort-arrow">⇅</span>`;
         thCoords.textContent = "Chromosomal Position (MGI)";
     } else if (rodent === "Rat") {
-        thName.innerHTML     = `Rat Approved Name / ID <span class="sort-arrow">⇅</span>`;
+        thName.innerHTML     = `Rat Approved Name/ID <span class="sort-arrow">⇅</span>`;
         thCoords.textContent = "Rat Genomic Coordinates";
     } else {
-        thName.innerHTML     = `Approved Name / ID <span class="sort-arrow">⇅</span>`;
+        thName.innerHTML     = `Approved Name/ID <span class="sort-arrow">⇅</span>`;
         thCoords.textContent = "Genomic Coordinates";
     }
 }
