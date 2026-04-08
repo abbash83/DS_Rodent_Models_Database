@@ -230,7 +230,7 @@ th[data-col="orthologs"]{
             <th id="th-coords" data-col="coords">Genomic Coordinates</th>
             <th data-col="orthologs" class="col-ortho">
   <span class="th-title">Number of Hsa 21 orthologs</span>
-  <span class="th-sub">(dosage imbalance; excluding Krtap genes; GRCm39)</span>
+  <span class="th-sub">(dosage imbalance; excluding Krtap genes)</span>
   <span class="sort-arrow">⇅</span>
 </th>
             <th data-col="publication">First Publication</th>
@@ -1409,7 +1409,7 @@ function renderCards() {
                     <div class="card-field">
                        <label>Number of Hsa 21 orthologs</label>
 <span style="display:block;font-size:10px;color:#666;margin-top:2px;">
-  (dosage imbalance; excluding Krtap genes; GRCm39)
+  (dosage imbalance; excluding Krtap genes)
 </span>
                         <span>${linkifyText(r.orthologs)}</span>
                     </div>
@@ -1472,7 +1472,7 @@ function exportCSV() {
 
     const displayHeaders = [
     "Rodent","MGI Approved Name","MGI Link","Lab/Common Name","Type of DS Model","Short Description",
-    "Genetic Background","Chromosomal Position (MGI)","Number of Hsa 21 orthologs (dosage imbalance; excluding Krtap genes; GRCm39)",
+    "Genetic Background","Chromosomal Position (MGI)","Number of Hsa 21 orthologs (dosage imbalance; excluding Krtap genes)",
     "First Publication","Publication Link","Availability","Availability Link","RRID/Source"
 ];
 
