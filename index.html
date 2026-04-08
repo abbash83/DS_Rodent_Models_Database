@@ -196,7 +196,7 @@ th[data-col="orthologs"]{
 </div>
 
 <p style="text-align:center; font-size:13px; color:#555;">
-    All coordinates based on Mouse GRCm39 and Human GRCh38 unless otherwise noted.
+    All coordinates based on Mouse GRCm39 and Human GRCh38 unless otherwise noted. This excludes the non-transchromosomic Rat models.
 </p>
 
 <div id="stats-bar">
@@ -382,7 +382,7 @@ const RECORDS = [
         description : "Contains freely segregating copy of Hsa21 with 93% of Hsa21 represented in the mouse.",
         background  : "B6D2",
         coords      : "**GRCh38 / RefSeq NC_000021.9 (HSA21): loxP insertion 13,021,348–13,028,858; HSA21q-MAC span (WGS) 13,021,348–46,691,226; deletions (WGS): DelA 14,893,880–15,914,720; DelB 17,843,345–23,995,878; DelC 26,848,509–28,420,310; DelD 45,393,043–46,254,350.",
-        orthologs   : "144*(Kazuki Y, et al. 2020 https://pubmed.ncbi.nlm.nih.gov/32597754/ *581 total genes which includes 199 PCGs and 382 nPCGs; number excludes six human-specific PCGs)",
+        orthologs   : "144 (Kazuki Y, et al. 2020 https://pubmed.ncbi.nlm.nih.gov/32597754/ )(581 total genes which includes 199 PCGs and 382 nPCGs; number excludes six human-specific PCGs)",
         publication : "Kazuki Y, et al., 2020",
         pubLink     : "https://pubmed.ncbi.nlm.nih.gov/32597754/",
         availability: "JAX:035561",
@@ -1227,7 +1227,7 @@ const RECORDS = [
     description : "First transchromosomic rat model of Down syndrome. Contains a freely segregating, EGFP-labeled human chromosome 21 (HSA21) with >93% of HSA21 protein-coding genes. Maintained via female transmission on Wistar background.",
     background  : "Wistar (Crlj:WI)",
     coords      : "**GRCh38 / RefSeq NC_000021.9 (HSA21): loxP insertion 13,021,348–13,028,858; deletions (WGS): Del1 17,843,345–23,995,878; Del2 28,195,594–30,325,968.",
-    orthologs   : "145 *The number of orthologous PCGs is 145 after subtracting 17 PCGs in 21p, 46 KRTAPs and 6 human-specific PCGs from total number of 214.",
+    orthologs   : "145 (The number of orthologous PCGs is 145 after subtracting 17 PCGs in 21p, 46 KRTAPs and 6 human-specific PCGs from total number of 214.)",
     publication : "Kazuki Y, et al., 2022",
     pubLink     : "https://pubmed.ncbi.nlm.nih.gov/35077668/",
     availability: "Contact authors (Tottori University / Johns Hopkins)",
@@ -1489,7 +1489,7 @@ function exportCSV() {
   [],
   ["* Tc1 count includes duplications and anticipated single copy genes."],
   ["** TcMAC21 and TcHSA21rat HSA21 coordinates are reported on Human GRCh38 / RefSeq NC_000021.9; WGS mapping in Kazuki et al. used GRCh38.p13 Primary Assembly."],
-  ["* All coordinates based on Mouse GRCm39 and Human GRCh38 unless otherwise noted."],
+  ["* All coordinates based on Mouse GRCm39 and Human GRCh38 unless otherwise noted. This excludes the non-transchromosomic Rat models."],
   [],
 ];
 
