@@ -1,4 +1,4 @@
-# 🤝 Contributing to the DS Mouse Models Database
+# 🤝 Contributing to the DS Rodent Models Database
 
 Thank you for helping keep this database accurate and up-to-date! This guide explains exactly how to add a new record or correct an existing one.
 
@@ -9,9 +9,13 @@ Thank you for helping keep this database accurate and up-to-date! This guide exp
 Please check the following before submitting:
 
 - [ ] Search the live database to confirm the model is **not already listed**
-- [ ] Confirm chromosomal coordinates are based on **GRCm39**
-- [ ] Confirm all URLs (MGI, PubMed, JAX/EMMA) are **valid and reachable**
-- [ ] Confirm the RRID resolves correctly at [scicrunch.org/resolver](https://scicrunch.org/resolver)
+- [ ] Set `rodent` correctly (**Mouse** or **Rat**)
+- [ ] Confirm coordinates/assemblies:
+  - **Mouse genomic intervals**: use **GRCm39** coordinates when applicable
+  - **Human HSA21 intervals** (transchromosomic models): use **GRCh38** when applicable (include patch level if stated, e.g., GRCh38.p13)
+  - **Rat genomic intervals** (non-transchromosomic rat models): use the assembly stated in the source
+- [ ] Confirm all URLs (MGI, PubMed, JAX/EMMA/Infrafrontier, lab pages) are **valid and reachable**
+- [ ] If an RRID is provided, confirm it resolves at [scicrunch.org/resolver](https://scicrunch.org/resolver)
 
 ---
 
@@ -25,6 +29,7 @@ The entire database lives in a single file: `index.html`. Open it and find the `
 
     const RECORDS = [
         {
+            rodent      : "Mouse",
             type        : "Segmental Trisomy",
             mgiName     : "Ts(17<16>)65Dn (001924)",
             mgiLink     : "https://www.informatics.jax.org/marker/MGI:2178111",
@@ -66,19 +71,20 @@ Open `index.html` in a browser locally to confirm:
 Copy and paste this object into the `RECORDS` array in `index.html`, filling in all fields:
 
     {
+        rodent      : "Mouse",  // Mouse or Rat
         type        : "Model Type",
-        mgiName     : "MGI Approved Name",
-        mgiLink     : "https://www.informatics.jax.org/...",
+        mgiName     : "Approved Name/ID",
+        mgiLink     : "https://www.informatics.jax.org/...", // optional
         commonName  : "Common/Lab Name",
         description : "Short description of the genetic modification and key features.",
         background  : "Genetic Background",
-        coords      : "Chr16: 00,000,000-00,000,000",
+        coords      : "Genomic coordinates (assembly noted if not standard)",
         orthologs   : "00",
         publication : "Author et al., Year",
         pubLink     : "https://pubmed.ncbi.nlm.nih.gov/XXXXXXXX/",
-        availability: "JAX:XXXXXX",
-        availLink   : "https://www.jax.org/strain/XXXXXX",
-        rrid        : "RRID:IMSR_JAX:XXXXXX",
+        availability: "JAX:XXXXXX / EMMA:XXXXX / Lab",
+        availLink   : "https://...",
+        rrid        : "RRID:... or Lab",
     },
 
 ---
@@ -145,13 +151,14 @@ Copy and paste this object into the `RECORDS` array in `index.html`, filling in 
 
 | Field | Required | Accepted Values / Format |
 |---|---|---|
+| rodent | ✅ | Mouse or Rat |
 | type | ✅ | Segmental Trisomy, Translocation, Transchromosomic, Duplication, Deletion |
 | mgiName | ✅ | Official MGI strain name string |
 | mgiLink | ⬜ | Full MGI URL or blank if unavailable |
 | commonName | ✅ | Short lab or common name string |
 | description | ✅ | Plain text, 1–3 sentences describing the genetic modification |
 | background | ✅ | Genetic background strain string |
-| coords | ✅ | ChrN: XX,XXX,XXX–XX,XXX,XXX in GRCm39, or N/A |
+| coords | ✅ | Mouse: GRCm39 coordinates when applicable; Human HSA21 (transchromosomic): GRCh38 when applicable; Rat: assembly per source; or N/A |
 | orthologs | ✅ | Numeric string e.g. 101, 64 |
 | publication | ✅ | Author et al., Year format |
 | pubLink | ⬜ | Full PubMed URL or blank if unavailable |
