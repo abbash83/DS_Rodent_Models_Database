@@ -29,13 +29,14 @@ Full protocols and ARRIVE guidelines adapted for DS mouse models are available i
 
 ## ✨ Key Features
 
-- 🔍 **Instant Search** — Filter across all fields simultaneously: strain name, RRID, type, description, genetic background, publication, and more.
-- 🗂️ **Type Filtering** — Narrow results by model category: Segmental Trisomy, Translocation, Transchromosomic, Duplication, Deletion, or Rat Model.
-- 🗺️ **Genomic Precision** — All coordinates mapped to **GRCm39** (Mouse) and **GRCh38** (Human) unless otherwise noted.
+- 🔍 **Instant Search** — Filter across all fields simultaneously: rodent, name/ID, RRID, type, description, genetic background, publication, coordinates, and more.
+- 🗂️ **Rodent + Type Filtering** — Filter by **Rodent (Mouse/Rat)** and by model type (Segmental Trisomy, Translocation, Transchromosomic, Duplication, Deletion).
+- 🗺️ **Genomic Precision** — Mouse intervals use **GRCm39** when applicable; human HSA21 intervals in transchromosomic models use **GRCh38** when applicable; rat intervals use the assembly stated in the source.
 - 🔗 **Integrated Resources** — One-click access to **JAX**, **Infrafrontier/EMMA**, **PubMed**, **MGI**, and the **SciCrunch RRID Resolver**.
 - ↕️ **Sortable Columns** — Click any column header to sort ascending or descending.
 - ⬇️ **CSV Export** — Download the currently filtered dataset as a `.csv` file.
 - 📄 **Pagination** — 30 records per page for clean navigation.
+- 🔗 **Auto-linking** — URLs typed into Description and Orthologs fields are automatically rendered as clickable links.
 
 ---
 
@@ -57,13 +58,14 @@ All records are stored as JavaScript objects inside the `RECORDS` array in `inde
 
 | Field | Required | Description |
 |---|---|---|
+| rodent | ✅ | Broad category: Mouse or Rat |
 | type | ✅ | Model category: Segmental Trisomy, Translocation, Transchromosomic, Duplication, Deletion, or Rat Model |
-| mgiName | ✅ | Official MGI approved strain designation |
+| mgiName | ✅ | Approved Name/ID (MGI name for mouse models; rat models may use lab/construct naming) |
 | mgiLink | ⬜ | URL to the MGI record — leave blank if unavailable |
 | commonName | ✅ | Lab or common name e.g. Ts65Dn, Dp1Tyb |
 | description | ✅ | Short description of the genetic modification |
 | background | ✅ | Genetic background strain e.g. B6, B6EiC3Sn |
-| coords | ✅ | Chromosomal position in GRCm39 — use N/A if unknown |
+| coords | ✅ | Genomic coordinates (Mouse: GRCm39 when applicable; Human HSA21: GRCh38 when applicable; Rat: assembly per source; or N/A) |
 | orthologs | ✅ | Number of Hsa21 orthologous genes at dosage imbalance |
 | publication | ✅ | First publication citation (Author et al., Year) |
 | pubLink | ⬜ | PubMed URL — leave blank if unavailable |
