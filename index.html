@@ -45,8 +45,34 @@ th[data-col="orthologs"]{
         th, td { border: 1px solid #dee2e6; padding: 9px 11px; text-align: left; font-size: 12.5px; vertical-align: top; word-wrap: break-word; }
         th { background-color: #004085; color: white; position: sticky; top: 0; z-index: 10; cursor: pointer; user-select: none; white-space: normal; word-wrap: break-word; font-size: 12px; vertical-align: top; }
         th:hover { background-color: #002d6e; }.sort-arrow { margin-left: 4px; opacity: 0.6; font-size: 10px; }
-        tr:nth-child(even):not(.category-header) { background-color: #f2f2f2; }
-        tr:hover:not(.category-header) { background-color: #e8f4fd; }.category-header { background-color: #e9ecef !important; font-weight: bold; font-size: 13px; color: #495057; border-left: 5px solid #004085; }.col-mgi    { width: 8%; }.col-common { width: 9%;  }.col-type   { width: 8%;  }.col-desc   { width: 15%; }.col-bg     { width: 7%;  }.col-coords { width: 10%; }.col-ortho  { width: 10%;  }.col-pub    { width: 12%; }.col-avail  { width: 8%;  }.col-rrid   { width: 10%; }.rrid { font-weight: bold; color: #0056b3; text-decoration: none; }.rrid:hover { text-decoration: underline; }
+tr:nth-child(even):not(.category-header):not(.species-header) {
+    background-color: #f2f2f2;
+}
+
+tr:hover:not(.category-header):not(.species-header) {
+    background-color: #e8f4fd;
+}
+
+.category-header {
+    background-color: #e9ecef !important;
+    font-weight: bold;
+    font-size: 13px;
+    color: #495057;
+    border-left: 5px solid #004085;
+}
+
+.species-header {
+    background-color: #004085 !important;
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    border-left: 7px solid #001f42;
+}
+
+.species-header td {
+    padding: 11px 13px;
+}.col-mgi    { width: 8%; }.col-common { width: 9%;  }.col-type   { width: 8%;  }.col-desc   { width: 15%; }.col-bg     { width: 7%;  }.col-coords { width: 10%; }.col-ortho  { width: 10%;  }.col-pub    { width: 12%; }.col-avail  { width: 8%;  }.col-rrid   { width: 10%; }.rrid { font-weight: bold; color: #0056b3; text-decoration: none; }.rrid:hover { text-decoration: underline; }
         a { color: #0056b3; text-decoration: none; font-size: inherit; word-break: break-all; }
         a:hover { text-decoration: underline; }.coords { font-family: 'Courier New', Courier, monospace; color: #6610f2; font-size: 11px; }
         /* Pagination (top + bottom) */.pagination{
@@ -118,7 +144,19 @@ th[data-col="orthologs"]{
     background: #e9ecef; border-left: 5px solid #004085;
     padding: 8px 12px; font-weight: bold; font-size: 13px;
     color: #495057; margin: 14px 0 6px; border-radius: 4px;
-}.model-card {
+}
+.species-header-card {
+    background: #004085;
+    color: #ffffff;
+    border-left: 7px solid #001f42;
+    padding: 10px 14px;
+    font-weight: 800;
+    font-size: 15px;
+    letter-spacing: 0.3px;
+    margin: 16px 0 8px;
+    border-radius: 5px;
+}
+.model-card {
     background: #fff; border: 1px solid #dee2e6; border-radius: 8px;
     padding: 12px 14px; margin-bottom: 10px;
     box-shadow: 0 1px 4px rgba(0,0,0,0.08);
@@ -1344,96 +1382,150 @@ function sortBy(col) {
 function renderTable() {
     const start = (currentPage - 1) * PER_PAGE;
     const slice = filtered.slice(start, start + PER_PAGE);
+
     if (slice.length === 0) {
         $tbody.innerHTML = `<tr><td colspan="10" style="text-align:center;padding:30px;color:#888;">No records match your search.</td></tr>`;
         renderPagination();
         return;
     }
-    const groups = {};
+
+    const speciesGroups = {
+        Mouse: {},
+        Rat: {}
+    };
+
     for (const r of slice) {
-        if (!groups[r.type]) groups[r.type] = [];
-        groups[r.type].push(r);
+        const species = r.rodent === "Rat" ? "Rat" : "Mouse";
+        if (!speciesGroups[species][r.type]) speciesGroups[species][r.type] = [];
+        speciesGroups[species][r.type].push(r);
     }
-    let html = "";
-    for (const [type, rows] of Object.entries(groups)) {
-        html += `<tr class="category-header"><td colspan="10">${esc(type)}</td></tr>`;
-        for (const r of rows) {
-            html += `<tr>
-                <td>${r.mgiLink ? `<a href="${esc(r.mgiLink)}" target="_blank">${esc(r.mgiName)}</a>` : esc(r.mgiName)}</td>
-                <td>${esc(r.commonName)}</td>
-                <td>${esc(r.type)}</td>
-                <td>${linkifyText(r.description)}</td>
-                <td>${esc(r.background)}</td>
-                <td class="coords">${esc(r.coords)}</td>
-                <td style="text-align:center">${linkifyText(r.orthologs)}</td>
-                <td>${r.pubLink ? `${esc(r.publication)}<br/><a href="${esc(r.pubLink)}" target="_blank">${esc(r.pubLink)}</a>` : esc(r.publication)}</td>
-                <td>${r.availLink ? `<a href="${esc(r.availLink)}" target="_blank">${esc(r.availability)}</a>` : esc(r.availability)}</td>
-                <td>${rridCell(r.rrid)}</td>
-            </tr>`;
+
+    function renderTypeGroups(groups) {
+        let groupHtml = "";
+
+        for (const [type, rows] of Object.entries(groups)) {
+            groupHtml += `<tr class="category-header"><td colspan="10">${esc(type)}</td></tr>`;
+
+            for (const r of rows) {
+                groupHtml += `<tr>
+                    <td>${r.mgiLink ? `<a href="${esc(r.mgiLink)}" target="_blank">${esc(r.mgiName)}</a>` : esc(r.mgiName)}</td>
+                    <td>${esc(r.commonName)}</td>
+                    <td>${esc(r.type)}</td>
+                    <td>${linkifyText(r.description)}</td>
+                    <td>${esc(r.background)}</td>
+                    <td class="coords">${esc(r.coords)}</td>
+                    <td style="text-align:center">${linkifyText(r.orthologs)}</td>
+                    <td>${r.pubLink ? `${esc(r.publication)}<br/><a href="${esc(r.pubLink)}" target="_blank">${esc(r.pubLink)}</a>` : esc(r.publication)}</td>
+                    <td>${r.availLink ? `<a href="${esc(r.availLink)}" target="_blank">${esc(r.availability)}</a>` : esc(r.availability)}</td>
+                    <td>${rridCell(r.rrid)}</td>
+                </tr>`;
+            }
         }
+
+        return groupHtml;
     }
+
+    let html = "";
+
+    if (Object.keys(speciesGroups.Mouse).length > 0) {
+        html += `<tr class="species-header"><td colspan="10">Mouse Models</td></tr>`;
+        html += renderTypeGroups(speciesGroups.Mouse);
+    }
+
+    if (Object.keys(speciesGroups.Rat).length > 0) {
+        html += `<tr class="species-header"><td colspan="10">Rat Models</td></tr>`;
+        html += renderTypeGroups(speciesGroups.Rat);
+    }
+
     $tbody.innerHTML = html;
     renderPagination();
 }
 function renderCards() {
     const start = (currentPage - 1) * PER_PAGE;
     const slice = filtered.slice(start, start + PER_PAGE);
+
     if (slice.length === 0) {
         $cards.innerHTML = `<p style="text-align:center;color:#888;padding:30px;">No records match your search.</p>`;
         return;
     }
-    const groups = {};
+
+    const speciesGroups = {
+        Mouse: {},
+        Rat: {}
+    };
+
     for (const r of slice) {
-        if (!groups[r.type]) groups[r.type] = [];
-        groups[r.type].push(r);
+        const species = r.rodent === "Rat" ? "Rat" : "Mouse";
+        if (!speciesGroups[species][r.type]) speciesGroups[species][r.type] = [];
+        speciesGroups[species][r.type].push(r);
     }
-    let html = "";
-    for (const [type, rows] of Object.entries(groups)) {
-        html += `<div class="type-header-card">${esc(type)}</div>`;
-        for (const r of rows) {
-            const rridUrl = r.rrid && r.rrid.startsWith("RRID:")
-                ? `https://scicrunch.org/resolver/${encodeURIComponent(r.rrid)}` : "";
-            html += `
-            <div class="model-card">
-                <div class="card-title">
-                    ${r.mgiLink ? `<a href="${esc(r.mgiLink)}" target="_blank">${esc(r.mgiName)}</a>` : esc(r.mgiName)}
-                </div>
-                <div class="card-subtitle">${esc(r.commonName)}</div>
-                <div class="card-badge">${esc(r.type)}</div>
-                <div class="card-desc">${linkifyText(r.description)}</div>
-                <div class="card-grid">
-                    <div class="card-field">
-                        <label>Genetic Background</label>
-                        <span>${esc(r.background)}</span>
+
+    function renderTypeCards(groups) {
+        let groupHtml = "";
+
+        for (const [type, rows] of Object.entries(groups)) {
+            groupHtml += `<div class="type-header-card">${esc(type)}</div>`;
+
+            for (const r of rows) {
+                const rridUrl = r.rrid && r.rrid.startsWith("RRID:")
+                    ? `https://scicrunch.org/resolver/${encodeURIComponent(r.rrid)}` : "";
+
+                groupHtml += `
+                <div class="model-card">
+                    <div class="card-title">
+                        ${r.mgiLink ? `<a href="${esc(r.mgiLink)}" target="_blank">${esc(r.mgiName)}</a>` : esc(r.mgiName)}
                     </div>
-                    <div class="card-field">
-                       <label>Number of Hsa 21 orthologs</label>
-<span style="display:block;font-size:10px;color:#666;margin-top:2px;">
-  (dosage imbalance; excluding Krtap genes)
-</span>
-                        <span>${linkifyText(r.orthologs)}</span>
+                    <div class="card-subtitle">${esc(r.commonName)}</div>
+                    <div class="card-badge">${esc(r.type)}</div>
+                    <div class="card-desc">${linkifyText(r.description)}</div>
+                    <div class="card-grid">
+                        <div class="card-field">
+                            <label>Genetic Background</label>
+                            <span>${esc(r.background)}</span>
+                        </div>
+                        <div class="card-field">
+                            <label>Number of Hsa 21 orthologs</label>
+                            <span style="display:block;font-size:10px;color:#666;margin-top:2px;">
+                              (dosage imbalance; excluding Krtap genes)
+                            </span>
+                            <span>${linkifyText(r.orthologs)}</span>
+                        </div>
+                        <div class="card-field">
+                            <label>Chromosomal Position</label>
+                            <span class="coords">${esc(r.coords)}</span>
+                        </div>
+                        <div class="card-field">
+                            <label>Availability</label>
+                            <span>${r.availLink ? `<a href="${esc(r.availLink)}" target="_blank">${esc(r.availability)}</a>` : esc(r.availability)}</span>
+                        </div>
                     </div>
-                    <div class="card-field">
-                        <label>Chromosomal Position</label>
-                        <span class="coords">${esc(r.coords)}</span>
+                    <div class="card-links">
+                        ${r.mgiLink   ? `<a class="card-link-btn mgi"   href="${esc(r.mgiLink)}"   target="_blank">MGI Record</a>` : ""}
+                        ${r.pubLink   ? `<a class="card-link-btn pub"   href="${esc(r.pubLink)}"   target="_blank">${esc(r.publication)}</a>` : `<span style="font-size:11px;color:#888;">${esc(r.publication)}</span>`}
+                        ${r.availLink ? `<a class="card-link-btn avail" href="${esc(r.availLink)}" target="_blank">${esc(r.availability)}</a>` : ""}
+                        ${rridUrl     ? `<a class="card-link-btn rrid"  href="${rridUrl}"           target="_blank">${esc(r.rrid)}</a>` : `<span style="font-size:11px;color:#888;">${esc(r.rrid)}</span>`}
                     </div>
-                    <div class="card-field">
-                        <label>Availability</label>
-                        <span>${r.availLink ? `<a href="${esc(r.availLink)}" target="_blank">${esc(r.availability)}</a>` : esc(r.availability)}</span>
-                    </div>
-                </div>
-                <div class="card-links">
-                    ${r.mgiLink   ? `<a class="card-link-btn mgi"   href="${esc(r.mgiLink)}"   target="_blank">MGI Record</a>` : ""}
-                    ${r.pubLink   ? `<a class="card-link-btn pub"   href="${esc(r.pubLink)}"   target="_blank">${esc(r.publication)}</a>` : `<span style="font-size:11px;color:#888;">${esc(r.publication)}</span>`}
-                    ${r.availLink ? `<a class="card-link-btn avail" href="${esc(r.availLink)}" target="_blank">${esc(r.availability)}</a>` : ""}
-                    ${rridUrl     ? `<a class="card-link-btn rrid"  href="${rridUrl}"           target="_blank">${esc(r.rrid)}</a>` : `<span style="font-size:11px;color:#888;">${esc(r.rrid)}</span>`}
-                </div>
-            </div>`;
+                </div>`;
+            }
         }
+
+        return groupHtml;
     }
+
+    let html = "";
+
+    if (Object.keys(speciesGroups.Mouse).length > 0) {
+        html += `<div class="species-header-card">Mouse Models</div>`;
+        html += renderTypeCards(speciesGroups.Mouse);
+    }
+
+    if (Object.keys(speciesGroups.Rat).length > 0) {
+        html += `<div class="species-header-card">Rat Models</div>`;
+        html += renderTypeCards(speciesGroups.Rat);
+    }
+
     $cards.innerHTML = html;
 }
-
 function renderPagination() {
     const total = Math.ceil(filtered.length / PER_PAGE);
 
