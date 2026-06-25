@@ -4,6 +4,7 @@
 ![Maintained](https://img.shields.io/badge/Maintained%3F-yes-green.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
 ![Contributions](https://img.shields.io/badge/Contributions-Welcome-blue.svg)
+[![DOI](https://zenodo.org/badge/1193906440.svg)](https://doi.org/10.5281/zenodo.20839965)
 
 ---
 
